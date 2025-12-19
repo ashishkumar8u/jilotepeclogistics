@@ -5,6 +5,7 @@ import SecuritySystems from "@/components/sections/SecuritySystems";
 import { SpecificationsSection } from "@/components/sections/SpecificationsSection";
 import { StrategicLocationSection } from "@/components/sections/StrategicLocationSection";
 import { WarehouseBanner } from "@/components/sections/WarehouseBanner";
+import WarehouseCTA from "@/components/sections/WarehouseCTA";
 import { WarehouseLeadForm } from "@/components/sections/WarehouseLeadForm";
 
 export default function Home() {
@@ -24,6 +25,9 @@ export default function Home() {
       <section id="specifications" className="min-h-screen  flex items-center justify-center bg-gray-50  ">
         <SpecificationsSection />
       </section>
+      <section  className=" flex items-center justify-center bg-gray-50  ">
+        <WarehouseCTA />
+      </section>
 
       {/* Infrastructure Section */}
       <section id="infrastructure" className="min-h-screen flex items-center justify-center bg-white  py-20">
@@ -41,7 +45,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8 py-20">
+      <section id="" className="min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8 py-20">
       <IdealFor />
       </section>
       <section id="contact" className="min-h-screen flex items-center justify-center bg-gray-50 px-4  py-20">

@@ -13,8 +13,8 @@ import Doublesec from './doublesec.webp'
 
 // Export all images
 export {
-    FooterLogo,
     Doublesec,
+    FooterLogo,
     logo,
     Fancing,
     Access,

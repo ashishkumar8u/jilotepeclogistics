@@ -16,10 +16,10 @@ export default function Footer() {
               alt="NEWMARK Logo"
               width={180}
               height={45}
-              className="h-6 w-auto   "
+              className="h-6 w-auto"
               priority
             />
-            <p className="text-gray-300 text-sm leading-relaxed py-4">
+            <p className="text-gray-300 text-sm leading-relaxed mb-4">
               Premium Class A industrial warehouse facilities in strategic
               locations across Mexico. Your partner for logistics excellence.
             </p>

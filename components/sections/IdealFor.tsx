@@ -57,12 +57,12 @@ export function IdealFor({ className = "" }: IdealForProps) {
             return (
               <div
                 key={index}
-                className="group relative p-8 bg-muted hover:bg-white border border-orange-500/20 hover:border-accent/20 rounded-lg transition-all duration-300 hover:shadow-lg"
+                className="group relative p-8 bg-muted  border border-orange-500/20 hover:border-accent/20 rounded-lg transition-all duration-300 hover:shadow-lg"
               >
                 <div className="flex flex-col h-full">
                   <div className="mb-4">
                     <div className="inline-flex items-center justify-center w-14 h-14 rounded-lg bg-accent/10 group-hover:bg-accent transition-colors duration-300">
-                      <Icon className="w-7 h-7 text-[#173c65] group-hover:text-white transition-colors duration-300" />
+                      <Icon className="w-7 h-7 text-[#173c65] group-hover:text-[#173c65] transition-colors duration-300" />
                     </div>
                   </div>
                   <h3 className="text-xl font-bold text-[#173c65] mb-3 text-balance">{operation.title}</h3>
