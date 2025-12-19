@@ -1,4 +1,6 @@
+import { FooterLogo, logo } from "@/assets/images"
 import { Phone, Mail, MapPin, ExternalLink } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 
 export default function Footer() {
@@ -9,7 +11,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Brand Section */}
           <div>
-            <h2 className="text-2xl font-bold mb-4 tracking-wider">NEWMARK</h2>
+          <Image
+              src={FooterLogo}
+              alt="NEWMARK Logo"
+              width={180}
+              height={45}
+              className="h-6 w-auto"
+              priority
+            />
             <p className="text-gray-300 text-sm leading-relaxed mb-4">
               Premium Class A industrial warehouse facilities in strategic
               locations across Mexico. Your partner for logistics excellence.

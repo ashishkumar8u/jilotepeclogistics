@@ -1,4 +1,4 @@
-import { Access, Fancing, IndustrialFacility, IndustrialFacilitytwo } from "@/assets/images"
+import { Access, Doublesec, Fancing, IndustrialFacility, IndustrialFacilitytwo } from "@/assets/images"
 import { Shield, Eye, Users, Fence } from "lucide-react"
 
 export default function SecuritySystems() {
@@ -60,7 +60,7 @@ export default function SecuritySystems() {
             </div>
             <div className="w-full lg:w-auto flex-shrink-0">
               <img
-                src="/industrial-security-double-perimeter-fence-with-mo.jpg"
+                src={Doublesec.src}
                 alt="Double perimeter security system"
                 className="rounded-xl shadow-2xl w-full lg:w-[500px] h-auto"
               />
