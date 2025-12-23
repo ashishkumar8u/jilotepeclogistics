@@ -6,6 +6,7 @@ import { useState } from "react"
 export function WarehouseLeadForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showToast, setShowToast] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
   const [formData, setFormData] = useState({
     fullName: "",
     companyName: "",
@@ -22,28 +23,65 @@ export function WarehouseLeadForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setErrorMessage("")
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    try {
+      const apiBase = (process.env.NEXT_PUBLIC_API_HOST || "http://192.168.1.202:8004").replace(/\/+$/, "")
+      if (!apiBase) {
+        throw new Error("API host is not configured")
+      }
 
-    setShowToast(true)
-    setTimeout(() => setShowToast(false), 5000)
+      const payload = {
+        client_id: "39f5fed7-e83c-498a-bf6f-48edb58a5e9f",
+        form_data: {
+          full_name: formData.fullName,
+          company_name: formData.companyName,
+          email: formData.email,
+          phone: formData.phone,
+          warehouse_size_sqft: Number(formData.warehouseSize) || formData.warehouseSize,
+          preferred_location: formData.location,
+          monthly_budget: Number(formData.budget) || formData.budget,
+          lease_duration: formData.leaseDuration,
+          timeline_to_move_in: formData.timeline,
+          additional_information: formData.notes,
+        },
+      }
 
-    setIsSubmitting(false)
+      const response = await fetch(`${apiBase}/forms`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      })
 
-    // Reset form
-    setFormData({
-      fullName: "",
-      companyName: "",
-      phone: "",
-      email: "",
-      warehouseSize: "",
-      location: "",
-      budget: "",
-      leaseDuration: "",
-      timeline: "",
-      notes: "",
-    })
+      if (!response.ok) {
+        throw new Error("Failed to submit form")
+      }
+
+      setShowToast(true)
+      setTimeout(() => setShowToast(false), 5000)
+
+      // Reset form
+      setFormData({
+        fullName: "",
+        companyName: "",
+        phone: "",
+        email: "",
+        warehouseSize: "",
+        location: "",
+        budget: "",
+        leaseDuration: "",
+        timeline: "",
+        notes: "",
+      })
+    } catch (error) {
+      console.error("Error submitting form", error)
+      setErrorMessage("Something went wrong while submitting. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (field: string, value: string) => {
@@ -52,7 +90,7 @@ export function WarehouseLeadForm() {
 
   return (
     <>
-      <div className="rounded-xl border  lg:w-[65%] border-neutral-200 bg-white shadow-lg">
+      <div className="rounded-xl border  lg:w-[65%] border-neutral-200 bg-white shadow-lg mb-16">
         <div className="border-b border-neutral-200 bg-neutral-50/50 px-6 py-6 md:px-8">
           <h2 className="text-xl   lg:text-2xl xl:text-3xl font-semibold text-[#173c65]">Warehouse Inquiry Form</h2>
           <p className="mt-2 md:text-base text-sm text-gray-600">
@@ -63,6 +101,11 @@ export function WarehouseLeadForm() {
 
         <div className="px-6 py-8 md:px-8">
           <form onSubmit={handleSubmit} className="space-y-8">
+            {errorMessage && (
+              <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                {errorMessage}
+              </div>
+            )}
             {/* Contact Information Section */}
             <div className="space-y-6">
               <div className="border-l-4 border-[#173c65] pl-4">
@@ -145,22 +188,17 @@ export function WarehouseLeadForm() {
                   <label htmlFor="warehouseSize" className="block text-sm font-medium text-neutral-700">
                     Warehouse Size (sq ft) <span className="text-red-600">*</span>
                   </label>
-                  <select
+                  <input
                     id="warehouseSize"
+                    type="number"
+                    min="0"
+                    step="1"
+                    placeholder="4000"
                     value={formData.warehouseSize}
                     onChange={(e) => handleChange("warehouseSize", e.target.value)}
                     required
-                    className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
-                  >
-                    <option value="" disabled>
-                      Select size range
-                    </option>
-                    <option value="5000-10000">5,000 - 10,000 sq ft</option>
-                    <option value="10000-25000">10,000 - 25,000 sq ft</option>
-                    <option value="25000-50000">25,000 - 50,000 sq ft</option>
-                    <option value="50000-100000">50,000 - 100,000 sq ft</option>
-                    <option value="100000+">100,000+ sq ft</option>
-                  </select>
+                    className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                  />
                 </div>
 
                 <div className="space-y-2">
@@ -182,44 +220,32 @@ export function WarehouseLeadForm() {
                   <label htmlFor="budget" className="block text-sm font-medium text-neutral-700">
                     Monthly Budget <span className="text-red-600">*</span>
                   </label>
-                  <select
+                  <input
                     id="budget"
+                    type="number"
+                    min="0"
+                    step="1"
+                    placeholder="200000"
                     value={formData.budget}
                     onChange={(e) => handleChange("budget", e.target.value)}
                     required
-                    className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
-                  >
-                    <option value="" disabled>
-                      Select budget range
-                    </option>
-                    <option value="under-5000">Under $5,000</option>
-                    <option value="5000-10000">$5,000 - $10,000</option>
-                    <option value="10000-25000">$10,000 - $25,000</option>
-                    <option value="25000-50000">$25,000 - $50,000</option>
-                    <option value="50000+">$50,000+</option>
-                  </select>
+                    className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                  />
                 </div>
 
                 <div className="space-y-2">
                   <label htmlFor="leaseDuration" className="block text-sm font-medium text-neutral-700">
                     Lease Duration <span className="text-red-600">*</span>
                   </label>
-                  <select
+                  <input
                     id="leaseDuration"
+                    type="text"
+                    placeholder="5 Years"
                     value={formData.leaseDuration}
                     onChange={(e) => handleChange("leaseDuration", e.target.value)}
                     required
-                    className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
-                  >
-                    <option value="" disabled>
-                      Select duration
-                    </option>
-                    <option value="short-term">Short-term (1-6 months)</option>
-                    <option value="6-12-months">6-12 months</option>
-                    <option value="1-3-years">1-3 years</option>
-                    <option value="3-5-years">3-5 years</option>
-                    <option value="5+-years">5+ years</option>
-                  </select>
+                    className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                  />
                 </div>
               </div>
 
@@ -227,22 +253,15 @@ export function WarehouseLeadForm() {
                 <label htmlFor="timeline" className="block text-sm font-medium text-neutral-700">
                   Timeline to Move In <span className="text-red-600">*</span>
                 </label>
-                <select
+                <input
                   id="timeline"
+                  type="text"
+                  placeholder="1 Month"
                   value={formData.timeline}
                   onChange={(e) => handleChange("timeline", e.target.value)}
                   required
-                  className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-neutral-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
-                >
-                  <option value="" disabled>
-                    When do you need the space?
-                  </option>
-                  <option value="immediate">Immediate (Within 30 days)</option>
-                  <option value="1-3-months">1-3 months</option>
-                  <option value="3-6-months">3-6 months</option>
-                  <option value="6+-months">6+ months</option>
-                  <option value="exploring">Just exploring options</option>
-                </select>
+                  className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                />
               </div>
             </div>
 
@@ -280,6 +299,7 @@ export function WarehouseLeadForm() {
                 {isSubmitting ? "Submitting..." : "Submit Inquiry"}
               </button>
             </div>
+            <p className=" text-xs text-center text-gray-600 ">This information has been prepared by Newmark for general information only. Newmark makes no warranties nor representations of any kind, express or implied, with respect to the information, including, but not limited to, warranties of content, accuracy, and reliability. Any interested party should make their own inquiries about the accuracy of the information. Newmark unequivocally excludes all inferred or implied terms, conditions and warranties arising from this document and excludes all liability for loss and damage arising therefrom.</p>
           </form>
         </div>
       </div>
@@ -287,8 +307,8 @@ export function WarehouseLeadForm() {
       {/* Toast Notification */}
       {showToast && (
         <div className="fixed bottom-4 right-4 z-50 max-w-md rounded-lg border border-green-200 bg-white p-4 shadow-lg">
-          <div className="flex items-start gap-3">
-            <div className="flex-shrink-0 rounded-full bg-green-100 p-1">
+            <div className="flex items-start gap-3">
+            <div className="shrink-0 rounded-full bg-green-100 p-1">
               <svg className="h-5 w-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   fillRule="evenodd"

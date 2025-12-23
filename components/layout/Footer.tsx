@@ -1,9 +1,31 @@
+'use client'
+
 import { FooterLogo, logo } from "@/assets/images"
 import { Phone, Mail, MapPin, ExternalLink } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
+const NAVBAR_OFFSET = 80
+
 export default function Footer() {
+  const scrollToSection = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    sectionId: string
+  ) => {
+    e.preventDefault()
+    const element = document.getElementById(sectionId)
+
+    if (element) {
+      const elementPosition = element.getBoundingClientRect().top
+      const offsetPosition =
+        elementPosition + window.pageYOffset - NAVBAR_OFFSET
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      })
+    }
+  }
   return (
     <footer className="bg-[#003A5D] text-white">
       <div className="lg:max-w-7xl w-[95%] mx-auto py-12 ">
@@ -12,11 +34,11 @@ export default function Footer() {
           {/* Brand Section */}
           <div>
           <Image
-              src={FooterLogo}
+              src={logo}
               alt="NEWMARK Logo"
               width={180}
               height={45}
-              className="h-6 w-auto"
+              className="h-6 w-auto invert mb-2"
               priority
             />
             <p className="text-gray-300 text-sm leading-relaxed mb-4">
@@ -90,18 +112,67 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/" className="text-gray-300 hover:text-white">Home</Link></li>
-              <li><Link href="/connectivity" className="text-gray-300 hover:text-white">Connectivity</Link></li>
-              <li><Link href="/specifications" className="text-gray-300 hover:text-white">Specifications</Link></li>
-              <li><Link href="/infrastructure" className="text-gray-300 hover:text-white">Infrastructure</Link></li>
-              <li><Link href="/opportunities" className="text-gray-300 hover:text-white">Opportunities</Link></li>
-              <li><Link href="/applications" className="text-gray-300 hover:text-white">Applications</Link></li>
+              <li>
+                <a 
+                  href="#home" 
+                  onClick={(e) => scrollToSection(e, 'home')}
+                  className="text-gray-300 hover:text-white cursor-pointer"
+                >
+                  Home
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#connectivity" 
+                  onClick={(e) => scrollToSection(e, 'connectivity')}
+                  className="text-gray-300 hover:text-white cursor-pointer"
+                >
+                  Connectivity
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#specifications" 
+                  onClick={(e) => scrollToSection(e, 'specifications')}
+                  className="text-gray-300 hover:text-white cursor-pointer"
+                >
+                  Specifications
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#infrastructure" 
+                  onClick={(e) => scrollToSection(e, 'infrastructure')}
+                  className="text-gray-300 hover:text-white cursor-pointer"
+                >
+                  Infrastructure
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#opportunities" 
+                  onClick={(e) => scrollToSection(e, 'opportunities')}
+                  className="text-gray-300 hover:text-white cursor-pointer"
+                >
+                  Opportunities
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#applications" 
+                  onClick={(e) => scrollToSection(e, 'applications')}
+                  className="text-gray-300 hover:text-white cursor-pointer"
+                >
+                  Applications
+                </a>
+              </li>
             </ul>
           </div>
         </div>
 
         {/* Disclaimer */}
         <div className="border-t border-white/30 pt-8 mb-8">
+        <p className="text-sm font-semibold text-center md:text-left">Disclaimer</p>
           <p className="text-gray-300 text-xs leading-relaxed">
             This document has been prepared by Newmark for general information
             only. Newmark makes no warranties nor representations of any kind,
@@ -117,16 +188,8 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 border-t border-white/30">
-          <div className="flex gap-6 text-sm">
-            <Link href="/privacy" className="text-gray-300 hover:text-white">
-              Privacy Policy
-            </Link>
-            <span className="text-gray-500">|</span>
-            <Link href="/terms" className="text-gray-300 hover:text-white">
-              Terms & Conditions
-            </Link>
-          </div>
-          <p className="text-gray-400 text-sm">
+        
+          <p className="text-gray-400 text-sm ">
             © 2025 NEWMARK. All rights reserved.
           </p>
         </div>

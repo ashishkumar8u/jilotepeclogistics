@@ -39,7 +39,7 @@ const operations = [
 
 export function IdealFor({ className = "" }: IdealForProps) {
   return (
-    <section className={`w-full py-20 px-4 bg-gray-50 ${className}`}>
+    <section className={`w-full py-20 bg-gray-50 ${className}`}>
       <div className="lg:max-w-7xl w-[95%] mx-auto">
         {/* Header */}
         <div className="text-center mb-16">

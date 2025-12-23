@@ -53,7 +53,7 @@ const advantages = [
 
 export function StrategicLocationSection() {
   return (
-    <section className="relative w-full bg-[#FCFBFC] py-24 px-4 overflow-hidden">
+    <section className="relative w-full bg-[#FCFBFC] py-16 px-4 overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,var(--tw-gradient-stops))] from-orange-500/10 via-transparent to-transparent opacity-40"></div>
       <div className="absolute inset-0 bg-grid-slate-800/20 mask-[radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>

@@ -1,15 +1,21 @@
 import { MapPin, Building2, Truck, Shield, Zap, Factory } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export function WarehouseBanner() {
   return (
     <div className="relative w-full overflow-hidden bg-white">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
-        <img
-          src="/bannerbg.png"
-          alt="Industrial Warehouse"
-          className="h-full w-full object-cover opacity-30"
-        />
+      <Image
+        src="/bannerbg.webp"
+        alt="Industrial warehouse at Jilotepec Logistics Center"
+        fill
+        priority
+        fetchPriority="high"
+        sizes="100vw"
+        className="object-cover o   "
+      />
       </div>
 
       {/* Content */}
@@ -31,22 +37,22 @@ export function WarehouseBanner() {
                 Jilotepec Logistics Center
               </h1>
               <div className="flex items-center gap-2 text-lg xl:text-2xl text-gray-700 sm:text-xl">
-                <MapPin className="h-8 w-8 text-[#173c65]" />
+                {/* <MapPin className="h-8 w-8 text-[#173c65]" /> */}
                 <span className="font-medium text-[#173c65]">Premier Location at the Itersection Of  Arco Norte &amp; Highway 57 Intersection</span>
               </div>
             </div>
 
             {/* Description */}
-            <p className="text-pretty text-base leading-relaxed text-gray-600">
+            <p className="text-pretty text-base leading-relaxed text-gray-900">
             Position your logistics or manufacturing operation in one of Mexico’s most strategic industrial hubs: JILOTEPEC LOGISTICS CENTER , a world-class industrial park located at the exact crossroads of Arco Norte and Highway 57 (Mexico–Querétaro).
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-col gap-4 sm:flex-row">
-              <button className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#173c65] px-8 py-4 text-base font-semibold text-white transition-all hover:bg-gray-800">
+              <Link href='#contact' className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#173c65] px-8 py-4 text-base font-semibold text-white transition-all hover:bg-gray-800">
                 <Building2 className="h-5 w-5" />
                 Schedule a Tour
-              </button>
+              </Link>
               
             </div>
           </div>
@@ -59,7 +65,7 @@ export function WarehouseBanner() {
                 <div className="mb-4 inline-flex rounded-lg bg-gray-100 p-3">
                   <MapPin className="h-6 w-6 text-black" />
                 </div>
-                <h3 className="mb-2 text-lg font-bold text-[#173c65]">Premier Location</h3>
+                <h2 className="mb-2 text-lg font-bold text-[#173c65]">Premier Location</h2>
                 <p className="text-sm leading-relaxed text-gray-600">
                   Strategic position at Mexico&apos;s key logistics intersection
                 </p>
@@ -70,7 +76,7 @@ export function WarehouseBanner() {
                 <div className="mb-4 inline-flex rounded-lg bg-gray-100 p-3">
                   <Truck className="h-6 w-6 text-[#173c65]" />
                 </div>
-                <h3 className="mb-2 text-lg font-bold text-[#173c65]">Distribution Hub</h3>
+                <h2 className="mb-2 text-lg font-bold text-[#173c65]">Distribution Hub</h2>
                 <p className="text-sm leading-relaxed text-gray-600">
                   Unmatched national and regional connectivity
                 </p>
@@ -81,7 +87,7 @@ export function WarehouseBanner() {
                 <div className="mb-4 inline-flex rounded-lg bg-gray-100 p-3">
                   <Zap className="h-6 w-6 text-[#173c65]" />
                 </div>
-                <h3 className="mb-2 text-lg font-bold text-[#173c65]">Premium Infrastructure</h3>
+                <h2 className="mb-2 text-lg font-bold text-[#173c65]">Premium Infrastructure</h2>
                 <p className="text-sm leading-relaxed text-gray-600">
                   High-capacity utilities and robust systems
                 </p>
@@ -92,7 +98,7 @@ export function WarehouseBanner() {
                 <div className="mb-4 inline-flex rounded-lg bg-gray-100 p-3">
                   <Shield className="h-6 w-6 text-[#173c65]" />
                 </div>
-                <h3 className="mb-2 text-lg font-bold text-[#173c65]">Advanced Security</h3>
+                <h2 className="mb-2 text-lg font-bold text-[#173c65]">Advanced Security</h2>
                 <p className="text-sm leading-relaxed text-gray-600">
                   State-of-the-art security and surveillance systems
                 </p>
@@ -108,7 +114,7 @@ export function WarehouseBanner() {
               <Building2 className="h-6 w-6 text-[#173c65]" />
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-600">Available Options</p>
+              <p className="text-sm font-medium text-gray-900">Available Options</p>
               <p className="text-base font-semibold text-[#173c65]">Lease, Sale &amp; Build-to-Suit</p>
             </div>
           </div>
@@ -118,7 +124,7 @@ export function WarehouseBanner() {
               <Factory className="h-6 w-6 text-[#173c65]" />
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-600">Facility Type</p>
+              <p className="text-sm font-medium text-gray-900">Facility Type</p>
               <p className="text-base font-semibold text-[#173c65]">Large-Scale Warehouses</p>
             </div>
           </div>

@@ -3,8 +3,8 @@ export function SpecificationsSection() {
       <section className="">
         <div className="max-w-7xl  mx-auto">
           {/* Header */}
-          <div className="mb-16">
-            <h2 className="text-xl   lg:text-2xl xl:text-3xl text-center text-[#173c65] font-bold tracking-tight mb-6 text-balance">
+          <div className="">
+            <h2 className="text-xl   lg:text-2xl xl:text-3xl text-center text-[#173c65] font-bold tracking-tight mb-12 text-balance">
               Park & Building Specifications
             </h2>
           </div>
