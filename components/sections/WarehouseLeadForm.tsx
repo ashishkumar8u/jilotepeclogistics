@@ -1,12 +1,38 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+
+// Helper function to detect browser
+const detectBrowser = (): string => {
+  if (typeof window === "undefined") return "Unknown"
+  const ua = navigator.userAgent
+  if (ua.includes("Chrome") && !ua.includes("Edg")) return "Chrome"
+  if (ua.includes("Firefox")) return "Firefox"
+  if (ua.includes("Safari") && !ua.includes("Chrome")) return "Safari"
+  if (ua.includes("Edg")) return "Edge"
+  if (ua.includes("Opera") || ua.includes("OPR")) return "Opera"
+  return "Unknown"
+}
+
+// Helper function to detect device type
+const detectDeviceType = (): string => {
+  if (typeof window === "undefined") return "Unknown"
+  const ua = navigator.userAgent.toLowerCase()
+  const width = window.innerWidth
+
+  if (/tablet|ipad|playbook|silk/i.test(ua)) return "Tablet"
+  if (/mobile|iphone|ipod|android|blackberry|opera|mini|windows\sce|palm|smartphone|iemobile/i.test(ua)) return "Mobile"
+  if (width < 768) return "Mobile"
+  if (width < 1024) return "Tablet"
+  return "Desktop"
+}
 
 export function WarehouseLeadForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showToast, setShowToast] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
+  const [clientIP, setClientIP] = useState<string>("")
   const [formData, setFormData] = useState({
     fullName: "",
     companyName: "",
@@ -20,6 +46,29 @@ export function WarehouseLeadForm() {
     notes: "",
   })
 
+  // Fetch client IP on component mount
+  useEffect(() => {
+    const fetchClientIP = async () => {
+      try {
+        const response = await fetch("https://api.ipify.org?format=json")
+        const data = await response.json()
+        setClientIP(data.ip || "")
+      } catch (error) {
+        console.error("Error fetching client IP:", error)
+        // Fallback: try alternative service
+        try {
+          const response = await fetch("https://ipapi.co/ip/")
+          const ip = await response.text()
+          setClientIP(ip.trim() || "")
+        } catch (fallbackError) {
+          console.error("Error fetching client IP from fallback:", fallbackError)
+          setClientIP("")
+        }
+      }
+    }
+    fetchClientIP()
+  }, [])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
@@ -27,6 +76,8 @@ export function WarehouseLeadForm() {
 
     try {
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC"
+      const browser = detectBrowser()
+      const deviceType = detectDeviceType()
       const apiBase = (process.env.NEXT_PUBLIC_API_HOST || "http://192.168.1.202:8004").replace(/\/+$/, "")
       if (!apiBase) {
         throw new Error("API host is not configured")
@@ -46,6 +97,9 @@ export function WarehouseLeadForm() {
           timeline_to_move_in: formData.timeline,
           additional_information: formData.notes,
           timezone,
+          client_IP: clientIP,
+          browser,
+          device_type: deviceType,
         },
       }
 
