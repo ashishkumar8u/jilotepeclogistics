@@ -18,18 +18,18 @@ export default function WarehouseCTA() {
           </p>
         </div>
         <div className="w-full text-center">
-  <Link href='#contact'
-    className="mx-auto md:w-1/3 w-[60%] cursor-pointer text-nowrap flex items-center justify-center gap-2
+          <Link
+            href="#contact"
+            className="mx-auto md:w-1/3 w-[70%] cursor-pointer text-nowrap flex items-center justify-center gap-2
                bg-[#173c65] hover:bg-blue-700
                text-white px-4 py-4 text-lg font-semibold
                rounded-lg shadow-lg hover:shadow-xl
                transition-all duration-300 group"
-  >
-    Get Started Today
-    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-  </Link>
-</div>
-
+          >
+            Get Started Today
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
       </div>
     </div>
   );

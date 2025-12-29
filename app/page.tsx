@@ -18,12 +18,12 @@ export default function Home() {
       </section>
 
       {/* Connectivity Section */}
-      <section id="connectivity" className="min-h-screen flex items-center justify-center bg-white    ">
+      <section id="connectivity" className=" flex items-center justify-center bg-white    ">
         <StrategicLocationSection/>
       </section>
 
       {/* Specifications Section */}
-      <section id="specifications" className="min-h-screen max-w-[1520px] mx-auto   flex items-center justify-center bg-gray-50  ">
+      <section id="specifications" className=" max-w-[1520px] mx-auto   flex items-center justify-center bg-gray-50  ">
         <SpecificationsSection />
       </section>
       <section id="cta"  className=" flex items-center justify-center bg-gray-50  ">
@@ -31,17 +31,17 @@ export default function Home() {
       </section>
 
       {/* Infrastructure Section */}
-      <section id="infrastructure" className="min-h-screen flex items-center justify-center bg-white  py-0">
+      <section id="infrastructure" className=" flex items-center justify-center bg-white  py-0">
       <SecuritySystems />
       </section>
 
       {/* Opportunities Section */}
-      <section id="opportunities" className="min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8 py-20">
+      <section id="opportunities" className=" flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8 py-20">
       <InfrastructureSection />
       </section>
 
       {/* Applications Section */}
-      <section id="applications" className="min-h-screen flex items-center justify-center bg-gray-50  ">
+      <section id="applications" className=" flex items-center justify-center bg-gray-50  ">
         <BuildToSuitLand />
       </section>
       <section id="info" className="py-6  flex items-center justify-center bg-gray-50  ">
@@ -49,7 +49,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="for" className="min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8 py-0">
+      <section id="for" className=" flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8 py-0">
       <IdealFor />
       </section>
       <section id="contact" className="min-h-screen flex items-center justify-center bg-gray-50 px-4  ">

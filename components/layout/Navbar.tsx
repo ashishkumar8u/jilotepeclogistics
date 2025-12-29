@@ -25,33 +25,32 @@ export function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + NAVBAR_OFFSET + 1;
-  
+
       let currentSection = "";
-  
+
       for (const section of SECTIONS) {
         const element = document.getElementById(section);
         if (!element) continue;
-  
+
         const offsetTop = element.offsetTop;
         const offsetBottom = offsetTop + element.offsetHeight;
-  
+
         if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
           currentSection = section;
           break;
         }
       }
-  
+
       if (currentSection !== activeSection) {
         setActiveSection(currentSection);
       }
     };
-  
+
     window.addEventListener("scroll", handleScroll);
     handleScroll(); // set on page load
-  
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, [activeSection]);
-  
 
   const scrollToSection = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -80,7 +79,6 @@ export function Navbar() {
         ? "text-[#173c65] font-semibold border-b-2 border-[#173c65]"
         : "text-black hover:text-blue-700"
     }`;
-  
 
   const PHONE_NUMBER = "+52.55.5980.2011";
 
@@ -142,7 +140,7 @@ export function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="lg:hidden border-t bg-white">
-          <div className="px-4 py-4 space-y-3">
+          <div className="px-4 ">
             {NAV_ITEMS.map((item) => (
               <a
                 key={item.id}
@@ -154,13 +152,13 @@ export function Navbar() {
               </a>
             ))}
 
-            <div className="pt-4 border-t">
-              <button
-                // onClick={(e) => scrollToSection(e, "contact")}
-                className="block text-center bg-black text-white rounded-full px-6 py-3"
+            <div className="pt-4 border-t w-1/3">
+              <a
+                href={`tel:${PHONE_NUMBER}`}
+                className="block text-center bg-black text-white rounded-full px-6 md:py-3 py-2"
               >
                 Call Now
-              </button>
+              </a>
             </div>
           </div>
         </div>
