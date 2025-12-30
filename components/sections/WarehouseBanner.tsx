@@ -50,7 +50,7 @@ export function WarehouseBanner() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col gap-4 sm:flex-row">
-              <Link href='#contact' className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#173c65] px-8 py-4 text-base font-semibold text-white transition-all hover:bg-gray-800">
+              <Link href='#contact' className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#173c65] px-8 py-4 text-base font-semibold text-white transition-all hover:bg-blue-800">
                 <Building2 className="h-5 w-5" />
                 Schedule a Tour
               </Link>

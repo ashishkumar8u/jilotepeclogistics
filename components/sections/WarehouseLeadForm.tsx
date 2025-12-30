@@ -344,7 +344,7 @@ export function WarehouseLeadForm() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full rounded-lg bg-blue-950 px-8 py-3 font-medium text-white transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+                className="w-full rounded-lg bg-blue-950 px-8 py-3 font-medium text-white transition-colors hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
               >
                 {isSubmitting ? "Submitting..." : "Submit Inquiry"}
               </button>

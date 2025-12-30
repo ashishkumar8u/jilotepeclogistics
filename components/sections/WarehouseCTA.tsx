@@ -27,7 +27,7 @@ export default function WarehouseCTA() {
                transition-all duration-300 group"
           >
             Get Started Today
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform hover:bg-blue-800" />
           </Link>
         </div>
       </div>
