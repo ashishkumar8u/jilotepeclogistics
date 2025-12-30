@@ -57,7 +57,7 @@ export function IdealFor({ className = "" }: IdealForProps) {
             return (
               <div
                 key={index}
-                className="group relative p-8 bg-muted  border border-orange-500/20 hover:border-accent/20 rounded-lg transition-all duration-300 hover:shadow-lg"
+                className="group relative p-8 bg-muted border-2 border-[#173c65]/20 hover:border-[#173c65]/30 rounded-lg transition-all duration-300 hover:shadow-lg"
               >
                 <div className="flex flex-col h-full">
                   <div className="mb-4">

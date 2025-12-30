@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 // Helper function to detect browser
 const detectBrowser = (): string => {
@@ -32,7 +32,6 @@ export function WarehouseLeadForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showToast, setShowToast] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
-  const [clientIP, setClientIP] = useState<string>("")
   const [formData, setFormData] = useState({
     fullName: "",
     companyName: "",
@@ -46,28 +45,23 @@ export function WarehouseLeadForm() {
     notes: "",
   })
 
-  // Fetch client IP on component mount
-  useEffect(() => {
-    const fetchClientIP = async () => {
-      try {
-        const response = await fetch("https://api.ipify.org?format=json")
-        const data = await response.json()
-        setClientIP(data.ip || "")
-      } catch (error) {
-        console.error("Error fetching client IP:", error)
-        // Fallback: try alternative service
-        try {
-          const response = await fetch("https://ipapi.co/ip/")
-          const ip = await response.text()
-          setClientIP(ip.trim() || "")
-        } catch (fallbackError) {
-          console.error("Error fetching client IP from fallback:", fallbackError)
-          setClientIP("")
-        }
-      }
+  const getClientIP = async (): Promise<string> => {
+    try {
+      const response = await fetch("https://api.ipify.org?format=json")
+      const data = await response.json()
+      if (data?.ip) return data.ip
+    } catch {
+      // ignore and try fallback
     }
-    fetchClientIP()
-  }, [])
+
+    try {
+      const response = await fetch("https://ipapi.co/ip/")
+      const ip = await response.text()
+      return ip.trim() || ""
+    } catch {
+      return ""
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -78,6 +72,7 @@ export function WarehouseLeadForm() {
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC"
       const browser = detectBrowser()
       const deviceType = detectDeviceType()
+      const clientIP = await getClientIP()
       const apiBase = (process.env.NEXT_PUBLIC_API_HOST || "http://192.168.1.202:8004").replace(/\/+$/, "")
       if (!apiBase) {
         throw new Error("API host is not configured")
@@ -132,8 +127,7 @@ export function WarehouseLeadForm() {
         timeline: "",
         notes: "",
       })
-    } catch (error) {
-      console.error("Error submitting form", error)
+    } catch {
       setErrorMessage("Something went wrong while submitting. Please try again.")
     } finally {
       setIsSubmitting(false)

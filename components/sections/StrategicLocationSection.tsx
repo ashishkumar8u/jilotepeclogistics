@@ -61,7 +61,7 @@ export function StrategicLocationSection() {
       <div className=" mx-auto max-w-7xl lg:px-2 xl:px-0 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-4 py-2 ">
+          <div className="inline-flex items-center gap-2 bg-orange-500/10 border-2 border-[#173c65]/20 rounded-full px-4 py-2 ">
             <div className="w-2 h-2 bg-blue-100 rounded-full animate-pulse"></div>
             <span className="text-[#173c65] text-xl   lg:text-2xl xl:text-3xl font-semibold uppercase tracking-wider">
               Strategic Location Benefits

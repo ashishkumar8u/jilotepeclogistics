@@ -16,37 +16,44 @@ const NAV_ITEMS = [
 
 const SECTIONS = [...NAV_ITEMS.map((item) => item.id), "contact"] as const;
 const NAVBAR_OFFSET = 80;
-const SCROLL_OFFSET = 100;
 
 export function Navbar() {
   const [activeSection, setActiveSection] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + NAVBAR_OFFSET + 1;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollPosition = window.scrollY + NAVBAR_OFFSET + 1;
 
-      let currentSection = "";
+          let currentSection = "";
 
-      for (const section of SECTIONS) {
-        const element = document.getElementById(section);
-        if (!element) continue;
+          for (const section of SECTIONS) {
+            const element = document.getElementById(section);
+            if (!element) continue;
 
-        const offsetTop = element.offsetTop;
-        const offsetBottom = offsetTop + element.offsetHeight;
+            const offsetTop = element.offsetTop;
+            const offsetBottom = offsetTop + element.offsetHeight;
 
-        if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-          currentSection = section;
-          break;
-        }
-      }
+            if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+              currentSection = section;
+              break;
+            }
+          }
 
-      if (currentSection !== activeSection) {
-        setActiveSection(currentSection);
+          if (currentSection !== activeSection) {
+            setActiveSection(currentSection);
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll(); // set on page load
 
     return () => window.removeEventListener("scroll", handleScroll);

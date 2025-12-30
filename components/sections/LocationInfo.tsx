@@ -11,7 +11,7 @@ export function LocationInfo() {
   }
 
   return (
-    <div className="overflow-hidden border border-border/50 rounded-lg shadow-lg w-[95%] lg:w-[70%] xl:w-[45%]">
+    <div className="overflow-hidden border-2 border-[#173c65]/20 rounded-lg shadow-lg w-[95%] lg:w-[70%] xl:w-[45%]">
       <div className="bg-primary px-6 py-4 flex items-center gap-3">
         <h2 className="text-xl font-semibold text-[#173c65] tracking-wide">{address.facilityName}</h2>
       </div>
@@ -24,10 +24,10 @@ export function LocationInfo() {
                 <MapPin className="h-5 w-5 text-primary" />
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-3">
+                <h3 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground md:mb-3">
                   Warehouse Address
                 </h3>
-                <address className="not-italic text-foreground  text-gray-600 leading-relaxed space-y-1">
+                <address className="not-italic text-foreground  text-gray-600 leading-relaxed md:space-y-1">
                   <p className="font-medium">{address.street}</p>
                   <p>{address.city}</p>
                   <p>{address.state}</p>
@@ -61,6 +61,7 @@ export function LocationInfo() {
             referrerPolicy="no-referrer-when-downgrade"
             title="Warehouse location map"
             className="absolute inset-0"
+            aria-label="Warehouse location map"
           />
         </div>
       </div>

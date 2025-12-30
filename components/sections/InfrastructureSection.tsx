@@ -1,5 +1,6 @@
 import { Electrical, Services, Water } from "@/assets/images"
 import { Zap, Droplets, Plus, Dot } from "lucide-react"
+import Image from "next/image"
 
 const infrastructureData = {
   header: {
@@ -69,15 +70,18 @@ export default function InfrastructureSection() {
               >
                 {/* Image */}
                 <div className="relative aspect-[4/3] mb-6 overflow-hidden rounded-lg bg-muted">
-                  <img
-                    src={item.image.src}
+                  <Image
+                    src={item.image}
                     alt={item.title}
-                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 1024px) 100vw, 33vw"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-white/80 to-transparent" />
 
                   {/* Top Icon */}
-                  <div className="absolute top-4 right-4 bg-blue-600 rounded-full p-3">
+                  <div className="absolute top-4 right-4 bg-blue-600 rounded-full p-3 z-10">
                     <Icon className="w-6 h-6 text-white" />
                   </div>
                 </div>

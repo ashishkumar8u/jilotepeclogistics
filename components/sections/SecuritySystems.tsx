@@ -1,5 +1,6 @@
 import { Access, Doublesec, Fancing, IndustrialFacility, IndustrialFacilitytwo } from "@/assets/images"
 import { Shield, Eye, Users, Fence } from "lucide-react"
+import Image from "next/image"
 
 export default function SecuritySystems() {
   const features = [
@@ -44,7 +45,7 @@ export default function SecuritySystems() {
         </div>
 
         {/* Main Security Feature */}
-        <div className="bg-gradient-to-br from-blue-950 to-zinc-900 border-2 border-blue-500/30 rounded-2xl p-8 md:p-12 mb-12 shadow-xl">
+        <div className="bg-gradient-to-br from-blue-950 to-zinc-900 border-2 border-[#173c65]/20 rounded-2xl p-8 md:p-12 mb-12 shadow-xl">
           <div className="flex flex-col lg:flex-row items-center gap-8">
             <div className="flex-1 space-y-4">
               <div className="flex items-center gap-4">
@@ -58,11 +59,15 @@ export default function SecuritySystems() {
                 creating a fortress-level protection system for your operations.
               </p>
             </div>
-            <div className="w-full lg:w-auto flex-shrink-0">
-              <img
-                src={Doublesec.src}
+            <div className="w-full lg:w-auto flex-shrink-0 relative">
+              <Image
+                src={Doublesec}
                 alt="Double perimeter security system"
+                width={500}
+                height={400}
                 className="rounded-xl shadow-2xl w-full lg:w-[500px] h-auto"
+                sizes="(max-width: 1024px) 100vw, 500px"
+                loading="lazy"
               />
             </div>
           </div>
@@ -73,13 +78,16 @@ export default function SecuritySystems() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-zinc-800/50 border border-zinc-700/50 rounded-xl overflow-hidden hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10"
+              className="bg-zinc-800/50 border-2 border-[#173c65]/20 rounded-xl overflow-hidden hover:border-[#173c65]/30 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10"
             >
-              <div className="aspect-video w-full overflow-hidden bg-zinc-800">
-                <img
-                  src={feature.image.src }
+              <div className="aspect-video w-full overflow-hidden bg-zinc-800 relative">
+                <Image
+                  src={feature.image}
                   alt={feature.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  loading="lazy"
                 />
               </div>
               <div className="p-6 bg-blue-950">
@@ -100,7 +108,7 @@ export default function SecuritySystems() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="bg-gradient-to-br from-blue-950 to-zinc-900 border border-zinc-700/50 rounded-xl p-8 md:p-12 text-center">
+        <div className="bg-gradient-to-br from-blue-950 to-zinc-900 border-2 border-[#173c65]/20 rounded-xl p-8 md:p-12 text-center">
           <p className="text-xl   lg:text-2xl xl:text-3xl font-semibold text-balance max-w-4xl mx-auto text-white">
             This ensures a highly controlled and secure operational environment for industrial users.
           </p>

@@ -42,10 +42,12 @@ export function BuildToSuitLand() {
           <div className="relative overflow-hidden rounded-lg border border-border bg-card">
             <div className="aspect-[4/3] relative">
               <Image
-                src={Land.src}
+                src={Land}
                 alt="Aerial view of CLJ industrial land"
                 fill
                 className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                loading="lazy"
               />
               <div className="absolute inset-0 " />
               <div className="absolute bottom-0 left-0 right-0 p-6 ">
@@ -79,7 +81,7 @@ export function BuildToSuitLand() {
               ))}
 
               {/* Project Size Info */}
-              <div className="mt-8 rounded-lg border-2 border-primary/20 bg-primary/5 p-6">
+              <div className="mt-8 rounded-lg border-2  bg-primary/5 p-6">
                 <h4 className="mb-3 text-lg font-semibold text-[#173c65]">Project Capabilities</h4>
                 <p className="text-gray-600 md:text-base text-sm text-pretty">
                   Suitable for BTS projects ranging from <span className="font-bold text-gray-600   ">10,000 m²</span> to

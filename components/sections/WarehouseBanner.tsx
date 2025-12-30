@@ -14,7 +14,8 @@ export function WarehouseBanner() {
         priority
         fetchPriority="high"
         sizes="100vw"
-        className="object-cover opacity-30  xl:max-w-[1520px] mx-auto "
+        className="object-cover opacity-20"
+        quality={85}
       />
       </div>
 
@@ -24,7 +25,7 @@ export function WarehouseBanner() {
           {/* Left Column - Main Content */}
           <div className="flex flex-col justify-center space-y-8">
             {/* Badge */}
-            <div className="inline-flex w-fit items-center gap-2 rounded-full bg-gray-100 px-4 py-2">
+            <div className="inline-flex w-fit items-center gap-2 rounded-full bg-gray-100 px-4 py-2 border-2 border-[#173c65]/20">
               <Factory className="h-4 w-4 text-black" />
               <span className="text-sm font-semibold  uppercase tracking-wider text-[#173c65]">
                 Industrial Warehouse for Lease
@@ -43,7 +44,7 @@ export function WarehouseBanner() {
             </div>
 
             {/* Description */}
-            <p className="text-pretty text-base leading-relaxed text-gray-900">
+            <p className="text-pretty text-base leading-relaxed text-gray-950">
             Position your logistics or manufacturing operation in one of Mexico’s most strategic industrial hubs: JILOTEPEC LOGISTICS CENTER , a world-class industrial park located at the exact crossroads of Arco Norte and Highway 57 (Mexico–Querétaro).
             </p>
 
@@ -66,7 +67,7 @@ export function WarehouseBanner() {
                   <MapPin className="h-6 w-6 text-black" />
                 </div>
                 <h2 className="mb-2 text-lg font-bold text-[#173c65]">Premier Location</h2>
-                <p className="text-sm leading-relaxed text-gray-600">
+                <p className="text-sm leading-relaxed text-gray-900">
                   Strategic position at Mexico&apos;s key logistics intersection
                 </p>
               </div>
@@ -77,7 +78,7 @@ export function WarehouseBanner() {
                   <Truck className="h-6 w-6 text-[#173c65]" />
                 </div>
                 <h2 className="mb-2 text-lg font-bold text-[#173c65]">Distribution Hub</h2>
-                <p className="text-sm leading-relaxed text-gray-600">
+                <p className="text-sm leading-relaxed text-gray-900">
                   Unmatched national and regional connectivity
                 </p>
               </div>
@@ -88,7 +89,7 @@ export function WarehouseBanner() {
                   <Zap className="h-6 w-6 text-[#173c65]" />
                 </div>
                 <h2 className="mb-2 text-lg font-bold text-[#173c65]">Premium Infrastructure</h2>
-                <p className="text-sm leading-relaxed text-gray-600">
+                <p className="text-sm leading-relaxed text-gray-900">
                   High-capacity utilities and robust systems
                 </p>
               </div>
@@ -99,7 +100,7 @@ export function WarehouseBanner() {
                   <Shield className="h-6 w-6 text-[#173c65]" />
                 </div>
                 <h2 className="mb-2 text-lg font-bold text-[#173c65]">Advanced Security</h2>
-                <p className="text-sm leading-relaxed text-gray-600">
+                <p className="text-sm leading-relaxed text-gray-900">
                   State-of-the-art security and surveillance systems
                 </p>
               </div>
@@ -114,7 +115,7 @@ export function WarehouseBanner() {
               <Building2 className="h-6 w-6 text-[#173c65]" />
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-900">Available Options</p>
+              <p className="text-sm font-semibold text-gray-900">Available Options</p>
               <p className="text-base font-semibold text-[#173c65]">Lease, Sale &amp; Build-to-Suit</p>
             </div>
           </div>
@@ -124,7 +125,7 @@ export function WarehouseBanner() {
               <Factory className="h-6 w-6 text-[#173c65]" />
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-900">Facility Type</p>
+              <p className="text-sm font-semibold text-gray-900">Facility Type</p>
               <p className="text-base font-semibold text-[#173c65]">Large-Scale Warehouses</p>
             </div>
           </div>
