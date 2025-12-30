@@ -127,7 +127,7 @@ export function Navbar() {
           <div className="hidden lg:flex items-center gap-4">
             <a
               href={`tel:${PHONE_NUMBER}`}
-              className="bg-[#173c65] text-white rounded-full px-6 py-2  transition cursor-pointer hover:bg-blue-800"
+              className="bg-[#173c65] text-white text-nowrap rounded-full px-6 py-2   transition cursor-pointer hover:bg-blue-800"
             >
               Call Now
             </a>
@@ -162,7 +162,7 @@ export function Navbar() {
             <div className="pt-4 border-t w-1/3">
               <a
                 href={`tel:${PHONE_NUMBER}`}
-                className="block text-center bg-[#173c65] hover:bg-blue-800 text-white rounded-full px-6 md:py-3 py-2"
+                className="block text-center bg-[#173c65] hover:bg-blue-800 text-nowrap mb-2 text-white rounded-full px-6 md:py-3 py-2"
               >
                 Call Now
               </a>

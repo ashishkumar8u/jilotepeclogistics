@@ -73,13 +73,13 @@ export function WarehouseLeadForm() {
       const browser = detectBrowser()
       const deviceType = detectDeviceType()
       const clientIP = await getClientIP()
-      const apiBase = (process.env.NEXT_PUBLIC_API_HOST || "http://192.168.1.202:8004").replace(/\/+$/, "")
+      const apiBase = (process.env.NEXT_PUBLIC_API_HOST || "https://collection.apinext.in").replace(/\/+$/, "")
       if (!apiBase) {
         throw new Error("API host is not configured")
       }
 
       const payload = {
-        client_id: "39f5fed7-e83c-498a-bf6f-48edb58a5e9f",
+        client_id: "457c9f07-81e4-4d32-9893-f9cc83f1e1bc",
         form_data: {
           full_name: formData.fullName,
           company_name: formData.companyName,
