@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
+import { trackButtonClick } from "@/lib/utils"
 
 // Helper function to detect browser
 const detectBrowser = (): string => {
@@ -344,6 +345,7 @@ export function WarehouseLeadForm() {
               <button
                 type="submit"
                 disabled={isSubmitting}
+                onClick={() => trackButtonClick('form-submit-inquiry')}
                 className="w-full rounded-lg bg-[#173c65] px-8 py-3 font-medium text-white transition-colors hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
               >
                 {isSubmitting ? "Submitting..." : "Submit Inquiry"}

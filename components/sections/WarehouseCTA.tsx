@@ -1,5 +1,8 @@
+"use client"
+
 import { ArrowRight, Package } from "lucide-react";
 import Link from "next/link";
+import { trackButtonClick } from "@/lib/utils";
 
 export default function WarehouseCTA() {
   return (
@@ -20,6 +23,7 @@ export default function WarehouseCTA() {
         <div className="w-full text-center">
           <Link
             href="#contact"
+            onClick={() => trackButtonClick('cta-get-started-today')}
             className="mx-auto md:w-1/3 w-[70%] cursor-pointer text-nowrap flex items-center justify-center gap-2
                bg-[#173c65] hover:bg-blue-700
                text-white px-4 py-4 text-lg font-semibold
