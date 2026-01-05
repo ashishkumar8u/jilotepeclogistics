@@ -88,7 +88,7 @@ export function Navbar() {
         : "text-black hover:text-blue-700"
     }`;
 
-  const PHONE_NUMBER = "+52.55.5980.2011";
+  const PHONE_NUMBER = "+525518497483";
 
   return (
     <nav className="sticky top-0 z-50 border-b bg-white max-w-[1520px] mx-auto ">

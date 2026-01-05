@@ -75,7 +75,7 @@ export default function Footer() {
                 <p className="font-semibold text-white">Guillermo Garrido</p>
                 <p>Executive Managing Director | Industrial</p>
                 <p className="text-blue-300">guillermo.garrido@nmrk.com</p>
-                <p>+52.55.5980.2011</p>
+                <p>+52 55 1849 7483</p>
               </div>
 
               {/* Carlos Garrido */}
