@@ -1,50 +1,54 @@
+"use client";
+
 import { Electrical, Services, Water } from "@/assets/images"
 import { Zap, Droplets, Plus, Dot } from "lucide-react"
 import Image from "next/image"
-
-const infrastructureData = {
-  header: {
-    title: "High-Capacity Water & Power Infrastructure",
-    description:
-      "Enterprise-grade utility systems designed for high-demand industrial operations",
-  },
-  items: [
-    {
-      title: "Electrical Capacity",
-      image: Electrical,
-      icon: Zap,
-      points: [
-        "Redundant 7 MVA substation",
-        "23 KV medium-voltage line",
-        "140 KVA per hectare available",
-        "LED street lighting",
-      ],
-    },
-    {
-      title: "Water",
-      image: Water,
-      icon: Droplets,
-      points: [
-        "Two water wells",
-        "Aquifer with availability for high-demand users",
-        "MBBR wastewater treatment plant (90 m³/day)",
-      ],
-    },
-    {
-      title: "Additional Services",
-      image: Services,
-      icon: Plus,
-      points: [
-        "Conduits for voice and data",
-        "Natural gas available",
-        "Park administration building and service areas",
-        "Planned on-site fuel station",
-      ],
-    },
-  ],
-}
+import { useTranslations } from "@/hooks/use-translations"
 
 export default function InfrastructureSection() {
+  const t = useTranslations();
+  
+  // Use optional chaining with fallback values
+  const infrastructureData = {
+    header: {
+      title: t.infrastructure?.header?.title || 'High-Capacity Water & Power Infrastructure',
+      description: t.infrastructure?.header?.description || 'Enterprise-grade utility systems designed for high-demand industrial operations',
+    },
+    items: [
+      {
+        title: t.infrastructure?.items?.[0]?.title || 'Electrical Capacity',
+        image: Electrical,
+        icon: Zap,
+        points: t.infrastructure?.items?.[0]?.points || [
+          'Redundant 7 MVA substation',
+          '23 KV medium-voltage line',
+          '140 KVA per hectare available',
+          'LED street lighting',
+        ],
+      },
+      {
+        title: t.infrastructure?.items?.[1]?.title || 'Water',
+        image: Water,
+        icon: Droplets,
+        points: t.infrastructure?.items?.[1]?.points || [
+          'Two water wells',
+          'Aquifer with availability for high-demand users',
+          'MBBR wastewater treatment plant (90 m³/day)',
+        ],
+      },
+      {
+        title: t.infrastructure?.items?.[2]?.title || 'Additional Services',
+        image: Services,
+        icon: Plus,
+        points: t.infrastructure?.items?.[2]?.points || [
+          'Conduits for voice and data',
+          'Natural gas available',
+          'Park administration building and service areas',
+          'Planned on-site fuel station',
+        ],
+      },
+    ],
+  }
   return (
     <section className="py-0">
       <div className="mx-auto w-[95%] xl:max-w-7xl">

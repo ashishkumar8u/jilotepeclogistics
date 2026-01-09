@@ -3,6 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import { trackButtonClick } from "@/lib/utils"
+import { useTranslations } from "@/hooks/use-translations"
 
 // Helper function to detect browser
 const detectBrowser = (): string => {
@@ -30,6 +31,7 @@ const detectDeviceType = (): string => {
 }
 
 export function WarehouseLeadForm() {
+  const t = useTranslations();
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showToast, setShowToast] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
@@ -130,7 +132,7 @@ export function WarehouseLeadForm() {
         notes: "",
       })
     } catch {
-      setErrorMessage("Something went wrong while submitting. Please try again.")
+      setErrorMessage(t.form?.errorMessage || "Something went wrong while submitting. Please try again.")
     } finally {
       setIsSubmitting(false)
     }
@@ -144,9 +146,9 @@ export function WarehouseLeadForm() {
     <>
       <div className="rounded-xl border  lg:w-[65%] border-neutral-200 bg-white shadow-lg mb-16">
         <div className="border-b border-neutral-200 bg-neutral-50/50 px-6 py-6 md:px-8">
-          <h2 className="text-xl   lg:text-2xl xl:text-3xl font-semibold text-[#173c65]">Warehouse Inquiry Form</h2>
+          <h2 className="text-xl   lg:text-2xl xl:text-3xl font-semibold text-[#173c65]">{t.form?.title || 'Warehouse Inquiry Form'}</h2>
           <p className="mt-2 md:text-base text-sm text-gray-600">
-          Share your requirements and we will match you with available warehouse spaces
+          {t.form?.description || 'Share your requirements and we will match you with available warehouse spaces'}
 
           </p>
         </div>
@@ -161,14 +163,14 @@ export function WarehouseLeadForm() {
             {/* Contact Information Section */}
             <div className="space-y-6">
               <div className="border-l-4 border-[#173c65] pl-4">
-                <h3 className="text-lg font-semibold text-[#173c65]">Contact Information</h3>
-                <p className="text-sm text-neutral-600">Let us know how to reach you</p>
+                <h3 className="text-lg font-semibold text-[#173c65]">{t.form?.contactInfo || 'Contact Information'}</h3>
+                <p className="text-sm text-neutral-600">{t.form?.contactInfoDesc || 'Let us know how to reach you'}</p>
               </div>
 
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-2">
                   <label htmlFor="fullName" className="block text-sm font-medium text-neutral-700">
-                    Full Name <span className="text-red-600">*</span>
+                    {t.form?.fullName || 'Full Name'} <span className="text-red-600">*</span>
                   </label>
                   <input
                     id="fullName"
@@ -183,7 +185,7 @@ export function WarehouseLeadForm() {
 
                 <div className="space-y-2">
                   <label htmlFor="companyName" className="block text-sm font-medium text-neutral-700">
-                    Company Name <span className="text-red-600">*</span>
+                    {t.form?.companyName || 'Company Name'} <span className="text-red-600">*</span>
                   </label>
                   <input
                     id="companyName"
@@ -198,7 +200,7 @@ export function WarehouseLeadForm() {
 
                 <div className="space-y-2">
                   <label htmlFor="email" className="block text-sm font-medium text-neutral-700">
-                    Email Address <span className="text-red-600">*</span>
+                    {t.form?.email || 'Email Address'} <span className="text-red-600">*</span>
                   </label>
                   <input
                     id="email"
@@ -213,7 +215,7 @@ export function WarehouseLeadForm() {
 
                 <div className="space-y-2">
                   <label htmlFor="phone" className="block text-sm font-medium text-neutral-700">
-                    Phone Number <span className="text-red-600">*</span>
+                    {t.form?.phone || 'Phone Number'} <span className="text-red-600">*</span>
                   </label>
                   <input
                     id="phone"
@@ -231,14 +233,14 @@ export function WarehouseLeadForm() {
             {/* Warehouse Requirements Section */}
             <div className="space-y-6">
               <div className="border-l-4 border-[#173c65] pl-4">
-                <h3 className="text-lg font-semibold text-[#173c65]">Warehouse Requirements</h3>
-                <p className="text-sm text-neutral-600">Tell us about your space needs</p>
+                <h3 className="text-lg font-semibold text-[#173c65]">{t.form?.warehouseRequirements || 'Warehouse Requirements'}</h3>
+                <p className="text-sm text-neutral-600">{t.form?.warehouseRequirementsDesc || 'Tell us about your space needs'}</p>
               </div>
 
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-2">
                   <label htmlFor="warehouseSize" className="block text-sm font-medium text-neutral-700">
-                    Warehouse Size (sq ft) <span className="text-red-600">*</span>
+                    {t.form?.warehouseSize || 'Warehouse Size (sq ft)'} <span className="text-red-600">*</span>
                   </label>
                   <input
                     id="warehouseSize"
@@ -255,12 +257,12 @@ export function WarehouseLeadForm() {
 
                 <div className="space-y-2">
                   <label htmlFor="location" className="block text-sm font-medium text-neutral-700">
-                    Preferred Location <span className="text-red-600">*</span>
+                    {t.form?.preferredLocation || 'Preferred Location'} <span className="text-red-600">*</span>
                   </label>
                   <input
                     id="location"
                     type="text"
-                    placeholder="City, State or Region"
+                    placeholder={t.form?.locationPlaceholder || 'City, State or Region'}
                     value={formData.location}
                     onChange={(e) => handleChange("location", e.target.value)}
                     required
@@ -270,7 +272,7 @@ export function WarehouseLeadForm() {
 
                 <div className="space-y-2">
                   <label htmlFor="budget" className="block text-sm font-medium text-neutral-700">
-                    Monthly Budget <span className="text-red-600">*</span>
+                    {t.form?.monthlyBudget || 'Monthly Budget'} <span className="text-red-600">*</span>
                   </label>
                   <input
                     id="budget"
@@ -287,7 +289,7 @@ export function WarehouseLeadForm() {
 
                 <div className="space-y-2">
                   <label htmlFor="leaseDuration" className="block text-sm font-medium text-neutral-700">
-                    Lease Duration <span className="text-red-600">*</span>
+                    {t.form?.leaseDuration || 'Lease Duration'} <span className="text-red-600">*</span>
                   </label>
                   <input
                     id="leaseDuration"
@@ -303,7 +305,7 @@ export function WarehouseLeadForm() {
 
               <div className="space-y-2">
                 <label htmlFor="timeline" className="block text-sm font-medium text-neutral-700">
-                  Timeline to Move In <span className="text-red-600">*</span>
+                  {t.form?.timeline || 'Timeline to Move In'} <span className="text-red-600">*</span>
                 </label>
                 <input
                   id="timeline"
@@ -320,13 +322,13 @@ export function WarehouseLeadForm() {
             {/* Additional Information Section */}
             <div className="space-y-6">
               <div className="border-l-4 border-[#173c65] pl-4">
-                <h3 className="text-lg font-semibold text-[#173c65]">Additional Information</h3>
-                <p className="text-sm text-neutral-600">Any special requirements or questions?</p>
+                <h3 className="text-lg font-semibold text-[#173c65]">{t.form?.additionalInfo || 'Additional Information'}</h3>
+                <p className="text-sm text-neutral-600">{t.form?.additionalInfoDesc || 'Any special requirements or questions?'}</p>
               </div>
 
               <div className="space-y-2">
                 <label htmlFor="notes" className="block text-sm font-medium text-neutral-700">
-                  Additional Notes
+                  {t.form?.additionalNotes || 'Additional Notes'}
                 </label>
                 <textarea
                   id="notes"
@@ -341,7 +343,7 @@ export function WarehouseLeadForm() {
 
             <div className="flex flex-col items-start justify-between gap-4 border-t border-neutral-200 pt-6 sm:flex-row sm:items-center">
               <p className="text-sm text-neutral-600">
-                <span className="text-red-600">*</span> Required fields
+                <span className="text-red-600">*</span> {t.form?.requiredFields || 'Required fields'}
               </p>
               <button
                 type="submit"
@@ -349,7 +351,7 @@ export function WarehouseLeadForm() {
                 onClick={() => trackButtonClick('form-submit-inquiry')}
                 className="w-full rounded-lg bg-[#173c65] px-8 py-3 font-medium text-white transition-colors hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
               >
-                {isSubmitting ? "Submitting..." : "Submit Inquiry"}
+                {isSubmitting ? (t.form?.submitting || "Submitting...") : (t.form?.submitInquiry || "Submit Inquiry")}
               </button>
             </div>
             <p className=" text-xs text-center text-gray-600 ">This information has been prepared by Newmark for general information only. Newmark makes no warranties nor representations of any kind, express or implied, with respect to the information, including, but not limited to, warranties of content, accuracy, and reliability. Any interested party should make their own inquiries about the accuracy of the information. Newmark unequivocally excludes all inferred or implied terms, conditions and warranties arising from this document and excludes all liability for loss and damage arising therefrom.</p>
@@ -371,9 +373,9 @@ export function WarehouseLeadForm() {
               </svg>
             </div>
             <div className="flex-1">
-              <h4 className="font-semibold text-neutral-900">Thank you for your inquiry!</h4>
+              <h4 className="font-semibold text-neutral-900">{t.form?.thankYou || 'Thank you for your inquiry!'}</h4>
               <p className="mt-1 text-sm text-neutral-600">
-                Our team will contact you within 24 hours to discuss your warehouse needs.
+                {t.form?.thankYouMessage || 'Our team will contact you within 24 hours to discuss your warehouse needs.'}
               </p>
             </div>
           </div>

@@ -1,57 +1,13 @@
+"use client";
+
 import { Truck, Airplay as Highway, Globe2, TrendingUp } from "lucide-react";
-
-const HIGHWAY_ROUTES = [
-  {
-    title: "Highway 57D",
-    description: "Mexico–Querétaro–San Luis Potosí corridor",
-  },
-  {
-    title: "Arco Norte 40D",
-    description: "Bajío–Gulf–Central–Puebla–Tlaxcala link",
-  },
-  {
-    title: "Circuito Exterior",
-    description: "Mexiquense ring road system",
-  },
-  {
-    title: "Rapid Access",
-    description: "Mexico City, Bajío, Pacific, Gulf & Northern routes",
-  },
-] as const;
-
-const advantages = [
-  {
-    title: "Efficient Distribution",
-    description:
-      "Highly efficient distribution to ports, borders, and major consumption markets",
-  },
-  {
-    title: "Reduced Transit Times",
-    description:
-      "Minimized delivery times for national and regional distribution routes",
-  },
-  {
-    title: "Market Reach",
-    description: "Immediate access to 23+ million consumers in the metro area",
-  },
-  {
-    title: "Strategic Positioning",
-    description:
-      "Perfect positioning for supply chains connecting north–central–south",
-  },
-  {
-    title: "Versatile Operations",
-    description:
-      "Ideal for 3PLs, retail distribution, e-commerce, and manufacturing",
-  },
-  {
-    title: "Multi-Region Coverage",
-    description:
-      "Direct connectivity to Bajío, Gulf, Central, Puebla, and Tlaxcala regions",
-  },
-];
+import { useTranslations } from "@/hooks/use-translations";
 
 export function StrategicLocationSection() {
+  const t = useTranslations();
+  
+  const HIGHWAY_ROUTES = t.strategicLocation.highwayRoutes;
+  const advantages = t.strategicLocation.advantages;
   return (
     <section className="relative max-w-[1520px] bg-[#FCFBFC] py-16 px-4 overflow-hidden">
       {/* Background decorative elements */}
@@ -64,15 +20,14 @@ export function StrategicLocationSection() {
           <div className="inline-flex items-center gap-2 bg-orange-500/10 border-2 border-[#173c65]/20 rounded-full px-4 py-2 ">
             <div className="w-2 h-2 bg-blue-100 rounded-full animate-pulse"></div>
             <span className="text-[#173c65] text-xl   lg:text-2xl xl:text-3xl font-semibold uppercase tracking-wider">
-              Strategic Location Benefits
+              {t.strategicLocation.badge}
             </span>
           </div>
           <h2 className=" xl:text-2xl lg:text-xl text-lg py-6 text-[#173c65] font-bold  ">
-            Mexico&apos;s Most Efficient Logistics Node
+            {t.strategicLocation.title}
           </h2>
           <p className="text-gray-600  text-base max-w-2xl mx-auto text-pretty">
-            CLJ is positioned in one of the most efficient logistics nodes in
-            the country, connecting instantly with Mexico&apos;s key corridors.
+            {t.strategicLocation.description}
           </p>
         </div>
 
@@ -81,7 +36,7 @@ export function StrategicLocationSection() {
           <div className="flex items-center gap-3 mb-8">
             <Truck className="w-6 h-6 text-blue-950" />
             <h3 className="xl:text-2xl lg:text-xl text-lg font-bold text-[#173c65]">
-              Direct Highway Access
+              {t.strategicLocation.directHighwayAccess}
             </h3>
           </div>
 
@@ -123,7 +78,7 @@ export function StrategicLocationSection() {
                 23M+
               </div>
               <div className="text-orange-100 font-medium">
-                Consumers in Greater Mexico City
+                {t.strategicLocation.stats.consumers}
               </div>
             </div>
             <div className="text-center border-x border-gray-400">
@@ -131,7 +86,7 @@ export function StrategicLocationSection() {
                 5
               </div>
               <div className="text-orange-100 font-medium">
-                Major Regions Connected
+                {t.strategicLocation.stats.regions}
               </div>
             </div>
             <div className="text-center">
@@ -139,7 +94,7 @@ export function StrategicLocationSection() {
                 100%
               </div>
               <div className="text-orange-100 font-medium">
-                Efficient Distribution Network
+                {t.strategicLocation.stats.network}
               </div>
             </div>
           </div>
@@ -150,7 +105,7 @@ export function StrategicLocationSection() {
           <div className="flex items-center gap-3 mb-8">
             <Globe2 className="w-6 h-6 text-[#173c65]" />
             <h3 className="md:text-xl text-lg font-bold text-[#173c65]">
-              Key Operational Advantages
+              {t.strategicLocation.keyAdvantages}
             </h3>
           </div>
 

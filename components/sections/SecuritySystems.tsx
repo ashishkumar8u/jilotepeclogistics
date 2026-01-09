@@ -1,31 +1,36 @@
+"use client";
+
 import { Access, Doublesec, Fancing, IndustrialFacility, IndustrialFacilitytwo } from "@/assets/images"
 import { Shield, Eye, Users, Fence } from "lucide-react"
 import Image from "next/image"
+import { useTranslations } from "@/hooks/use-translations"
 
 export default function SecuritySystems() {
+  const t = useTranslations();
+  
   const features = [
     {
       icon: Fence,
-      title: "Outer security fencing + internal controlled perimeter",
-      description: "Multi-layer perimeter protection with advanced boundary systems",
+      title: t.security.features[0].title,
+      description: t.security.features[0].description,
       image: Fancing,
     },
     {
       icon: Shield,
-      title: "24/7 manned access control",
-      description: "Round-the-clock professional security personnel and monitoring",
+      title: t.security.features[1].title,
+      description: t.security.features[1].description,
       image: Access,
     },
     {
       icon: Eye,
-      title: "Centralized monitoring and surveillance",
-      description: "State-of-the-art monitoring systems with real-time oversight",
+      title: t.security.features[2].title,
+      description: t.security.features[2].description,
       image: IndustrialFacility,
     },
     {
       icon: Users,
-      title: "Segregated access for trucks, vehicles, and personnel",
-      description: "Dedicated entry points ensuring optimal traffic flow and safety",
+      title: t.security.features[3].title,
+      description: t.security.features[3].description,
       image: IndustrialFacilitytwo,
     },
   ]
@@ -36,11 +41,10 @@ export default function SecuritySystems() {
         {/* Header */}
         <div className="text-center mb-16 space-y-4">
           <h2 className="text-xl   lg:text-2xl xl:text-3xl text-[#173c65] font-bold tracking-tight text-balance ">
-            ADVANCED SECURITY SYSTEMS
+            {t.security.title}
           </h2>
           <p className="text-base text-gray-600 max-w-3xl mx-auto text-pretty leading-relaxed">
-            Each building within the park includes comprehensive security measures designed for maximum protection and
-            operational efficiency
+            {t.security.description}
           </p>
         </div>
 
@@ -52,11 +56,10 @@ export default function SecuritySystems() {
                 <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
                   <Shield className="w-8 h-8 md:w-10 md:h-10 text-blue-400" />
                 </div>
-                <h3 className="text-xl   lg:text-2xl xl:text-3xl   font-bold text-white">Double Perimeter Security</h3>
+                <h3 className="text-xl   lg:text-2xl xl:text-3xl   font-bold text-white">{t.security.doublePerimeterTitle}</h3>
               </div>
               <p className="text-zinc-300 text-base leading-relaxed">
-                Our multi-layered security approach combines outer fencing with an internal controlled perimeter,
-                creating a fortress-level protection system for your operations.
+                {t.security.doublePerimeterDesc}
               </p>
             </div>
             <div className="w-full lg:w-auto flex-shrink-0 relative">
@@ -110,7 +113,7 @@ export default function SecuritySystems() {
         {/* Bottom CTA */}
         <div className="bg-gradient-to-br from-blue-950 to-zinc-900 border-2 border-[#173c65]/20 rounded-xl p-8 md:p-12 text-center">
           <p className="text-xl   lg:text-2xl xl:text-3xl font-semibold text-balance max-w-4xl mx-auto text-white">
-            This ensures a highly controlled and secure operational environment for industrial users.
+            {t.security.bottomCta}
           </p>
         </div>
       </div>
