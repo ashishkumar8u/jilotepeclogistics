@@ -104,9 +104,9 @@ export function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b bg-white max-w-[1520px] mx-auto ">
       <div className="xl:max-w-7xl w-[95%] mx-auto ">
-        <div className="flex items-center justify-between h-16 relative lg:ml-14">
-          {/* Mobile Left Side - Hamburger */}
-          <div className="lg:hidden flex-2">
+        <div className="flex items-center justify-between h-16 relative lg:ml-14 px-4 lg:px-0">
+          {/* Mobile Left Side - Hamburger - Show up to xl (1279px) */}
+          <div className="xl:hidden flex-shrink-0">
             <button
               className="text-black "
               onClick={() => {
@@ -119,26 +119,44 @@ export function Navbar() {
             </button>
           </div>
 
-          {/* Logo - Centered on mobile, left on desktop */}
+          {/* Logo - Wrapped in div for mobile/tablet, direct link for desktop */}
+          <div className="xl:hidden flex-1 flex justify-center items-center min-w-0">
+            <a
+              href="#home"
+              onClick={(e) => scrollToSection(e, "home")}
+              className="flex items-center gap-3 flex-shrink-0"
+            >
+              <Image
+                src={logo}
+                alt="NEWMARK Logo"
+                width={180}
+                height={45}
+                className="h-6 w-auto flex-shrink-0"
+                priority
+              />
+            </a>
+          </div>
+
+          {/* Desktop Logo - left on desktop (xl and above) */}
           <a
             href="#home"
             onClick={(e) => scrollToSection(e, "home")}
-            className="absolute left-[9rem] md:left-1/2 transform -translate-x-1/2 lg:relative lg:left-0 lg:transform-none flex items-center gap-3"
+            className="hidden xl:flex items-center gap-3 flex-shrink-0"
           >
             <Image
               src={logo}
               alt="NEWMARK Logo"
               width={180}
               height={45}
-              className="h-6 w-auto"
+              className="h-6 w-auto flex-shrink-0"
               priority
             />
           </a>
 
-          {/* Mobile Right Side - Language Switcher & Call Now */}
-          <div className="lg:hidden flex items-center gap-2 flex-1 justify-end">
+          {/* Mobile/Tablet Right Side - Language Switcher & Call Now - Show up to xl (1279px) */}
+          <div className="xl:hidden flex items-center gap-2 sm:gap-4 flex-shrink-0">
             <button
-              className="inline-flex items-center justify-center text-sm font-semibold text-[#173C65] bg-white border border-[#173C65] px-3 py-1.5 rounded-md shadow-sm hover:bg-[#EFF6FF] transition-colors"
+              className="inline-flex items-center justify-center text-sm font-semibold text-[#173C65] bg-white border border-[#173C65] px-3 py-1.5 rounded-md shadow-sm hover:bg-[#EFF6FF] transition-colors flex-shrink-0 whitespace-nowrap"
               aria-label="Toggle language"
               onClick={()=>setLanguage(language === 'en' ? 'es' : 'en')}
             >
@@ -147,14 +165,14 @@ export function Navbar() {
             <a
               href={`tel:${PHONE_NUMBER}`}
               onClick={() => trackButtonClick('navbar-call-now-mobile')}
-              className="bg-[#173c65] text-white text-nowrap rounded-full px-4 py-1.5 text-sm transition cursor-pointer hover:bg-blue-800"
+              className="bg-[#173c65] text-white text-nowrap rounded-full px-4 py-1.5 text-sm transition cursor-pointer hover:bg-blue-800 flex-shrink-0 whitespace-nowrap"
             >
               {t.header.callNow}
             </a>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8 lg:gap-2 xl:gap-8 lg:absolute lg:left-[45%] xl:left-1/2 lg:transform lg:-translate-x-1/2">
+          {/* Desktop Navigation - Show at xl (1280px+) to avoid overlap at 1024px-1100px */}
+          <div className="hidden xl:flex items-center gap-8 xl:absolute xl:left-1/2 xl:transform xl:-translate-x-1/2">
             {NAV_ITEMS.map((item) => (
               <a
                 key={item.id}
@@ -167,8 +185,8 @@ export function Navbar() {
             ))}
           </div>
 
-          {/* Desktop Contact */}
-          <div className="hidden lg:flex items-center gap-4">
+          {/* Desktop Contact - Show at xl (1280px+) */}
+          <div className="hidden xl:flex items-center gap-4">
           <button
              
               className="inline-flex items-center justify-center text-sm font-semibold text-[#173C65] bg-white border border-[#173C65] px-4 py-2 rounded-md shadow-sm hover:bg-[#EFF6FF] transition-colors"
@@ -188,9 +206,9 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Show up to xl (1279px) */}
       {isOpen && (
-        <div className="lg:hidden border-t bg-white">
+        <div className="xl:hidden border-t bg-white">
           <div className="px-4 ">
             {NAV_ITEMS.map((item) => (
               <a

@@ -354,7 +354,7 @@ export function WarehouseLeadForm() {
                 {isSubmitting ? (t.form?.submitting || "Submitting...") : (t.form?.submitInquiry || "Submit Inquiry")}
               </button>
             </div>
-            <p className=" text-xs text-center text-gray-600 ">This information has been prepared by Newmark for general information only. Newmark makes no warranties nor representations of any kind, express or implied, with respect to the information, including, but not limited to, warranties of content, accuracy, and reliability. Any interested party should make their own inquiries about the accuracy of the information. Newmark unequivocally excludes all inferred or implied terms, conditions and warranties arising from this document and excludes all liability for loss and damage arising therefrom.</p>
+            <p className=" text-xs text-center text-gray-600 ">{t.form?.disclaimer || 'This information has been prepared by Newmark for general information only. Newmark makes no warranties nor representations of any kind, express or implied, with respect to the information, including, but not limited to, warranties of content, accuracy, and reliability. Any interested party should make their own inquiries about the accuracy of the information. Newmark unequivocally excludes all inferred or implied terms, conditions and warranties arising from this document and excludes all liability for loss and damage arising therefrom.'}</p>
           </form>
         </div>
       </div>

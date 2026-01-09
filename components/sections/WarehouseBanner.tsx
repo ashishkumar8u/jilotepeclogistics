@@ -118,24 +118,44 @@ export function WarehouseBanner() {
         </div>
 
         {/* Bottom Info Bar */}
-        <div className="mt-10 flex flex-wrap items-center gap-6 border-t border-gray-200 pt-8">
-          <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gray-100">
+        <div className="mt-10 border-t border-gray-200 pt-8">
+          {/* Mobile: Grid layout with stable columns */}
+          <div className="grid grid-cols-[48px_1fr] gap-x-3 gap-y-6 sm:hidden">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gray-100 flex-shrink-0">
               <Building2 className="h-6 w-6 text-[#173c65]" />
             </div>
-            <div>
-              <p className="text-sm font-semibold text-gray-900">{t.banner.availableOptions}</p>
-              <p className="text-base font-semibold text-[#173c65]">{t.banner.availableOptionsValue}</p>
+            <div className="flex flex-col gap-0 min-w-0">
+              <p className="text-sm font-semibold text-gray-900 min-w-[140px]">{t.banner.availableOptions}</p>
+              <p className="text-base font-semibold text-[#173c65] break-words">{t.banner.availableOptionsValue}</p>
             </div>
-          </div>
-          <div className="h-8 w-px bg-gray-200" />
-          <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gray-100">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gray-100 flex-shrink-0">
               <Factory className="h-6 w-6 text-[#173c65]" />
             </div>
-            <div>
-              <p className="text-sm font-semibold text-gray-900">{t.banner.facilityType}</p>
-              <p className="text-base font-semibold text-[#173c65]">{t.banner.facilityTypeValue}</p>
+            <div className="flex flex-col gap-0 min-w-0">
+              <p className="text-sm font-semibold text-gray-900 min-w-[140px]">{t.banner.facilityType}</p>
+              <p className="text-base font-semibold text-[#173c65] break-words">{t.banner.facilityTypeValue}</p>
+            </div>
+          </div>
+          {/* Desktop: Original flex layout */}
+          <div className="hidden sm:flex items-center gap-6">
+            <div className="flex items-center gap-3">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gray-100">
+                <Building2 className="h-6 w-6 text-[#173c65]" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-900">{t.banner.availableOptions}</p>
+                <p className="text-base font-semibold text-[#173c65]">{t.banner.availableOptionsValue}</p>
+              </div>
+            </div>
+            <div className="h-8 w-px bg-gray-200" />
+            <div className="flex items-center gap-3">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gray-100">
+                <Factory className="h-6 w-6 text-[#173c65]" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-900">{t.banner.facilityType}</p>
+                <p className="text-base font-semibold text-[#173c65]">{t.banner.facilityTypeValue}</p>
+              </div>
             </div>
           </div>
         </div>

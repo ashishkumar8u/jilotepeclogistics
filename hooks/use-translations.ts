@@ -49,11 +49,11 @@ const spanishTranslations: any = {
   strategicLocation: {
     badge: 'Beneficios de Ubicación Estratégica',
     title: 'Nodo Logístico Más Eficiente de México',
-    description: 'CLJ está posicionado en uno de los nodos logísticos más eficientes del país, conectando instantáneamente con los corredores clave de México.',
+    description: 'CLJ se ubica en uno de los nodos logísticos más eficientes del país, conectando de forma inmediata con los principales corredores de México:',
     directHighwayAccess: 'Acceso Directo a Carreteras',
     highwayRoutes: [
       {
-        title: 'Carretera 57D',
+        title: 'Autopista 57D',
         description: 'Corredor México–Querétaro–San Luis Potosí',
       },
       {
@@ -61,12 +61,12 @@ const spanishTranslations: any = {
         description: 'Enlace Bajío–Golfo–Centro–Puebla–Tlaxcala',
       },
       {
-        title: 'Circuito Exterior',
-        description: 'Sistema de carretera periférica Mexiquense',
+        title: 'Circuito Exterior Mexiquense',
+        description: 'Sistema de anillo vial metropolitano',
       },
       {
         title: 'Acceso Rápido',
-        description: 'Rutas a Ciudad de México, Bajío, Pacífico, Golfo y Norte',
+        description: 'Ciudad de México, Bajío, Pacífico, Golfo y rutas hacia el norte',
       },
     ],
     stats: {
@@ -78,26 +78,27 @@ const spanishTranslations: any = {
     advantages: [
       {
         title: 'Distribución Eficiente',
-        description: 'Distribución altamente eficiente a puertos, fronteras y principales mercados de consumo',
+        description: 'Alta eficiencia hacia puertos, fronteras y principales mercados de consumo',
       },
       {
-        title: 'Tiempos de Tránsito Reducidos',
-        description: 'Tiempos de entrega minimizados para rutas de distribución nacional y regional',
+        title: 'Reducción de tiempos de traslado',
+        description: 'Optimización de tiempos para rutas de distribución nacionales y regionales',
       },
       {
         title: 'Alcance de Mercado',
-        description: 'Acceso inmediato a más de 23 millones de consumidores en el área metropolitana',
+        description: 'Acceso inmediato a más de 23 millones de consumidores en la zona metropolitana',
+
       },
       {
         title: 'Posicionamiento Estratégico',
-        description: 'Posicionamiento perfecto para cadenas de suministro que conectan norte–centro–sur',
+        description: 'Ideal para cadenas de suministro norte–centro–sur',
       },
       {
         title: 'Operaciones Versátiles',
-        description: 'Ideal para 3PLs, distribución minorista, comercio electrónico y manufactura',
+        description: 'Perfecto para 3PL, distribución retail, e-commerce y manufactura',
       },
       {
-        title: 'Cobertura Multi-Regional',
+        title: 'Cobertura multirregional',
         description: 'Conectividad directa con las regiones de Bajío, Golfo, Centro, Puebla y Tlaxcala',
       },
     ],
@@ -105,7 +106,7 @@ const spanishTranslations: any = {
   // SpecificationsSection
   specifications: {
     title: 'Especificaciones del Parque y Edificios',
-    parkOverview: 'Resumen del Parque',
+    parkOverview: 'Descripcion del Parque',
     totalParkLand: 'Superficie total del parque',
     phase1: 'Fase 1: 33 ha',
     existingBuildings: 'Edificios Existentes',
@@ -132,8 +133,8 @@ const spanishTranslations: any = {
   },
   // WarehouseCTA
   cta: {
-    title: 'Soluciones de Almacén Modernas',
-    description: 'Optimice su logística, gestione su inventario de manera eficiente y escale sus operaciones con nuestra tecnología de almacén de vanguardia',
+    title: 'Soluciones Modernas de Almacenaje',
+    description: 'Optimice su logística, gestione inventarios de manera eficiente y escale sus operaciones con nuestra tecnología de bodegas de última generación.',
     buttonText: 'Comience Hoy',
   },
   // SecuritySystems
@@ -271,6 +272,7 @@ const spanishTranslations: any = {
     errorMessage: 'Algo salió mal al enviar. Por favor, intente nuevamente.',
     thankYou: '¡Gracias por su consulta!',
     thankYouMessage: 'Nuestro equipo se pondrá en contacto con usted en un plazo de 24 horas para discutir sus necesidades de almacén.',
+    disclaimer: 'Este documento ha sido preparado por Newmark únicamente con fines informativos. Newmark no otorga garantías ni representaciones, expresas o implícitas, respecto a la información, incluyendo, sin limitarse a ello, su contenido, exactitud o confiabilidad. Cualquier parte interesada deberá realizar sus propias investigaciones. Newmark excluye expresamente cualquier responsabilidad por pérdidas o daños derivados del uso de esta información. La información está sujeta a cambios sin previo aviso.',
   },
   // Footer
   footer: {
@@ -555,6 +557,7 @@ const englishTranslations: any = {
     errorMessage: 'Something went wrong while submitting. Please try again.',
     thankYou: 'Thank you for your inquiry!',
     thankYouMessage: 'Our team will contact you within 24 hours to discuss your warehouse needs.',
+    disclaimer: 'This information has been prepared by Newmark for general information only. Newmark makes no warranties nor representations of any kind, express or implied, with respect to the information, including, but not limited to, warranties of content, accuracy, and reliability. Any interested party should make their own inquiries about the accuracy of the information. Newmark unequivocally excludes all inferred or implied terms, conditions and warranties arising from this document and excludes all liability for loss and damage arising therefrom.',
   },
   // Footer
   footer: {
