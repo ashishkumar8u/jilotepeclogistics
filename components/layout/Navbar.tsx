@@ -21,6 +21,7 @@ const NAVBAR_OFFSET = 80;
 export function Navbar() {
   const [activeSection, setActiveSection] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [language, setLanguage] = useState("en");
 
   useEffect(() => {
     let ticking = false;
@@ -93,12 +94,26 @@ export function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b bg-white max-w-[1520px] mx-auto ">
       <div className="xl:max-w-7xl w-[95%] mx-auto ">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+        <div className="flex items-center justify-between h-16 relative lg:ml-14">
+          {/* Mobile Left Side - Hamburger */}
+          <div className="lg:hidden flex-2">
+            <button
+              className="text-black "
+              onClick={() => {
+                trackButtonClick('navbar-hamburger-menu');
+                setIsOpen(!isOpen);
+              }}
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
+
+          {/* Logo - Centered on mobile, left on desktop */}
           <a
             href="#home"
             onClick={(e) => scrollToSection(e, "home")}
-            className="flex items-center gap-3"
+            className="absolute left-[9rem] md:left-1/2 transform -translate-x-1/2 lg:relative lg:left-0 lg:transform-none flex items-center gap-3"
           >
             <Image
               src={logo}
@@ -110,8 +125,26 @@ export function Navbar() {
             />
           </a>
 
+          {/* Mobile Right Side - Language Switcher & Call Now */}
+          <div className="lg:hidden flex items-center gap-2 flex-1 justify-end">
+            <button
+              className="inline-flex items-center justify-center text-sm font-semibold text-[#173C65] bg-white border border-[#173C65] px-3 py-1.5 rounded-md shadow-sm hover:bg-[#EFF6FF] transition-colors"
+              aria-label="Toggle language"
+              onClick={()=>setLanguage(prev=>prev=='en'?'es':'en')}
+            >
+              {language === 'en' ? 'ES' : 'EN'}
+            </button>
+            <a
+              href={`tel:${PHONE_NUMBER}`}
+              onClick={() => trackButtonClick('navbar-call-now-mobile')}
+              className="bg-[#173c65] text-white text-nowrap rounded-full px-4 py-1.5 text-sm transition cursor-pointer hover:bg-blue-800"
+            >
+              Call Now
+            </a>
+          </div>
+
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-8 lg:gap-2 xl:gap-8 lg:absolute lg:left-[45%] xl:left-1/2 lg:transform lg:-translate-x-1/2">
             {NAV_ITEMS.map((item) => (
               <a
                 key={item.id}
@@ -126,6 +159,14 @@ export function Navbar() {
 
           {/* Desktop Contact */}
           <div className="hidden lg:flex items-center gap-4">
+          <button
+             
+              className="inline-flex items-center justify-center text-sm font-semibold text-[#173C65] bg-white border border-[#173C65] px-4 py-2 rounded-md shadow-sm hover:bg-[#EFF6FF] transition-colors"
+              aria-label="Toggle language"
+              onClick={()=>setLanguage(prev=>prev=='en'?'es':'en')}
+            >
+              {language === 'en' ? 'ES' : 'EN'}
+            </button>
             <a
               href={`tel:${PHONE_NUMBER}`}
               onClick={() => trackButtonClick('navbar-call-now-desktop')}
@@ -134,18 +175,6 @@ export function Navbar() {
               Call Now
             </a>
           </div>
-
-          {/* Hamburger (below lg) */}
-          <button
-            className="lg:hidden text-black"
-            onClick={() => {
-              trackButtonClick('navbar-hamburger-menu');
-              setIsOpen(!isOpen);
-            }}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
         </div>
       </div>
 
@@ -164,15 +193,7 @@ export function Navbar() {
               </a>
             ))}
 
-            <div className="pt-4 border-t w-1/3">
-              <a
-                href={`tel:${PHONE_NUMBER}`}
-                onClick={() => trackButtonClick('navbar-call-now-mobile')}
-                className="block text-center bg-[#173c65] hover:bg-blue-800 text-nowrap mb-2 text-white rounded-full px-6 md:py-3 py-2"
-              >
-                Call Now
-              </a>
-            </div>
+           
           </div>
         </div>
       )}
