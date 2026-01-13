@@ -1,7 +1,10 @@
+"use client";
+
 import type React from "react"
 import Image from "next/image"
 import { Check } from "lucide-react"
 import { Land } from "@/assets/images"
+import { useTranslations } from "@/hooks/use-translations"
 
 interface LandFeature {
   icon: React.ReactNode
@@ -10,16 +13,18 @@ interface LandFeature {
 }
 
 export function BuildToSuitLand() {
+  const t = useTranslations();
+  
   const features: LandFeature[] = [
     {
       icon: <Check className="h-5 w-5" />,
-      title: "30+ hectares",
-      description: "Fully serviced with infrastructure at lot line",
+      title: t.buildToSuit?.features?.[0]?.title || "30+ hectares",
+      description: t.buildToSuit?.features?.[0]?.description || "Fully serviced with infrastructure at lot line",
     },
     {
       icon: <Check className="h-5 w-5" />,
-      title: "23+ hectares",
-      description: "Hectares of additional industrial reserve land",
+      title: t.buildToSuit?.features?.[1]?.title || "23+ hectares",
+      description: t.buildToSuit?.features?.[1]?.description || "Hectares of additional industrial reserve land",
     },
   ]
 
@@ -29,10 +34,10 @@ export function BuildToSuitLand() {
         {/* Header */}
         <div className="mb-12 text-center">
           <h2 className="mb-4  font-bold tracking-tight  text-[#173c65] text-xl   lg:text-2xl xl:text-3xl text-balance">
-            Land Available for Build-to-Suit Projects
+            {t.buildToSuit?.title || 'Land Available for Build-to-Suit Projects'}
           </h2>
           <p className="mx-auto max-w-2xl text-base text-gray-600  text-pretty">
-            In addition to existing buildings, CLJ offers comprehensive land solutions
+            {t.buildToSuit?.description || 'In addition to existing buildings, CLJ offers comprehensive land solutions'}
           </p>
         </div>
 
@@ -56,7 +61,7 @@ export function BuildToSuitLand() {
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-600 opacity-75"></span>
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-900"></span>
                   </span>
-                  Available Now
+                  {t.buildToSuit?.availableNow || 'Available Now'}
                 </div>
               </div>
             </div>
@@ -82,11 +87,9 @@ export function BuildToSuitLand() {
 
               {/* Project Size Info */}
               <div className="mt-8 rounded-lg border-2  bg-primary/5 p-6">
-                <h4 className="mb-3 text-lg font-semibold text-[#173c65]">Project Capabilities</h4>
+                <h4 className="mb-3 text-lg font-semibold text-[#173c65]">{t.buildToSuit?.projectCapabilities || 'Project Capabilities'}</h4>
                 <p className="text-gray-600 md:text-base text-sm text-pretty">
-                  Suitable for BTS projects ranging from <span className="font-bold text-gray-600   ">10,000 m²</span> to
-                  over <span className="font-bold text-gray-600">100,000 m²</span>, tailored to the exact needs of the
-                  user.
+                  {t.buildToSuit?.projectCapabilitiesDesc || 'Suitable for BTS projects ranging from 10,000 m² to over 100,000 m², tailored to the exact needs of the user.'}
                 </p>
               </div>
 

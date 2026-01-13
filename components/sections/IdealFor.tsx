@@ -1,50 +1,54 @@
+"use client";
+
 import { Building2, Package, Truck, Factory, Zap, Building } from "lucide-react"
+import { useTranslations } from "@/hooks/use-translations"
 
 interface IdealForProps {
   className?: string
 }
 
-const operations = [
-  {
-    icon: Building2,
-    title: "National and Regional Distribution Centers",
-    description: "Large-scale operations requiring efficient logistics coordination",
-  },
-  {
-    icon: Package,
-    title: "E-commerce and Retail Fulfillment",
-    description: "Fast-paced order processing and delivery management",
-  },
-  {
-    icon: Truck,
-    title: "3PL Logistics Providers",
-    description: "Multi-client warehouse and transportation services",
-  },
-  {
-    icon: Factory,
-    title: "Manufacturing and Assembly Operations",
-    description: "Production facilities with complex supply chain needs",
-  },
-  {
-    icon: Zap,
-    title: "High-Demand Utility Users",
-    description: "Operations requiring consistent power and resources",
-  },
-  {
-    icon: Building,
-    title: "Large Corporate Supply Chain Operations",
-    description: "Enterprise-level logistics and distribution management",
-  },
-]
-
 export function IdealFor({ className = "" }: IdealForProps) {
+  const t = useTranslations();
+  
+  const operations = [
+    {
+      icon: Building2,
+      title: t.idealFor?.operations?.[0]?.title || "National and Regional Distribution Centers",
+      description: t.idealFor?.operations?.[0]?.description || "Large-scale operations requiring efficient logistics coordination",
+    },
+    {
+      icon: Package,
+      title: t.idealFor?.operations?.[1]?.title || "E-commerce and Retail Fulfillment",
+      description: t.idealFor?.operations?.[1]?.description || "Fast-paced order processing and delivery management",
+    },
+    {
+      icon: Truck,
+      title: t.idealFor?.operations?.[2]?.title || "3PL Logistics Providers",
+      description: t.idealFor?.operations?.[2]?.description || "Multi-client warehouse and transportation services",
+    },
+    {
+      icon: Factory,
+      title: t.idealFor?.operations?.[3]?.title || "Manufacturing and Assembly Operations",
+      description: t.idealFor?.operations?.[3]?.description || "Production facilities with complex supply chain needs",
+    },
+    {
+      icon: Zap,
+      title: t.idealFor?.operations?.[4]?.title || "High-Demand Utility Users",
+      description: t.idealFor?.operations?.[4]?.description || "Operations requiring consistent power and resources",
+    },
+    {
+      icon: Building,
+      title: t.idealFor?.operations?.[5]?.title || "Large Corporate Supply Chain Operations",
+      description: t.idealFor?.operations?.[5]?.description || "Enterprise-level logistics and distribution management",
+    },
+  ]
   return (
     <section className={`w-full py-20 bg-gray-50 ${className}`}>
       <div className="lg:max-w-7xl w-[95%] mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
          
-          <h2 className="   text-xl   lg:text-2xl xl:text-3xl font-bold text-[#173c65]   mb-4">Ideal For</h2>
+          <h2 className="   text-xl   lg:text-2xl xl:text-3xl font-bold text-[#173c65]   mb-4">{t.idealFor?.title || 'Ideal For'}</h2>
       
         </div>
 
