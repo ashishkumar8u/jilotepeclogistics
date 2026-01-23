@@ -9,6 +9,7 @@ import Services from './services.jpeg'
 import Land from './land.jpeg'
 import FooterLogo from './footerlogo.png'
 import Doublesec from './doublesec.webp'
+import bg2 from "./bg2.png"
 // Warehouse videos - using paths instead of imports
 
 // Export all images
@@ -23,5 +24,6 @@ export {
     Electrical,
     Water,
     Services,
-    Land
+    Land,
+    bg2
 }

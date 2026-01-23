@@ -10,9 +10,9 @@ export function SpecificationsSection() {
           </div>
   
           {/* Main Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 w-[95%] lg:max-w-7xl xl:w-full mx-auto gap-12 lg:gap-16 text-black">
+          <div className="grid  md:grid-cols-2  lg:grid-cols-3 w-full flex-1 gap-4 text-black">
             {/* Park Overview */}
-            <div className="space-y-8">
+            <div className="space-y-8  ">
               <div className="text-black">
                 <h3 className="text-sm uppercase tracking-wider text-[#173c65] mb-6 font-medium">Park Overview</h3>
                 <div className="space-y-4">

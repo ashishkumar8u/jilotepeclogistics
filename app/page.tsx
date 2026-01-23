@@ -23,6 +23,9 @@ const IdealFor = dynamic(() => import("@/components/sections/IdealFor").then(mod
 const WarehouseLeadForm = dynamic(() => import("@/components/sections/WarehouseLeadForm").then(mod => ({ default: mod.WarehouseLeadForm })), {
   loading: () => <div className="min-h-[600px]" />,
 });
+const ContactMethods = dynamic(() => import("@/components/sections/contact-methods").then(mod => ({ default: mod.default })), {
+  loading: () => <div className="min-h-[600px]" />,
+});
 
 export default function Home() {
   return (
@@ -69,6 +72,9 @@ export default function Home() {
       </section>
       <section id="contact" className="min-h-screen flex items-center justify-center bg-gray-50 px-4  ">
       <WarehouseLeadForm />
+      </section>
+      <section id="contactmeth" className="">
+      <ContactMethods />
       </section>
     </div>
   );
