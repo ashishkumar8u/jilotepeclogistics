@@ -41,7 +41,7 @@ export default function Home() {
       </section>
 
       {/* Specifications Section */}
-      <section id="specifications" className=" max-w-[1520px] mx-auto   flex items-center justify-center bg-gray-50  ">
+      <section id="specifications" className="max-w-[1520px] mx-auto  px-10  bg-gray-50  ">
         <SpecificationsSection />
       </section>
       <section id="cta"  className=" flex items-center justify-center bg-gray-50  ">
