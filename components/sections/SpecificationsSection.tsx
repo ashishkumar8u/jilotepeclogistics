@@ -1,4 +1,7 @@
-export function SpecificationsSection() {
+
+
+ 
+  export function SpecificationsSection() {
     return (
       <section className="">
         <div className="max-w-7xl  mx-auto">
@@ -10,9 +13,10 @@ export function SpecificationsSection() {
           </div>
   
           {/* Main Grid */}
-          <div className="grid  md:grid-cols-2  lg:grid-cols-3 w-full flex-1 gap-4 text-black">
+          <div className="flex  md:flex-row flex-col flex-wrap   md:justify-between w-full  gap-4 text-black">
             {/* Park Overview */}
-            <div className="space-y-8  ">
+            <div className="grid  lg:grid-cols-2 grid-cols-1 gap-4 lg:gap-20 xl:gap-0">
+               <div className="space-y-8  ">
               <div className="text-black">
                 <h3 className="text-sm uppercase tracking-wider text-[#173c65] mb-6 font-medium">Park Overview</h3>
                 <div className="space-y-4">
@@ -24,16 +28,14 @@ export function SpecificationsSection() {
                 </div>
               </div>
             </div>
-  
-            {/* Existing Buildings */}
-            <div className="space-y-8">
+   <div className="space-y-8 ">
               <div>
                 <h3 className="text-sm uppercase tracking-wider text-[#173c65] mb-6 font-medium">
                   Existing Buildings
                 </h3>
                 <div className="space-y-6">
                   <div className="border-l-2 border-primary pl-4">
-                    <div className="flex items-start justify-between mb-2">
+                    <div className="flex items-start gap-30 mb-2">
                       <p className="md:text-lg text-[#173c65] font-bold">Building A</p>
                       <span className="inline-flex items-center px-3 py-1 text-xs font-semibold tracking-wide uppercase bg-primary text-[#173c65] rounded-full">
                         100% LEASED
@@ -43,7 +45,7 @@ export function SpecificationsSection() {
                   </div>
   
                   <div className="border-l-2 border-accent pl-4">
-                    <div className="flex items-start justify-between mb-2">
+                    <div className="flex items-start gap-10 mb-2">
                       <p className="md:text-lg text-[#173c65] font-bold">Building B</p>
                       <span className="inline-flex items-center px-3 py-1 text-xs font-semibold tracking-wide uppercase border-2 border-accent text-[#173c65] rounded-full bg-transparent">
                         IMMEDIATE AVAILABILITY
@@ -65,9 +67,11 @@ export function SpecificationsSection() {
                 </div>
               </div>
             </div>
+            </div>
+            
   
             {/* Class-A Features */}
-            <div className="space-y-8">
+            <div className="space-y-8 ">
               <div>
                 <h3 className="text-sm uppercase tracking-wider text-[#173c65] mb-6 font-medium">
                   Class-A Building Features
