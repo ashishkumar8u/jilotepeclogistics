@@ -47,19 +47,21 @@ export default function RootLayout({
         {/* Google Analytics*/}
         {/* <script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-0JVBRZEZC1"
+          src="https://www.googletagmanager.com/gtag/js?id=G-Y8KPN1FCXC"
         />
 
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-0JVBRZEZC1');
+             window.dataLayer = window.dataLayer || [];
+               function gtag(){dataLayer.push(arguments);} 
+              gtag('js', new Date());  gtag('config', 'G-Y8KPN1FCXC');
             `,
           }}
-        /> */}
+
+        /> 
+       
+
       </head>
 
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>

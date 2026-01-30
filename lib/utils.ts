@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { getUAParsed } from "@/utils/ua-parsed";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -43,11 +44,11 @@ function getTimezone(): string {
  * @param buttonId - Unique identifier for the button
  */
 export function trackButtonClick(buttonId: string): void {
-  // Fire-and-forget: get IP and timezone, then send API request
   (async () => {
     try {
       const timezone = getTimezone();
       const clientIP = await getClientIP();
+      const ua_parsed = getUAParsed();
 
       const rawBase = process.env.NEXT_PUBLIC_BASE_URL;
       const apiBase =
@@ -56,25 +57,52 @@ export function trackButtonClick(buttonId: string): void {
           : typeof window !== "undefined"
             ? window.location.origin
             : "";
+      const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
+      const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
+      const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+
+      if (!apiBase || !clientId || !projectId || !apiKey || clientId === "undefined" || projectId === "undefined" || apiKey === "undefined") {
+        return;
+      }
+
+      const payload = {
+        client_id: clientId,
+        project_id: projectId,
+        button_id: buttonId,
+        timezone,
+        ip_address: clientIP,
+        other: {
+          browser: {
+            name: ua_parsed.browser.name ?? null,
+            version: ua_parsed.browser.version ?? null,
+          },
+          device: {
+            model: ua_parsed.device.model ?? null,
+            type: ua_parsed.device.type ?? null,
+            vendor: ua_parsed.device.vendor ?? null,
+          },
+          engine: {
+            name: ua_parsed.engine.name ?? null,
+            version: ua_parsed.engine.version ?? null,
+          },
+          os: {
+            name: ua_parsed.os.name ?? null,
+            version: ua_parsed.os.version ?? null,
+          },
+        },
+      };
+
       await fetch(`${apiBase}/api/v1/meta-data/submit-meta-data`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          "X-API-Key": `${process.env.NEXT_PUBLIC_API_KEY}`,
+          "X-API-Key": apiKey,
         },
-        body: JSON.stringify({
-            project_id: process.env.NEXT_PUBLIC_PROJECT_ID,
-            client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
-            button_id: buttonId,
-            count: 1,
-            ip_address: clientIP,
-            timezone: timezone,
-        }),
+        body: JSON.stringify(payload),
       });
     } catch {
       // Silently ignore all errors (CORS, network, etc.)
-      // Don't log to console to avoid cluttering
     }
   })();
 }
