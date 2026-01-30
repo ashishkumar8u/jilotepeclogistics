@@ -131,63 +131,111 @@ export function WarehouseLeadForm() {
       const clientIP = await getClientIP();
        const ua_parsed = getUAParsed();
       const apiBase = `${process.env.NEXT_PUBLIC_BASE_URL}`.replace(/\/+$/, "");
-      if (!apiBase) {
-        throw new Error("API host is not configured");
+      const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
+      const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
+      const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+
+      if (!apiBase || apiBase === "undefined") {
+        throw new Error("API host is not configured (NEXT_PUBLIC_BASE_URL)");
+      }
+      if (!clientId || clientId === "undefined") {
+        throw new Error("Client ID is not configured (NEXT_PUBLIC_CLIENT_ID)");
+      }
+      if (!projectId || projectId === "undefined") {
+        throw new Error("Project ID is not configured (NEXT_PUBLIC_PROJECT_ID)");
+      }
+      if (!apiKey || apiKey === "undefined") {
+        throw new Error("API key is not configured (NEXT_PUBLIC_API_KEY)");
       }
 
+      const warehouseSizeNum = formData.warehouseSize.trim()
+        ? Number(formData.warehouseSize)
+        : 0;
+      const budgetNum = formData.budget.trim() ? Number(formData.budget) : 0;
+
+      const other = {
+        browser: {
+          name: ua_parsed.browser.name ?? null,
+          version: ua_parsed.browser.version ?? null,
+        },
+        device: {
+          model: ua_parsed.device.model ?? null,
+          type: ua_parsed.device.type ?? null,
+          vendor: ua_parsed.device.vendor ?? null,
+        },
+        engine: {
+          name: ua_parsed.engine.name ?? null,
+          version: ua_parsed.engine.version ?? null,
+        },
+        os: {
+          name: ua_parsed.os.name ?? null,
+          version: ua_parsed.os.version ?? null,
+        },
+      };
+
       const payload = {
-        client_id: `${process.env.NEXT_PUBLIC_CLIENT_ID}`,
-        project_id: process.env.NEXT_PUBLIC_PROJECT_ID,
+        client_id: clientId,
+        project_id: projectId,
         form_data: {
-          full_name: formData.fullName,
-          company_name: formData.companyName,
-          email: formData.email,
-          phone: formData.phone,
-          warehouse_size_sqft:
-            Number(formData.warehouseSize) || formData.warehouseSize,
-          preferred_location: formData.location,
-          monthly_budget: Number(formData.budget) || formData.budget,
-          lease_duration: formData.leaseDuration,
-          timeline_to_move_in: formData.timeline,
-          additional_information: formData.notes,
+          full_name: formData.fullName.trim(),
+          company_name: formData.companyName.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
+          warehouse_size_sqft: !Number.isNaN(warehouseSizeNum)
+            ? warehouseSizeNum
+            : 0,
+          preferred_location: formData.location.trim() || "",
+          monthly_budget: !Number.isNaN(budgetNum) ? budgetNum : 0,
+          lease_duration: formData.leaseDuration.trim() || "",
+          timeline_to_move_in: formData.timeline.trim() || "",
+          additional_information: formData.notes.trim() || "",
           timezone,
           ip_address: clientIP,
           browser,
           device_type: deviceType,
-           "other": {
-        "browser": {
-            "name": ua_parsed.browser.name ?? null,
-            "version": ua_parsed.browser.version ?? null
         },
-        "device": {
-            "model": ua_parsed.device.model ?? null,
-            "type": ua_parsed.device.type ?? null,
-            "vendor": ua_parsed.device.vendor ?? null
-        },
-        "engine": {
-            "name": ua_parsed.engine.name ?? null,
-            "version": ua_parsed.engine.version ?? null
-        },
-        "os": {
-            "name": ua_parsed.os.name ?? null,
-            "version": ua_parsed.os.version ?? null
-        }
-    }
-        },
+        other,
       };
 
-      const response = await fetch(`${apiBase}/forms`, {
+      const response = await fetch(`${apiBase}/api/v1/forms/submit-form`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          "X-API-Key": `${process.env.NEXT_PUBLIC_API_KEY}`,
+          "X-API-Key": apiKey,
         },
         body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to submit form");
+        let serverMessage = "Failed to submit form";
+        try {
+          const errBody = await response.json();
+          // FastAPI-style: { detail: [{ loc: ["body", "form_data", "field"], msg: "Field required" }] }
+          if (Array.isArray(errBody?.detail) && errBody.detail.length > 0) {
+            const first = errBody.detail[0];
+            const loc = first?.loc;
+            const msg = first?.msg ?? "Field required";
+            const field =
+              Array.isArray(loc) && loc.length > 0
+                ? loc.slice(-1)[0]
+                : null;
+            serverMessage = field
+              ? `${msg}: ${String(field).replace(/_/g, " ")}`
+              : msg;
+          } else if (errBody?.message) {
+            serverMessage = errBody.message;
+          } else if (errBody?.success === false && errBody?.message) {
+            serverMessage = errBody.message;
+          } else if (errBody?.error) {
+            serverMessage = errBody.error;
+          } else if (typeof errBody === "string") {
+            serverMessage = errBody;
+          }
+        } catch {
+          // ignore if response is not JSON
+        }
+        throw new Error(serverMessage);
       }
 
       setShowToast(true);
@@ -207,10 +255,10 @@ export function WarehouseLeadForm() {
         notes: "",
       });
       setFieldErrors({});
-    } catch {
-      setErrorMessage(
-        "Something went wrong while submitting. Please try again.",
-      );
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Something went wrong while submitting. Please try again.";
+      setErrorMessage(message);
     } finally {
       setIsSubmitting(false);
     }

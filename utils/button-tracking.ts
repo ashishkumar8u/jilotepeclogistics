@@ -69,40 +69,56 @@ export async function trackButtonClick(buttonId: string): Promise<void> {
     const timezone = getTimezone();
     const ua_parsed = getUAParsed();
 
-    const payload = {
-      client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
-      project_id: process.env.NEXT_PUBLIC_PROJECT_ID,
-      button_id: buttonId,
-      count: 1,
-      ip_address,
-      timezone,
-       "other": {
-        "browser": {
-            "name": ua_parsed.browser.name ?? null,
-            "version": ua_parsed.browser.version ?? null
-        },
-        "device": {
-            "model": ua_parsed.device.model ?? null,
-            "type": ua_parsed.device.type ?? null,
-            "vendor": ua_parsed.device.vendor ?? null
-        },
-        "engine": {
-            "name": ua_parsed.engine.name ?? null,
-            "version": ua_parsed.engine.version ?? null
-        },
-        "os": {
-            "name": ua_parsed.os.name ?? null,
-            "version": ua_parsed.os.version ?? null
-        }
+    const rawBase = process.env.NEXT_PUBLIC_BASE_URL;
+    const apiBase =
+      rawBase && rawBase !== "undefined"
+        ? String(rawBase).replace(/\/+$/, "")
+        : typeof window !== "undefined"
+          ? window.location.origin
+          : "";
+
+    const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
+    const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
+    const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+
+    if (!apiBase || !clientId || !projectId || !apiKey || clientId === "undefined" || projectId === "undefined" || apiKey === "undefined") {
+      return;
     }
+
+    const payload = {
+      client_id: clientId,
+      project_id: projectId,
+      button_id: buttonId,
+      timezone,
+      ip_address,
+      other: {
+        browser: {
+          name: ua_parsed.browser.name ?? null,
+          version: ua_parsed.browser.version ?? null,
+        },
+        device: {
+          model: ua_parsed.device.model ?? null,
+          type: ua_parsed.device.type ?? null,
+          vendor: ua_parsed.device.vendor ?? null,
+        },
+        engine: {
+          name: ua_parsed.engine.name ?? null,
+          version: ua_parsed.engine.version ?? null,
+        },
+        os: {
+          name: ua_parsed.os.name ?? null,
+          version: ua_parsed.os.version ?? null,
+        },
+      },
     };
 
     // Send API request - fire and forget, don't block UI
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/metadata/metadata`, {
+    fetch(`${apiBase}/api/v1/meta-data/submit-meta-data`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-API-Key": `${process.env.NEXT_PUBLIC_API_KEY}`,
+        Accept: "application/json",
+        "X-API-Key": apiKey,
       },
       body: JSON.stringify(payload),
     }).catch((error) => {
