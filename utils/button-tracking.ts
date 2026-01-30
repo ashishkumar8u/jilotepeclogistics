@@ -75,8 +75,16 @@ export async function trackButtonClick(buttonId: string): Promise<void> {
       timezone,
     };
 
+    const rawBase = process.env.NEXT_PUBLIC_BASE_URL;
+    const apiBase =
+      rawBase && rawBase !== "undefined"
+        ? String(rawBase).replace(/\/+$/, "")
+        : typeof window !== "undefined"
+          ? window.location.origin
+          : "";
+
     // Send API request - fire and forget, don't block UI
-    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/metadata/metadata`, {
+    fetch(`${apiBase}/api/v1/meta-data/submit-meta-data`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -49,7 +49,14 @@ export function trackButtonClick(buttonId: string): void {
       const timezone = getTimezone();
       const clientIP = await getClientIP();
 
-      await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/metadata/metadata`, {
+      const rawBase = process.env.NEXT_PUBLIC_BASE_URL;
+      const apiBase =
+        rawBase && rawBase !== "undefined"
+          ? rawBase.replace(/\/+$/, "")
+          : typeof window !== "undefined"
+            ? window.location.origin
+            : "";
+      await fetch(`${apiBase}/api/v1/meta-data/submit-meta-data`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -80,7 +80,13 @@ export function WarehouseLeadForm() {
       const browser = detectBrowser();
       const deviceType = detectDeviceType();
       const clientIP = await getClientIP();
-      const apiBase = `${process.env.NEXT_PUBLIC_BASE_URL}`.replace(/\/+$/, "");
+      const rawBase = process.env.NEXT_PUBLIC_BASE_URL;
+      const apiBase =
+        rawBase && rawBase !== "undefined"
+          ? rawBase.replace(/\/+$/, "")
+          : typeof window !== "undefined"
+            ? window.location.origin
+            : "";
       if (!apiBase) {
         throw new Error("API host is not configured");
       }
@@ -107,7 +113,7 @@ export function WarehouseLeadForm() {
         },
       };
 
-      const response = await fetch(`${apiBase}/forms`, {
+      const response = await fetch(`${apiBase}/api/v1/forms/submit-form`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
