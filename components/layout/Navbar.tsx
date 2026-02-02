@@ -112,7 +112,7 @@ export function Navbar() {
           <a
             href="#home"
             onClick={(e) => scrollToSection(e, "home")}
-            className="absolute left-[8rem] md:left-1/2 transform -translate-x-1/2 max-[350px]:-ml-8 max-[350px]:mt-1 lg:relative lg:left-0 lg:transform-none lg:ml-12 flex items-center gap-3"
+            className="absolute left-[7rem] md:left-1/2 transform -translate-x-1/2 lg:relative lg:left-0 lg:transform-none lg:ml-12 flex items-center gap-3"
           >
             <Logo className="h-auto min-h-6 leading-tight lg:h-6 lg:leading-normal" />
           </a>
