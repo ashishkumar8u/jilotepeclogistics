@@ -1,20 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { Menu, X } from "lucide-react";
-import { logo } from "@/assets/images";
+import { Logo } from "@/components/common";
 import { trackButtonClick } from "@/lib/utils";
-import { useLanguage } from "@/contexts/language-context";
-import { useUITranslations } from "@/hooks/use-warehouse-config";
 
 const NAV_ITEMS = [
-  { id: "home", labelKey: "nav.home" },
-  { id: "connectivity", labelKey: "nav.connectivity" },
-  { id: "specifications", labelKey: "nav.specifications" },
-  { id: "infrastructure", labelKey: "nav.infrastructure" },
-  { id: "opportunities", labelKey: "nav.opportunities" },
-  { id: "applications", labelKey: "nav.applications" },
+  { id: "home", label: "Home" },
+  { id: "connectivity", label: "Connectivity" },
+  { id: "specifications", label: "Specifications" },
+  { id: "infrastructure", label: "Infrastructure" },
+  { id: "opportunities", label: "Opportunities" },
+  { id: "applications", label: "Applications" },
 ] as const;
 
 const SECTIONS = [...NAV_ITEMS.map((item) => item.id), "contact"] as const;
@@ -23,8 +20,7 @@ const NAVBAR_OFFSET = 80;
 export function Navbar() {
   const [activeSection, setActiveSection] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const { language, setLanguage } = useLanguage();
-  const t = useUITranslations();
+  const [language, setLanguage] = useState("en");
 
   useEffect(() => {
     let ticking = false;
@@ -116,16 +112,9 @@ export function Navbar() {
           <a
             href="#home"
             onClick={(e) => scrollToSection(e, "home")}
-            className="absolute left-[9rem] md:left-1/2 transform -translate-x-1/2 lg:relative lg:left-0 lg:transform-none flex items-center gap-3"
+            className="absolute left-[7rem] md:left-1/2 transform -translate-x-1/2 lg:relative lg:left-0 lg:transform-none lg:ml-12 flex items-center gap-3"
           >
-            <Image
-              src={logo}
-              alt="NEWMARK Logo"
-              width={180}
-              height={45}
-              className="h-6 w-auto"
-              priority
-            />
+            <Logo className="h-auto min-h-6 leading-tight lg:h-6 lg:leading-normal" />
           </a>
 
           {/* Mobile Right Side - Language Switcher & Call Now */}
@@ -155,7 +144,7 @@ export function Navbar() {
                 onClick={(e) => scrollToSection(e, item.id)}
                 className={getNavLinkClassName(item.id)}
               >
-                {t(item.labelKey)}
+                {item.label}
               </a>
             ))}
           </div>
@@ -192,7 +181,7 @@ export function Navbar() {
                 onClick={(e) => scrollToSection(e, item.id)}
                 className={getNavLinkClassName(item.id)}
               >
-                {t(item.labelKey)}
+                {item.label}
               </a>
             ))}
 

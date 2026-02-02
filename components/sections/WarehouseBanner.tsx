@@ -4,12 +4,8 @@ import { MapPin, Building2, Truck, Shield, Zap, Factory } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { trackButtonClick } from "@/lib/utils";
-import { useWarehouseConfig } from "@/hooks/use-warehouse-config";
 
 export function WarehouseBanner() {
-  const config = useWarehouseConfig();
-  const { banner } = config;
-
   return (
     <div className="relative w-full overflow-hidden bg-white">
       {/* Background Image with Overlay */}
@@ -35,33 +31,34 @@ export function WarehouseBanner() {
             <div className="inline-flex w-fit items-center gap-2 rounded-full bg-gray-100 px-4 py-2 border-2 border-[#173c65]/20">
               <Factory className="h-4 w-4 text-black" />
               <span className="text-sm font-semibold  uppercase tracking-wider text-[#173c65]">
-                {banner.subtitle}
+                Industrial Warehouse for Lease
               </span>
             </div>
 
             {/* Main Heading */}
             <div className="space-y-2">
               <h1 className="text-balance text-xl   lg:text-2xl xl:text-3xl  font-bold leading-tight text-[#173c65] ">
-                {banner.title}
+                Jilotepec Logistics Center
               </h1>
               <div className="flex items-center gap-2 text-lg xl:text-2xl text-gray-700 sm:text-xl">
-                <span className="font-medium text-[#173c65]">{banner.subtitle}</span>
+                <span className="font-medium text-[#173c65]">Premier Location at the Intersection Of Arco Norte &amp; Highway 57</span>
               </div>
             </div>
 
             {/* Description */}
             <p className="text-pretty text-base leading-relaxed text-gray-950">
-              {banner.description}</p>
+              Position your logistics or manufacturing operation in one of Mexico&apos;s most strategic industrial hubs: JILOTEPEC LOGISTICS CENTER, a world-class industrial park located at the exact crossroads of Arco Norte and Highway 57 (Mexico–Querétaro).
+            </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-col gap-4 sm:flex-row">
               <Link 
-                href={banner.ctaLink} 
+                href="#contact" 
                 onClick={() => trackButtonClick('banner-schedule-tour')}
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#173c65] px-8 py-4 text-base font-semibold text-white transition-all hover:bg-blue-800"
               >
                 <Building2 className="h-5 w-5" />
-                {banner.ctaText}
+                Schedule a Tour
               </Link>
               
             </div>

@@ -1,6 +1,7 @@
 'use client'
 
-import { FooterLogo, logo } from "@/assets/images"
+import { FooterLogo } from "@/assets/images"
+import { Logo } from "@/components/common"
 import { Phone, Mail, MapPin, ExternalLink } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -33,14 +34,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Brand Section */}
           <div>
-          <Image
-              src={logo}
-              alt="NEWMARK Logo"
-              width={180}
-              height={45}
-              className="h-6 w-auto invert mb-2"
-              priority
-            />
+          <Logo variant="light" className="h-6 mb-2" />
             <p className="text-gray-300 text-sm leading-relaxed mb-4">
               Premium Class A industrial warehouse facilities in strategic
               locations across Mexico. Your partner for logistics excellence.
@@ -174,15 +168,7 @@ export default function Footer() {
         <div className="border-t border-white/30 pt-8 mb-8">
         <p className="text-sm font-semibold text-center md:text-left">Disclaimer</p>
           <p className="text-gray-300 text-xs leading-relaxed">
-            This document has been prepared by Newmark for general information
-            only. Newmark makes no warranties nor representations of any kind,
-            express or implied, with respect to the information, including,
-            without limitation, warranties of content, accuracy and reliability.
-            Any interested party should make their own inquiries into the
-            accuracy of the information. Newmark unequivocally excludes all
-            inferred or implied terms, conditions and warranties arising from
-            this document and excludes all liability for loss and damage arising
-            therefrom. The information is subject to change without prior notice.
+            This document has been prepared for general informational purposes only. No warranties or representations of any kind, whether express or implied, are made with respect to the information contained herein, including, without limitation, its content, accuracy, or reliability. Any interested party should conduct its own independent investigation and verification of the information. All inferred or implied terms, conditions, and warranties arising from this document are expressly excluded, as is any liability for loss or damage arising from its use. The information contained herein is subject to change without prior notice.
           </p>
         </div>
 
@@ -190,7 +176,7 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 border-t border-white/30">
         
           <p className="text-gray-400 text-sm ">
-            © 2025 NEWMARK. All rights reserved.
+            © 2025 Jilotepec Logistics. All rights reserved.
           </p>
         </div>
       </div>
