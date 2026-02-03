@@ -4,6 +4,7 @@ import type React from "react";
 import { useState } from "react";
 import { trackButtonClick } from "@/lib/utils";
 import { getUAParsed } from "@/utils/ua-parsed";
+import { useUITranslations } from "@/hooks/use-warehouse-config";
 
 // Helper function to detect browser
 const detectBrowser = (): string => {
@@ -41,6 +42,7 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_LENGTH = /^\d{9,12}$/;  // 9–12 digits for validation
 
 export function WarehouseLeadForm() {
+  const t = useUITranslations();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -89,27 +91,27 @@ export function WarehouseLeadForm() {
     const phoneDigits = formData.phone.replace(/\D/g, "");
 
     if (!trimmedName) {
-      errors.fullName = "Full name is required.";
+      errors.fullName = t("form.requiredFullName");
     } else if (!NAME_REGEX.test(trimmedName)) {
-      errors.fullName = "Full name can only contain letters, spaces, hyphens and apostrophes.";
+      errors.fullName = t("form.invalidFullName");
     }
 
     if (!trimmedCompany) {
-      errors.companyName = "Company name is required.";
+      errors.companyName = t("form.requiredCompany");
     } else if (!NAME_REGEX.test(trimmedCompany)) {
-      errors.companyName = "Company name can only contain letters, spaces, hyphens and apostrophes.";
+      errors.companyName = t("form.invalidCompany");
     }
 
     if (!trimmedEmail) {
-      errors.email = "Email is required.";
+      errors.email = t("form.requiredEmail");
     } else if (!EMAIL_REGEX.test(trimmedEmail)) {
-      errors.email = "Please enter a valid email address.";
+      errors.email = t("form.invalidEmail");
     }
 
     if (!formData.phone.trim()) {
-      errors.phone = "Phone number is required.";
+      errors.phone = t("form.requiredPhone");
     } else if (!PHONE_LENGTH.test(phoneDigits)) {
-      errors.phone = "Phone must be 9–12 digits (numbers only).";
+      errors.phone = t("form.invalidPhone");
     }
 
     setFieldErrors(errors);
@@ -208,7 +210,7 @@ export function WarehouseLeadForm() {
       });
 
       if (!response.ok) {
-        let serverMessage = "Failed to submit form";
+        let serverMessage = t("form.failedSubmit");
         try {
           const errBody = await response.json();
           // FastAPI-style: { detail: [{ loc: ["body", "form_data", "field"], msg: "Field required" }] }
@@ -256,8 +258,13 @@ export function WarehouseLeadForm() {
       });
       setFieldErrors({});
     } catch (err) {
+      const rawMessage = err instanceof Error ? err.message : t("form.errorSubmit");
       const message =
-        err instanceof Error ? err.message : "Something went wrong while submitting. Please try again.";
+        rawMessage === "Failed to submit form"
+          ? t("form.failedSubmit")
+          : rawMessage === "Something went wrong while submitting. Please try again."
+            ? t("form.errorSubmit")
+            : rawMessage;
       setErrorMessage(message);
     } finally {
       setIsSubmitting(false);
@@ -284,11 +291,10 @@ export function WarehouseLeadForm() {
       <div className="rounded-xl border  lg:w-[65%] border-neutral-200 bg-white shadow-lg mb-16">
         <div className="border-b border-neutral-200 bg-neutral-50/50 px-6 py-6 md:px-8">
           <h2 className="text-xl   lg:text-2xl xl:text-3xl font-semibold text-[#173c65]">
-            Warehouse Inquiry Form
+            {t("form.formTitle")}
           </h2>
           <p className="mt-2 md:text-base text-sm text-gray-600">
-            Share your requirements and we will match you with available
-            warehouse spaces
+            {t("form.formSubtitle")}
           </p>
         </div>
 
@@ -303,10 +309,10 @@ export function WarehouseLeadForm() {
             <div className="space-y-6">
               <div className="border-l-4 border-[#173c65] pl-4">
                 <h3 className="text-lg font-semibold text-[#173c65]">
-                  Contact Information
+                  {t("form.contactInfo")}
                 </h3>
                 <p className="text-sm text-neutral-600">
-                  Let us know how to reach you
+                  {t("form.contactInfoDesc")}
                 </p>
               </div>
 
@@ -316,12 +322,12 @@ export function WarehouseLeadForm() {
                     htmlFor="fullName"
                     className="block text-sm font-medium text-neutral-700"
                   >
-                    Full Name <span className="text-red-600">*</span>
+                    {t("form.fullName")} <span className="text-red-600">*</span>
                   </label>
                   <input
                     id="fullName"
                     type="text"
-                    placeholder="John Smith"
+                    placeholder={t("form.placeholderFullName")}
                     value={formData.fullName}
                     onChange={(e) => handleChange("fullName", e.target.value)}
                     required
@@ -337,12 +343,12 @@ export function WarehouseLeadForm() {
                     htmlFor="companyName"
                     className="block text-sm font-medium text-neutral-700"
                   >
-                    Company Name <span className="text-red-600">*</span>
+                    {t("form.companyName")} <span className="text-red-600">*</span>
                   </label>
                   <input
                     id="companyName"
                     type="text"
-                    placeholder="Acme Corporation"
+                    placeholder={t("form.placeholderCompany")}
                     value={formData.companyName}
                     onChange={(e) =>
                       handleChange("companyName", e.target.value)
@@ -360,12 +366,12 @@ export function WarehouseLeadForm() {
                     htmlFor="email"
                     className="block text-sm font-medium text-neutral-700"
                   >
-                    Email Address <span className="text-red-600">*</span>
+                    {t("form.emailAddress")} <span className="text-red-600">*</span>
                   </label>
                   <input
                     id="email"
                     type="email"
-                    placeholder="john@acme.com"
+                    placeholder={t("form.placeholderEmail")}
                     value={formData.email}
                     onChange={(e) => handleChange("email", e.target.value)}
                     required
@@ -381,13 +387,13 @@ export function WarehouseLeadForm() {
                     htmlFor="phone"
                     className="block text-sm font-medium text-neutral-700"
                   >
-                    Phone Number <span className="text-red-600">*</span>
+                    {t("form.phoneNumber")} <span className="text-red-600">*</span>
                   </label>
                   <input
                     id="phone"
                     type="tel"
                     inputMode="numeric"
-                    placeholder="9–12 digits (numbers only)"
+                    placeholder={t("form.placeholderPhone")}
                     value={formData.phone}
                     onChange={(e) => handleChange("phone", e.target.value)}
                     required
@@ -405,10 +411,10 @@ export function WarehouseLeadForm() {
             <div className="space-y-6">
               <div className="border-l-4 border-[#173c65] pl-4">
                 <h3 className="text-lg font-semibold text-[#173c65]">
-                  Warehouse Requirements
+                  {t("form.warehouseReqs")}
                 </h3>
                 <p className="text-sm text-neutral-600">
-                  Tell us about your space needs
+                  {t("form.warehouseReqsDesc")}
                 </p>
               </div>
 
@@ -418,7 +424,7 @@ export function WarehouseLeadForm() {
                     htmlFor="warehouseSize"
                     className="block text-sm font-medium text-neutral-700"
                   >
-                    Warehouse Size (sq ft){" "}
+                    {t("form.warehouseSize")}{" "}
                     <span className="text-red-600">*</span>
                   </label>
                   <input
@@ -426,7 +432,7 @@ export function WarehouseLeadForm() {
                     type="number"
                     min="0"
                     step="1"
-                    placeholder="4000"
+                    placeholder={t("form.placeholderSize")}
                     value={formData.warehouseSize}
                     onChange={(e) =>
                       handleChange("warehouseSize", e.target.value)
@@ -459,14 +465,14 @@ export function WarehouseLeadForm() {
                     htmlFor="budget"
                     className="block text-sm font-medium text-neutral-700"
                   >
-                    Monthly Budget <span className="text-red-600">*</span>
+                    {t("form.monthlyBudget")} <span className="text-red-600">*</span>
                   </label>
                   <input
                     id="budget"
                     type="number"
                     min="0"
                     step="1"
-                    placeholder="200000"
+                    placeholder={t("form.placeholderBudget")}
                     value={formData.budget}
                     onChange={(e) => handleChange("budget", e.target.value)}
                     required
@@ -500,12 +506,12 @@ export function WarehouseLeadForm() {
                   htmlFor="timeline"
                   className="block text-sm font-medium text-neutral-700"
                 >
-                  Timeline to Move In <span className="text-red-600">*</span>
+                  {t("form.timelineToMoveIn")} <span className="text-red-600">*</span>
                 </label>
                 <input
                   id="timeline"
                   type="text"
-                  placeholder="1 Month"
+                  placeholder={t("form.placeholderTimeline")}
                   value={formData.timeline}
                   onChange={(e) => handleChange("timeline", e.target.value)}
                   required
@@ -518,10 +524,10 @@ export function WarehouseLeadForm() {
             <div className="space-y-6">
               <div className="border-l-4 border-[#173c65] pl-4">
                 <h3 className="text-lg font-semibold text-[#173c65]">
-                  Additional Information
+                  {t("form.additionalInfo")}
                 </h3>
                 <p className="text-sm text-neutral-600">
-                  Any special requirements or questions?
+                  {t("form.additionalInfoDesc")}
                 </p>
               </div>
 
@@ -530,11 +536,11 @@ export function WarehouseLeadForm() {
                   htmlFor="notes"
                   className="block text-sm font-medium text-neutral-700"
                 >
-                  Additional Notes
+                  {t("form.additionalNotes")}
                 </label>
                 <textarea
                   id="notes"
-                  placeholder="Tell us about any specific requirements: loading docks, ceiling height, temperature control, security features, etc."
+                  placeholder={t("form.placeholderNotes")}
                   value={formData.notes}
                   onChange={(e) => handleChange("notes", e.target.value)}
                   rows={5}
@@ -545,7 +551,7 @@ export function WarehouseLeadForm() {
 
             <div className="flex flex-col items-start justify-between gap-4 border-t border-neutral-200 pt-6 sm:flex-row sm:items-center">
               <p className="text-sm text-neutral-600">
-                <span className="text-red-600">*</span> Required fields
+                <span className="text-red-600">*</span> {t("form.requiredFields")}
               </p>
               <button
                 type="submit"
@@ -553,19 +559,11 @@ export function WarehouseLeadForm() {
                 onClick={() => trackButtonClick("form-submit-inquiry")}
                 className="w-full rounded-lg bg-[#173c65] px-8 py-3 font-medium text-white transition-colors hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
               >
-                {isSubmitting ? "Submitting..." : "Submit Inquiry"}
+                {isSubmitting ? t("form.submitting") : t("form.submitInquiry")}
               </button>
             </div>
             <p className=" text-xs text-center text-gray-600 ">
-              This information has been prepared by Jilotepec Logistics for general
-              information only. Jilotepec Logistics makes no warranties nor representations
-              of any kind, express or implied, with respect to the information,
-              including, but not limited to, warranties of content, accuracy,
-              and reliability. Any interested party should make their own
-              inquiries about the accuracy of the information. Jilotepec Logistics
-              unequivocally excludes all inferred or implied terms, conditions
-              and warranties arising from this document and excludes all
-              liability for loss and damage arising therefrom.
+              {t("form.disclaimer")}
             </p>
           </form>
         </div>
@@ -590,11 +588,10 @@ export function WarehouseLeadForm() {
             </div>
             <div className="flex-1">
               <h4 className="font-semibold text-neutral-900">
-                Thank you for your inquiry!
+                {t("form.toastTitle")}
               </h4>
               <p className="mt-1 text-sm text-neutral-600">
-                Our team will contact you within 24 hours to discuss your
-                warehouse needs.
+                {t("form.toastMessage")}
               </p>
             </div>
           </div>

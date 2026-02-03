@@ -1,26 +1,22 @@
+"use client"
+
 import type React from "react"
 import Image from "next/image"
 import { Check } from "lucide-react"
 import { Land } from "@/assets/images"
+import { useUITranslations } from "@/hooks/use-warehouse-config"
 
-interface LandFeature {
+interface LandFeatureItem {
   icon: React.ReactNode
-  title: string
-  description: string
+  titleKey: string
+  descKey: string
 }
 
 export function BuildToSuitLand() {
-  const features: LandFeature[] = [
-    {
-      icon: <Check className="h-5 w-5" />,
-      title: "30+ hectares",
-      description: "Fully serviced with infrastructure at lot line",
-    },
-    {
-      icon: <Check className="h-5 w-5" />,
-      title: "23+ hectares",
-      description: "Hectares of additional industrial reserve land",
-    },
+  const t = useUITranslations()
+  const features: LandFeatureItem[] = [
+    { icon: <Check className="h-5 w-5" />, titleKey: "bts.feature1Title", descKey: "bts.feature1Desc" },
+    { icon: <Check className="h-5 w-5" />, titleKey: "bts.feature2Title", descKey: "bts.feature2Desc" },
   ]
 
   return (
@@ -29,10 +25,10 @@ export function BuildToSuitLand() {
         {/* Header */}
         <div className="mb-12 text-center">
           <h2 className="mb-4  font-bold tracking-tight  text-[#173c65] text-xl   lg:text-2xl xl:text-3xl text-balance">
-            Land Available for Build-to-Suit Projects
+            {t("bts.title")}
           </h2>
           <p className="mx-auto max-w-2xl text-base text-gray-600  text-pretty">
-            In addition to existing buildings, CLJ offers comprehensive land solutions
+            {t("bts.subtitle")}
           </p>
         </div>
 
@@ -43,7 +39,7 @@ export function BuildToSuitLand() {
             <div className="aspect-[4/3] relative">
               <Image
                 src={Land}
-                alt="Aerial view of CLJ industrial land"
+                alt={t("bts.landAlt")}
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -56,7 +52,7 @@ export function BuildToSuitLand() {
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-600 opacity-75"></span>
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-900"></span>
                   </span>
-                  Available Now
+                  {t("bts.availableNow")}
                 </div>
               </div>
             </div>
@@ -74,19 +70,17 @@ export function BuildToSuitLand() {
                     {feature.icon}
                   </div>
                   <div>
-                    <h3 className="mb-1 md:text-xl lg:text-2xl text-lg font-bold text-[#173c65]">{feature.title}</h3>
-                    <p className="text-gray-600 md:text-base text-sm">{feature.description}</p>
+                    <h3 className="mb-1 md:text-xl lg:text-2xl text-lg font-bold text-[#173c65]">{t(feature.titleKey)}</h3>
+                    <p className="text-gray-600 md:text-base text-sm">{t(feature.descKey)}</p>
                   </div>
                 </div>
               ))}
 
               {/* Project Size Info */}
               <div className="mt-8 rounded-lg border-2  bg-primary/5 p-6">
-                <h4 className="mb-3 text-lg font-semibold text-[#173c65]">Project Capabilities</h4>
+                <h4 className="mb-3 text-lg font-semibold text-[#173c65]">{t("bts.projectCapabilities")}</h4>
                 <p className="text-gray-600 md:text-base text-sm text-pretty">
-                  Suitable for BTS projects ranging from <span className="font-bold text-gray-600   ">10,000 m²</span> to
-                  over <span className="font-bold text-gray-600">100,000 m²</span>, tailored to the exact needs of the
-                  user.
+                  {t("bts.projectDesc")}
                 </p>
               </div>
 

@@ -1,57 +1,26 @@
-import { Truck, Airplay as Highway, Globe2, TrendingUp } from "lucide-react";
+"use client";
 
-const HIGHWAY_ROUTES = [
-  {
-    title: "Highway 57D",
-    description: "Mexico–Querétaro–San Luis Potosí corridor",
-  },
-  {
-    title: "Arco Norte 40D",
-    description: "Bajío–Gulf–Central–Puebla–Tlaxcala link",
-  },
-  {
-    title: "Circuito Exterior",
-    description: "Mexiquense ring road system",
-  },
-  {
-    title: "Rapid Access",
-    description: "Mexico City, Bajío, Pacific, Gulf & Northern routes",
-  },
+import { Truck, Airplay as Highway, Globe2, TrendingUp } from "lucide-react";
+import { useUITranslations } from "@/hooks/use-warehouse-config";
+
+const HIGHWAY_ROUTE_KEYS = [
+  { titleKey: "strategic.route1Title", descKey: "strategic.route1Desc" },
+  { titleKey: "strategic.route2Title", descKey: "strategic.route2Desc" },
+  { titleKey: "strategic.route3Title", descKey: "strategic.route3Desc" },
+  { titleKey: "strategic.route4Title", descKey: "strategic.route4Desc" },
 ] as const;
 
-const advantages = [
-  {
-    title: "Efficient Distribution",
-    description:
-      "Highly efficient distribution to ports, borders, and major consumption markets",
-  },
-  {
-    title: "Reduced Transit Times",
-    description:
-      "Minimized delivery times for national and regional distribution routes",
-  },
-  {
-    title: "Market Reach",
-    description: "Immediate access to 23+ million consumers in the metro area",
-  },
-  {
-    title: "Strategic Positioning",
-    description:
-      "Perfect positioning for supply chains connecting north–central–south",
-  },
-  {
-    title: "Versatile Operations",
-    description:
-      "Ideal for 3PLs, retail distribution, e-commerce, and manufacturing",
-  },
-  {
-    title: "Multi-Region Coverage",
-    description:
-      "Direct connectivity to Bajío, Gulf, Central, Puebla, and Tlaxcala regions",
-  },
-];
+const ADVANTAGE_KEYS = [
+  { titleKey: "strategic.adv1Title", descKey: "strategic.adv1Desc" },
+  { titleKey: "strategic.adv2Title", descKey: "strategic.adv2Desc" },
+  { titleKey: "strategic.adv3Title", descKey: "strategic.adv3Desc" },
+  { titleKey: "strategic.adv4Title", descKey: "strategic.adv4Desc" },
+  { titleKey: "strategic.adv5Title", descKey: "strategic.adv5Desc" },
+  { titleKey: "strategic.adv6Title", descKey: "strategic.adv6Desc" },
+] as const;
 
 export function StrategicLocationSection() {
+  const t = useUITranslations();
   return (
     <section className="relative max-w-[1520px] bg-[#FCFBFC] py-16 px-4 overflow-hidden">
       {/* Background decorative elements */}
@@ -64,15 +33,14 @@ export function StrategicLocationSection() {
           <div className="inline-flex items-center gap-2 bg-orange-500/10 border-2 border-[#173c65]/20 rounded-full px-4 py-2 ">
             <div className="w-2 h-2 bg-blue-100 rounded-full animate-pulse"></div>
             <span className="text-[#173c65] text-xl   lg:text-2xl xl:text-3xl font-semibold uppercase tracking-wider">
-              Strategic Location Benefits
+              {t("strategic.badge")}
             </span>
           </div>
           <h2 className=" xl:text-2xl lg:text-xl text-lg py-6 text-[#173c65] font-bold  ">
-            Mexico&apos;s Most Efficient Logistics Node
+            {t("strategic.title")}
           </h2>
           <p className="text-gray-600  text-base max-w-2xl mx-auto text-pretty">
-            CLJ is positioned in one of the most efficient logistics nodes in
-            the country, connecting instantly with Mexico&apos;s key corridors.
+            {t("strategic.subtitle")}
           </p>
         </div>
 
@@ -81,14 +49,14 @@ export function StrategicLocationSection() {
           <div className="flex items-center gap-3 mb-8">
             <Truck className="w-6 h-6 text-blue-950" />
             <h3 className="xl:text-2xl lg:text-xl text-lg font-bold text-[#173c65]">
-              Direct Highway Access
+              {t("strategic.directHighwayAccess")}
             </h3>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {HIGHWAY_ROUTES.map((route) => (
+            {HIGHWAY_ROUTE_KEYS.map((route) => (
               <div
-                key={route.title}
+                key={route.titleKey}
                 className="group relative bg-white backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50 hover:border-orange-500/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(249,115,22,0.15)] hover:-translate-y-1"
               >
                 {/* Hover overlay */}
@@ -100,11 +68,11 @@ export function StrategicLocationSection() {
                   </div>
 
                   <h4 className="text-[#173c65] group-hover:text-white transition-colors font-bold text-lg mb-2">
-                    {route.title}
+                    {t(route.titleKey)}
                   </h4>
 
                   <p className="text-gray-600 group-hover:text-white transition-colors text-sm leading-relaxed">
-                    {route.description}
+                    {t(route.descKey)}
                   </p>
                 </div>
               </div>
@@ -123,7 +91,7 @@ export function StrategicLocationSection() {
                 23M+
               </div>
               <div className="text-orange-100 font-medium">
-                Consumers in Greater Mexico City
+                {t("strategic.stat1")}
               </div>
             </div>
             <div className="text-center border-x border-gray-400">
@@ -131,7 +99,7 @@ export function StrategicLocationSection() {
                 5
               </div>
               <div className="text-orange-100 font-medium">
-                Major Regions Connected
+                {t("strategic.stat2")}
               </div>
             </div>
             <div className="text-center">
@@ -139,7 +107,7 @@ export function StrategicLocationSection() {
                 100%
               </div>
               <div className="text-orange-100 font-medium">
-                Efficient Distribution Network
+                {t("strategic.stat3")}
               </div>
             </div>
           </div>
@@ -150,13 +118,13 @@ export function StrategicLocationSection() {
           <div className="flex items-center gap-3 mb-8">
             <Globe2 className="w-6 h-6 text-[#173c65]" />
             <h3 className="md:text-xl text-lg font-bold text-[#173c65]">
-              Key Operational Advantages
+              {t("strategic.keyAdvantages")}
             </h3>
           </div>
 
           {/* Advantage Card 1 */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {advantages.map((item, index) => (
+            {ADVANTAGE_KEYS.map((item, index) => (
               <div
                 key={index}
                 className="relative bg-white backdrop-blur-sm rounded-xl p-6 border border-slate-700/50  transition-all duration-300 group"
@@ -168,11 +136,11 @@ export function StrategicLocationSection() {
 
                   <div>
                     <h4 className="text-[#173c65] group-hover:text-[#173c65] font-semibold mb-2 transition-colors">
-                      {item.title}
+                      {t(item.titleKey)}
                     </h4>
 
                     <p className="text-gray-600  text-sm leading-relaxed transition-colors">
-                      {item.description}
+                      {t(item.descKey)}
                     </p>
                   </div>
                 </div>

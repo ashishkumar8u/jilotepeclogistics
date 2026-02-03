@@ -1,11 +1,16 @@
+"use client";
+
+import { useUITranslations } from "@/hooks/use-warehouse-config";
+
 export function SpecificationsSection() {
+  const t = useUITranslations();
   return (
     <section className="">
       <div className="max-w-7xl  mx-auto">
         {/* Header */}
         <div className="">
           <h2 className="text-xl   lg:text-2xl xl:text-3xl text-center text-[#173c65] font-bold tracking-tight mb-12 text-balance">
-            Park & Building Specifications
+            {t("spec.title")}
           </h2>
         </div>
 
@@ -16,18 +21,18 @@ export function SpecificationsSection() {
             <div className="space-y-8  ">
               <div className="text-black">
                 <h3 className="text-sm uppercase tracking-wider text-[#173c65] mb-6 font-medium">
-                  Park Overview
+                  {t("spec.parkOverview")}
                 </h3>
                 <div className="space-y-4">
                   <div>
                     <p className="text-lg md:text-lg font-medium mb-1">
-                      Total Park Land
+                      {t("spec.totalParkLand")}
                     </p>
                     <p className="text-lg md:text-3xl text-[#173c65] font-bold">
                       57 ha
                     </p>
                     <p className="text-sm text-muted-foreground mt-1">
-                      Phase 1: 33 ha
+                      {t("spec.phase1")}
                     </p>
                   </div>
                 </div>
@@ -36,16 +41,16 @@ export function SpecificationsSection() {
             <div className="space-y-8 ">
               <div>
                 <h3 className="text-sm uppercase tracking-wider text-[#173c65] mb-6 font-medium">
-                  Existing Buildings
+                  {t("spec.existingBuildings")}
                 </h3>
                 <div className="space-y-6">
                   <div className="border-l-2 border-primary pl-4">
                     <div className="flex items-start gap-30 mb-2">
                       <p className="md:text-lg text-[#173c65] font-bold">
-                        Building A
+                        {t("spec.buildingA")}
                       </p>
                       <span className="inline-flex items-center px-3 py-1 text-xs font-semibold tracking-wide uppercase bg-primary text-[#173c65] rounded-full">
-                        100% LEASED
+                        {t("spec.leased")}
                       </span>
                     </div>
                     <p className="text-lg md:text-3xl text-[#173c65] font-bold">
@@ -56,17 +61,17 @@ export function SpecificationsSection() {
                   <div className="border-l-2 border-accent pl-4">
                     <div className="flex items-start gap-10 mb-2">
                       <p className="md:text-lg text-[#173c65] font-bold">
-                        Building B
+                        {t("spec.buildingB")}
                       </p>
                       <span className="inline-flex items-center px-3 py-1 text-xs font-semibold tracking-wide uppercase border-2 border-accent text-[#173c65] rounded-full bg-transparent">
-                        IMMEDIATE AVAILABILITY
+                        {t("spec.immediateAvailability")}
                       </span>
                     </div>
                     <p className="text-lg md:text-3xl text-[#173c65] font-bold mb-2">
                       32,000 m²
                     </p>
                     <p className="text-sm text-muted-foreground">
-                      Divisible Space
+                      {t("spec.divisibleSpace")}
                     </p>
                   </div>
                 </div>
@@ -74,11 +79,11 @@ export function SpecificationsSection() {
 
               <div className="pt-4">
                 <h3 className="text-sm uppercase tracking-wider text-[#173c65] mb-4 font-medium">
-                  Land Available
+                  {t("spec.landAvailable")}
                 </h3>
                 <div>
                   <p className="text-lg font-medium mb-1">
-                    For Sale or BTS Projects
+                    {t("spec.forSaleOrBTS")}
                   </p>
                   <p className="text-3xl text-[#173c65] font-bold">
                     400,000 m²
@@ -92,50 +97,48 @@ export function SpecificationsSection() {
           <div className="space-y-8 ">
             <div>
               <h3 className="text-sm uppercase tracking-wider text-[#173c65] mb-6 font-medium">
-                Class-A Building Features
+                {t("spec.classAFeatures")}
               </h3>
               <ul className="space-y-3 text-sm md:text-base leading-relaxed">
                 <li className="flex items-start gap-3">
                   <span className="text-muted-foreground mt-1">•</span>
-                  <span>Concrete walls</span>
+                  <span>{t("spec.concreteWalls")}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-muted-foreground mt-1">•</span>
-                  <span>KR-18 insulated metal roof</span>
+                  <span>{t("spec.kr18Roof")}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-muted-foreground mt-1">•</span>
-                  <span>6% natural lighting via polycarbonate skylights</span>
+                  <span>{t("spec.naturalLighting")}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-muted-foreground mt-1">•</span>
-                  <span>Clear height: 11.50 m (38 ft)</span>
+                  <span>{t("spec.clearHeight")}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-muted-foreground mt-1">•</span>
-                  <span>6" (15 cm) concrete floor</span>
+                  <span>{t("spec.concreteFloor")}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-muted-foreground mt-1">•</span>
-                  <span>
-                    Fully equipped dock doors (up to 1 dock / 350 SQM approx.)
-                  </span>
+                  <span>{t("spec.dockDoors")}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-muted-foreground mt-1">•</span>
-                  <span>Drive-in ramps (BTS options)</span>
+                  <span>{t("spec.driveInRamps")}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-muted-foreground mt-1">•</span>
-                  <span>40-meter deep truck courts</span>
+                  <span>{t("spec.truckCourts")}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-muted-foreground mt-1">•</span>
-                  <span>LED lighting throughout</span>
+                  <span>{t("spec.ledLighting")}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-muted-foreground mt-1">•</span>
-                  <span>Hydrants and sprinkler-ready system</span>
+                  <span>{t("spec.hydrantsSprinkler")}</span>
                 </li>
               </ul>
             </div>
