@@ -3,7 +3,6 @@
 
 import { useMemo } from 'react';
 import { warehouseConfig } from '@/config/warehouse-content';
-// import { useLanguage } from '@/contexts/language-context';
 
 // Spanish translations for warehouseConfig
 const spanishTranslations: any = {
@@ -215,12 +214,19 @@ const spanishTranslations: any = {
       { name: "additionalNotes", label: "Notas Adicionales", type: "textarea", required: false },
     ],
   },
-  disclaimer: "Esta información ha sido preparada por Newmark únicamente con fines informativos. Newmark no otorga garantías ni realiza declaraciones de ningún tipo, expresas o implícitas, respecto a la información contenida, incluyendo, entre otras, garantías sobre su contenido, exactitud y confiabilidad. Cualquier parte interesada deberá realizar su propia investigación para verificar la exactitud de la información. Newmark excluye de manera inequívoca todos los términos, condiciones y garantías inferidos o implícitos que pudieran derivarse de este documento, y excluye toda responsabilidad por pérdidas o daños que pudieran surgir del mismo.",
+  disclaimer: "Esta información ha sido preparada por Jilotepec Logistics únicamente con fines informativos. Jilotepec Logistics no otorga garantías ni realiza declaraciones de ningún tipo, expresas o implícitas, respecto a la información contenida, incluyendo, entre otras, garantías sobre su contenido, exactitud y confiabilidad. Cualquier parte interesada deberá realizar su propia investigación para verificar la exactitud de la información. Jilotepec Logistics excluye de manera inequívoca todos los términos, condiciones y garantías inferidos o implícitos que pudieran derivarse de este documento, y excluye toda responsabilidad por pérdidas o daños que pudieran surgir del mismo.",
 };
 
 // Additional UI translations
 const uiTranslations: Record<string, Record<string, string>> = {
   en: {
+    'nav.home': 'Home',
+    'nav.connectivity': 'Connectivity',
+    'nav.specifications': 'Specifications',
+    'nav.infrastructure': 'Infrastructure',
+    'nav.opportunities': 'Opportunities',
+    'nav.applications': 'Applications',
+    'nav.callNow': 'Call Now',
     'locationComparison.title': 'Choose Your Ideal Location',
     'locationComparison.subtitle': 'A strategic location, optimized for operational efficiency. Discover how it can perfectly support your business needs.',
     'locationComparison.keyAdvantages': 'Key Advantages',
@@ -253,6 +259,13 @@ const uiTranslations: Record<string, Record<string, string>> = {
     'footer.disclaimer': 'Disclaimer',
   },
   es: {
+    'nav.home': 'Inicio',
+    'nav.connectivity': 'Conectividad',
+    'nav.specifications': 'Especificaciones',
+    'nav.infrastructure': 'Infraestructura',
+    'nav.opportunities': 'Oportunidades',
+    'nav.applications': 'Aplicaciones',
+    'nav.callNow': 'Llamar Ahora',
     'locationComparison.title': 'Elija Su Ubicación Ideal',
     'locationComparison.subtitle': 'Una ubicación estratégica, optimizada para la eficiencia operativa. Descubra cómo puede apoyar perfectamente las necesidades de su negocio.',
     'locationComparison.keyAdvantages': 'Ventajas Clave',
@@ -287,34 +300,13 @@ const uiTranslations: Record<string, Record<string, string>> = {
 };
 
 export function useWarehouseConfig() {
-  
-
-  return useMemo(() => {
-    // if (language === 'es') {
-    //   // Deep merge Spanish translations with original config
-    //   return {
-    //     ...warehouseConfig,
-    //     banner: { ...warehouseConfig.banner, ...spanishTranslations.banner },
-    //     warehouseFeatures: { ...warehouseConfig.warehouseFeatures, ...spanishTranslations.warehouseFeatures },
-    //     locations: { ...warehouseConfig.locations, ...spanishTranslations.locations },
-    //     specifications: { ...warehouseConfig.specifications, ...spanishTranslations.specifications },
-    //     targetIndustries: { ...warehouseConfig.targetIndustries, ...spanishTranslations.targetIndustries },
-    //     availability: { ...warehouseConfig.availability, ...spanishTranslations.availability },
-    //     ctas: { ...warehouseConfig.ctas, ...spanishTranslations.ctas },
-    //     leadForm: { ...warehouseConfig.leadForm, ...spanishTranslations.leadForm },
-    //     disclaimer: spanishTranslations.disclaimer,
-    //   };
-    // }
-    return warehouseConfig;
-  }, []);
+  return useMemo(() => warehouseConfig, []);
 }
 
 export function useUITranslations() {
-  // const { language, t } = useLanguage();
-  
   return useMemo(() => {
     return (key: string): string => {
-      return uiTranslations["es"]?.[key] || uiTranslations.en[key] || key;
+      return uiTranslations.en[key] || key;
     };
   }, []);
 }
