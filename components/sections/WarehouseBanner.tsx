@@ -17,7 +17,7 @@ export function WarehouseBanner() {
         priority
         fetchPriority="high"
         sizes="100vw"
-        className="object-cover opacity-20"
+        className="object-cover opacity-40"
         quality={85}
       />
       </div>
@@ -41,20 +41,19 @@ export function WarehouseBanner() {
                 Jilotepec Logistics Center
               </h1>
               <div className="flex items-center gap-2 text-lg xl:text-2xl text-gray-700 sm:text-xl">
-                {/* <MapPin className="h-8 w-8 text-[#173c65]" /> */}
-                <span className="font-medium text-[#173c65]">Premier Location at the Itersection Of  Arco Norte &amp; Highway 57 Intersection</span>
+                <span className="font-medium text-[#173c65]">Premier Location at the Intersection Of Arco Norte &amp; Highway 57</span>
               </div>
             </div>
 
             {/* Description */}
             <p className="text-pretty text-base leading-relaxed text-gray-950">
-            Position your logistics or manufacturing operation in one of Mexico’s most strategic industrial hubs: JILOTEPEC LOGISTICS CENTER , a world-class industrial park located at the exact crossroads of Arco Norte and Highway 57 (Mexico–Querétaro).
+              Position your logistics or manufacturing operation in one of Mexico&apos;s most strategic industrial hubs: JILOTEPEC LOGISTICS CENTER, a world-class industrial park located at the exact crossroads of Arco Norte and Highway 57 (Mexico–Querétaro).
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-col gap-4 sm:flex-row">
               <Link 
-                href='#contact' 
+                href="#contact" 
                 onClick={() => trackButtonClick('banner-schedule-tour')}
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#173c65] px-8 py-4 text-base font-semibold text-white transition-all hover:bg-blue-800"
               >

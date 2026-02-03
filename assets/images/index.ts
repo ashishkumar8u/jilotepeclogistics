@@ -4,7 +4,7 @@ import IndustrialFacilitytwo from '../images/IMG_0263.jpeg';
 import Fancing from './fencing.png'
 import Access from './access.webp'
 import Electrical from './electrical.jpg'
-import Water from './water.avif'
+import Water from './water.png'
 import Services from './services.jpeg'
 import Land from './land.jpeg'
 import FooterLogo from './footerlogo.png'
@@ -25,5 +25,5 @@ export {
     Water,
     Services,
     Land,
-    bg2
+    bg2,
 }

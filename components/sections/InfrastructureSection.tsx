@@ -1,4 +1,4 @@
-import { Electrical, Services, Water } from "@/assets/images"
+import { Electrical, Services,Water} from "@/assets/images"
 import { Zap, Droplets, Plus, Dot } from "lucide-react"
 import Image from "next/image"
 

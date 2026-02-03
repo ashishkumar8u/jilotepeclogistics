@@ -4,7 +4,7 @@
 export const warehouseConfig = {
   // Brand Information
   brand: {
-    name: "NEWMARK",
+    name: "Jilotepec Logistics",
     logo: "/warehouse/newmark.png", // Update path when logo is available
     website: "www.nmrk.com",
   },
@@ -252,7 +252,7 @@ export const warehouseConfig = {
   ],
 
   // Legal/Disclaimer
-  disclaimer: "This information has been prepared by Newmark for general information only. Newmark makes no warranties nor representations of any kind, express or implied, with respect to the information, including, but not limited to, warranties of content, accuracy, and reliability. Any interested party should make their own inquiries about the accuracy of the information. Newmark unequivocally excludes all inferred or implied terms, conditions and warranties arising from this document and excludes all liability for loss and damage arising therefrom.",
+  disclaimer: "This information has been prepared by Jilotepec Logistics for general information only. Jilotepec Logistics makes no warranties nor representations of any kind, express or implied, with respect to the information, including, but not limited to, warranties of content, accuracy, and reliability. Any interested party should make their own inquiries about the accuracy of the information. Jilotepec Logistics unequivocally excludes all inferred or implied terms, conditions and warranties arising from this document and excludes all liability for loss and damage arising therefrom.",
   
   // Legal Pages
   legal: {

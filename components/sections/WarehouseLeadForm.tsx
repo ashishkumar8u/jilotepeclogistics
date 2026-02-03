@@ -3,6 +3,7 @@
 import type React from "react";
 import { useState } from "react";
 import { trackButtonClick } from "@/lib/utils";
+import { getUAParsed } from "@/utils/ua-parsed";
 
 // Helper function to detect browser
 const detectBrowser = (): string => {
@@ -34,10 +35,21 @@ const detectDeviceType = (): string => {
   return "Desktop";
 };
 
+// Validation helpers
+const NAME_REGEX = /^[a-zA-Z\s\-']*$/; // letters, spaces, hyphen, apostrophe only
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_LENGTH = /^\d{9,12}$/;  // 9–12 digits for validation
+
 export function WarehouseLeadForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<{
+    fullName?: string;
+    companyName?: string;
+    email?: string;
+    phone?: string;
+  }>({});
   const [formData, setFormData] = useState({
     fullName: "",
     companyName: "",
@@ -69,10 +81,47 @@ export function WarehouseLeadForm() {
     }
   };
 
+  const validateForm = (): boolean => {
+    const errors: typeof fieldErrors = {};
+    const trimmedName = formData.fullName.trim();
+    const trimmedCompany = formData.companyName.trim();
+    const trimmedEmail = formData.email.trim();
+    const phoneDigits = formData.phone.replace(/\D/g, "");
+
+    if (!trimmedName) {
+      errors.fullName = "Full name is required.";
+    } else if (!NAME_REGEX.test(trimmedName)) {
+      errors.fullName = "Full name can only contain letters, spaces, hyphens and apostrophes.";
+    }
+
+    if (!trimmedCompany) {
+      errors.companyName = "Company name is required.";
+    } else if (!NAME_REGEX.test(trimmedCompany)) {
+      errors.companyName = "Company name can only contain letters, spaces, hyphens and apostrophes.";
+    }
+
+    if (!trimmedEmail) {
+      errors.email = "Email is required.";
+    } else if (!EMAIL_REGEX.test(trimmedEmail)) {
+      errors.email = "Please enter a valid email address.";
+    }
+
+    if (!formData.phone.trim()) {
+      errors.phone = "Phone number is required.";
+    } else if (!PHONE_LENGTH.test(phoneDigits)) {
+      errors.phone = "Phone must be 9–12 digits (numbers only).";
+    }
+
+    setFieldErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    setFieldErrors({});
     setErrorMessage("");
+    if (!validateForm()) return;
+    setIsSubmitting(true);
 
     try {
       const timezone =
@@ -80,45 +129,113 @@ export function WarehouseLeadForm() {
       const browser = detectBrowser();
       const deviceType = detectDeviceType();
       const clientIP = await getClientIP();
+       const ua_parsed = getUAParsed();
       const apiBase = `${process.env.NEXT_PUBLIC_BASE_URL}`.replace(/\/+$/, "");
-      if (!apiBase) {
-        throw new Error("API host is not configured");
+      const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
+      const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
+      const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+
+      if (!apiBase || apiBase === "undefined") {
+        throw new Error("API host is not configured (NEXT_PUBLIC_BASE_URL)");
+      }
+      if (!clientId || clientId === "undefined") {
+        throw new Error("Client ID is not configured (NEXT_PUBLIC_CLIENT_ID)");
+      }
+      if (!projectId || projectId === "undefined") {
+        throw new Error("Project ID is not configured (NEXT_PUBLIC_PROJECT_ID)");
+      }
+      if (!apiKey || apiKey === "undefined") {
+        throw new Error("API key is not configured (NEXT_PUBLIC_API_KEY)");
       }
 
+      const warehouseSizeNum = formData.warehouseSize.trim()
+        ? Number(formData.warehouseSize)
+        : 0;
+      const budgetNum = formData.budget.trim() ? Number(formData.budget) : 0;
+
+      const other = {
+        browser: {
+          name: ua_parsed.browser.name ?? null,
+          version: ua_parsed.browser.version ?? null,
+        },
+        device: {
+          model: ua_parsed.device.model ?? null,
+          type: ua_parsed.device.type ?? null,
+          vendor: ua_parsed.device.vendor ?? null,
+        },
+        engine: {
+          name: ua_parsed.engine.name ?? null,
+          version: ua_parsed.engine.version ?? null,
+        },
+        os: {
+          name: ua_parsed.os.name ?? null,
+          version: ua_parsed.os.version ?? null,
+        },
+      };
+
       const payload = {
-        client_id: `${process.env.NEXT_PUBLIC_CLIENT_ID}`,
-        project_id: process.env.NEXT_PUBLIC_PROJECT_ID,
+        client_id: clientId,
+        project_id: projectId,
         form_data: {
-          full_name: formData.fullName,
-          company_name: formData.companyName,
-          email: formData.email,
-          phone: formData.phone,
-          warehouse_size_sqft:
-            Number(formData.warehouseSize) || formData.warehouseSize,
-          preferred_location: formData.location,
-          monthly_budget: Number(formData.budget) || formData.budget,
-          lease_duration: formData.leaseDuration,
-          timeline_to_move_in: formData.timeline,
-          additional_information: formData.notes,
+          full_name: formData.fullName.trim(),
+          company_name: formData.companyName.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
+          warehouse_size_sqft: !Number.isNaN(warehouseSizeNum)
+            ? warehouseSizeNum
+            : 0,
+          preferred_location: formData.location.trim() || "",
+          monthly_budget: !Number.isNaN(budgetNum) ? budgetNum : 0,
+          lease_duration: formData.leaseDuration.trim() || "",
+          timeline_to_move_in: formData.timeline.trim() || "",
+          additional_information: formData.notes.trim() || "",
           timezone,
           ip_address: clientIP,
           browser,
           device_type: deviceType,
         },
+        other,
       };
 
-      const response = await fetch(`${apiBase}/forms`, {
+      const response = await fetch(`${apiBase}/api/v1/forms/submit-form`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          "X-API-Key": `${process.env.NEXT_PUBLIC_API_KEY}`,
+          "X-API-Key": apiKey,
         },
         body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to submit form");
+        let serverMessage = "Failed to submit form";
+        try {
+          const errBody = await response.json();
+          // FastAPI-style: { detail: [{ loc: ["body", "form_data", "field"], msg: "Field required" }] }
+          if (Array.isArray(errBody?.detail) && errBody.detail.length > 0) {
+            const first = errBody.detail[0];
+            const loc = first?.loc;
+            const msg = first?.msg ?? "Field required";
+            const field =
+              Array.isArray(loc) && loc.length > 0
+                ? loc.slice(-1)[0]
+                : null;
+            serverMessage = field
+              ? `${msg}: ${String(field).replace(/_/g, " ")}`
+              : msg;
+          } else if (errBody?.message) {
+            serverMessage = errBody.message;
+          } else if (errBody?.success === false && errBody?.message) {
+            serverMessage = errBody.message;
+          } else if (errBody?.error) {
+            serverMessage = errBody.error;
+          } else if (typeof errBody === "string") {
+            serverMessage = errBody;
+          }
+        } catch {
+          // ignore if response is not JSON
+        }
+        throw new Error(serverMessage);
       }
 
       setShowToast(true);
@@ -137,17 +254,29 @@ export function WarehouseLeadForm() {
         timeline: "",
         notes: "",
       });
-    } catch {
-      setErrorMessage(
-        "Something went wrong while submitting. Please try again.",
-      );
+      setFieldErrors({});
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Something went wrong while submitting. Please try again.";
+      setErrorMessage(message);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    let sanitized = value;
+    if (field === "fullName" || field === "companyName") {
+      // Allow only letters, spaces, hyphen, apostrophe
+      sanitized = value.replace(/[^a-zA-Z\s\-']/g, "");
+    } else if (field === "phone") {
+      // Allow only digits (9–12 digit validation on submit)
+      sanitized = value.replace(/\D/g, "");
+    }
+    setFormData((prev) => ({ ...prev, [field]: sanitized }));
+    if (fieldErrors[field as keyof typeof fieldErrors]) {
+      setFieldErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
   };
 
   return (
@@ -164,7 +293,7 @@ export function WarehouseLeadForm() {
         </div>
 
         <div className="px-6 py-8 md:px-8">
-          <form onSubmit={handleSubmit} className="space-y-8">
+          <form onSubmit={handleSubmit} className="space-y-8" noValidate>
             {errorMessage && (
               <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
                 {errorMessage}
@@ -196,8 +325,11 @@ export function WarehouseLeadForm() {
                     value={formData.fullName}
                     onChange={(e) => handleChange("fullName", e.target.value)}
                     required
-                    className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                    className={`w-full rounded-lg border bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 ${fieldErrors.fullName ? "border-red-500 focus:border-red-500" : "border-neutral-300 focus:border-orange-500"}`}
                   />
+                  {fieldErrors.fullName && (
+                    <p className="text-sm text-red-600">{fieldErrors.fullName}</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -216,8 +348,11 @@ export function WarehouseLeadForm() {
                       handleChange("companyName", e.target.value)
                     }
                     required
-                    className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                    className={`w-full rounded-lg border bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 ${fieldErrors.companyName ? "border-red-500 focus:border-red-500" : "border-neutral-300 focus:border-orange-500"}`}
                   />
+                  {fieldErrors.companyName && (
+                    <p className="text-sm text-red-600">{fieldErrors.companyName}</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -234,8 +369,11 @@ export function WarehouseLeadForm() {
                     value={formData.email}
                     onChange={(e) => handleChange("email", e.target.value)}
                     required
-                    className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                    className={`w-full rounded-lg border bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 ${fieldErrors.email ? "border-red-500 focus:border-red-500" : "border-neutral-300 focus:border-orange-500"}`}
                   />
+                  {fieldErrors.email && (
+                    <p className="text-sm text-red-600">{fieldErrors.email}</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -248,12 +386,17 @@ export function WarehouseLeadForm() {
                   <input
                     id="phone"
                     type="tel"
-                    placeholder="+1 (555) 000-0000"
+                    inputMode="numeric"
+                    placeholder="9–12 digits (numbers only)"
                     value={formData.phone}
                     onChange={(e) => handleChange("phone", e.target.value)}
                     required
-                    className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+                    maxLength={12}
+                    className={`w-full rounded-lg border bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 ${fieldErrors.phone ? "border-red-500 focus:border-red-500" : "border-neutral-300 focus:border-orange-500"}`}
                   />
+                  {fieldErrors.phone && (
+                    <p className="text-sm text-red-600">{fieldErrors.phone}</p>
+                  )}
                 </div>
               </div>
             </div>
@@ -414,12 +557,12 @@ export function WarehouseLeadForm() {
               </button>
             </div>
             <p className=" text-xs text-center text-gray-600 ">
-              This information has been prepared by Newmark for general
-              information only. Newmark makes no warranties nor representations
+              This information has been prepared by Jilotepec Logistics for general
+              information only. Jilotepec Logistics makes no warranties nor representations
               of any kind, express or implied, with respect to the information,
               including, but not limited to, warranties of content, accuracy,
               and reliability. Any interested party should make their own
-              inquiries about the accuracy of the information. Newmark
+              inquiries about the accuracy of the information. Jilotepec Logistics
               unequivocally excludes all inferred or implied terms, conditions
               and warranties arising from this document and excludes all
               liability for loss and damage arising therefrom.
