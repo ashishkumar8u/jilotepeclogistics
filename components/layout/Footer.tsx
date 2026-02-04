@@ -28,10 +28,10 @@ export default function Footer() {
     }
   }
   return (
-    <footer className="bg-[#003A5D] text-white max-w-[1520px] mx-auto ">
-      <div className="lg:max-w-7xl w-[95%] mx-auto py-12 ">
+    <footer className="bg-[#003A5D] flex justify-center  text-white max-w-[1520px] mx-auto ">
+      <div className="lg:max-w-7xl  w-[95%] mx-auto py-12 ">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-20 mb-12">
           {/* Brand Section */}
           <div>
           <Logo variant="light" className="h-6 mb-2" />
@@ -50,18 +50,18 @@ export default function Footer() {
           </div>
 
           {/* Contacts */}
-          <div className="lg:col-span-2">
+          <div className="">
             <p className="text-sm text-gray-300 mb-4 italic">
               For more information:
             </p>
 
-            <div className="grid sm:grid-cols-2 gap-6 text-sm text-gray-300">
+            <div className="flex flex-col  gap-6 text-sm text-gray-300">
               {/* Jorge Fabris */}
               <div>
                 <p className="font-semibold text-white">Jorge Fabris</p>
                 <p>Executive Managing Director | Industrial</p>
                 <p className="text-blue-300">jorge.fabris@nmrk.com</p>
-                <p>+52.55.5980.2011</p>
+                <p>+52.55.39.89.1639</p>
               </div>
 
               {/* Guillermo Garrido */}
@@ -69,41 +69,14 @@ export default function Footer() {
                 <p className="font-semibold text-white">Guillermo Garrido</p>
                 <p>Executive Managing Director | Industrial</p>
                 <p className="text-blue-300">guillermo.garrido@nmrk.com</p>
-                <p>+52 55 1849 7483</p>
+                <p>+52.55.18.49.7483</p>
               </div>
 
-              {/* Carlos Garrido */}
-              <div>
-                <p className="font-semibold text-white">Carlos Garrido</p>
-                <p>Industrial Broker</p>
-                <p className="text-blue-300">carlos.garrido@nmrk.com</p>
-                <p>+52.55.3915.2152</p>
-              </div>
-            </div>
-
-            {/* Locations */}
-            <div className="grid sm:grid-cols-2 gap-6 mt-8 text-sm text-gray-300">
-              {/* Mexico City */}
-              <div>
-                <p className="font-semibold text-white">Mexico City</p>
-                <p>Corporativo Espacio Santa Fe</p>
-                <p>Carr. México – Toluca 5420 – PH</p>
-                <p>Santa Fe, Cuajimalpa, CDMX 05320</p>
-                <p>+52 (55) 5980 2011</p>
-              </div>
-
-              {/* New York */}
-              <div>
-                <p className="font-semibold text-white">New York Headquarters</p>
-                <p>125 Park Ave.</p>
-                <p>New York, NY 10017</p>
-                <p>t 212-372-2000</p>
-              </div>
             </div>
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className=" ">
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2 text-sm">
               <li>
