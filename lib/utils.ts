@@ -43,6 +43,33 @@ function getTimezone(): string {
  * Fire-and-forget function that doesn't block the UI
  * @param buttonId - Unique identifier for the button
  */
+/**
+ * Reports Google Ads conversion for call button clicks
+ * @param url - Optional URL to redirect to after conversion
+ */
+export function reportCallConversion(url?: string): void {
+  if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+    const callback = function () {
+      if (typeof url !== 'undefined') {
+        window.location.href = url;
+      }
+    };
+    (window as any).gtag('event', 'conversion', {
+      'send_to': 'AW-17966289400/YlQ1COywwP0bEPij__ZC',
+      'value': 1.0,
+      'currency': 'INR',
+      'event_callback': callback
+    });
+  } else if (typeof url !== 'undefined') {
+    window.location.href = url;
+  }
+}
+
+/**
+ * Tracks button click by sending metadata to the API
+ * Fire-and-forget function that doesn't block the UI
+ * @param buttonId - Unique identifier for the button
+ */
 export function trackButtonClick(buttonId: string): void {
   (async () => {
     try {

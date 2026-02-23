@@ -3,6 +3,7 @@
 import { FooterLogo } from "@/assets/images"
 import { Logo } from "@/components/common"
 import { Phone, Mail, MapPin, ExternalLink } from "lucide-react"
+import { trackButtonClick, reportCallConversion } from "@/lib/utils"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -61,7 +62,17 @@ export default function Footer() {
                 <p className="font-semibold text-white">Jorge Fabris</p>
                 <p>Executive Managing Director | Industrial</p>
                 <p className="text-blue-300">jorge.fabris@nmrk.com</p>
-                <p>+52.55.39.89.1639</p>
+                <a
+                  href="tel:+525539891639"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    trackButtonClick("footer-call-jorge");
+                    reportCallConversion("tel:+525539891639");
+                  }}
+                  className="hover:text-white transition-colors cursor-pointer"
+                >
+                  +52.55.39.89.1639
+                </a>
               </div>
 
               {/* Guillermo Garrido */}
@@ -69,7 +80,17 @@ export default function Footer() {
                 <p className="font-semibold text-white">Guillermo Garrido</p>
                 <p>Executive Managing Director | Industrial</p>
                 <p className="text-blue-300">guillermo.garrido@nmrk.com</p>
-                <p>+52-5518497483</p>
+                <a
+                  href="tel:+525518497483"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    trackButtonClick("footer-call-guillermo");
+                    reportCallConversion("tel:+525518497483");
+                  }}
+                  className="hover:text-white transition-colors cursor-pointer"
+                >
+                  +52-5518497483
+                </a>
               </div>
 
             </div>

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/common";
-import { trackButtonClick } from "@/lib/utils";
+import { trackButtonClick, reportCallConversion } from "@/lib/utils";
 
 const NAV_ITEMS = [
   { id: "home", label: "Home" },
@@ -128,7 +128,11 @@ export function Navbar() {
             </button>
             <a
               href={`tel:${PHONE_NUMBER}`}
-              onClick={() => trackButtonClick("navbar-call-now-mobile")}
+              onClick={(e) => {
+                e.preventDefault();
+                trackButtonClick("navbar-call-now-mobile");
+                reportCallConversion(`tel:${PHONE_NUMBER}`);
+              }}
               className="bg-[#173c65] text-white text-nowrap rounded-full px-4 py-1.5 text-sm transition cursor-pointer hover:bg-blue-800"
             >
               Call Now
@@ -161,7 +165,11 @@ export function Navbar() {
             </button>
             <a
               href={`tel:${PHONE_NUMBER}`}
-              onClick={() => trackButtonClick("navbar-call-now-desktop")}
+              onClick={(e) => {
+                e.preventDefault();
+                trackButtonClick("navbar-call-now-desktop");
+                reportCallConversion(`tel:${PHONE_NUMBER}`);
+              }}
               className="bg-[#173c65] text-white text-nowrap rounded-full px-6 py-2   transition cursor-pointer hover:bg-blue-800"
             >
               Call Now
