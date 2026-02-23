@@ -34,7 +34,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      
       <head>
         {/* Preconnects */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -47,14 +46,15 @@ export default function RootLayout({
         {/* Google Analytics*/}
         <script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-Y8KPN1FCXC"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17966289400"
         />
         <script
           dangerouslySetInnerHTML={{
             __html: `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());gtag('config', 'G-Y8KPN1FCXC');
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-17966289400');
       `,
           }}
         />
@@ -62,7 +62,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-      <Navbar />
+        <Navbar />
         <main className="min-h-screen">{children}</main>
         <Footer />
       </body>
