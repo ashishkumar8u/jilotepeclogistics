@@ -42,7 +42,7 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
-        <link rel="preload" as="image" href="/bannerbg.webp" />
+        {/* <link rel="preload" as="image" href="/bannerbg.webp" /> */}
         {/* Google Analytics*/}
         <script
           async
