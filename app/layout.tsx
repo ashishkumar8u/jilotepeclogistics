@@ -58,6 +58,17 @@ export default function RootLayout({
       `,
           }}
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+          gtag('event', 'conversion', {
+       'send_to': 'AW-17966289400/n39hCLHVgPwbEPij__ZC',
+       'value': 1.0,
+      'currency': 'INR'
+   });
+      `,
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
