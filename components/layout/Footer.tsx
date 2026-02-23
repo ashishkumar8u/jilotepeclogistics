@@ -69,7 +69,7 @@ export default function Footer() {
                 <p className="font-semibold text-white">Guillermo Garrido</p>
                 <p>Executive Managing Director | Industrial</p>
                 <p className="text-blue-300">guillermo.garrido@nmrk.com</p>
-                <p>+52.55.18.49.7483</p>
+                <p>+52-5518497483</p>
               </div>
 
             </div>
