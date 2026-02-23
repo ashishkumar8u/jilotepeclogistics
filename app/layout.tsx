@@ -48,6 +48,7 @@ export default function RootLayout({
           async
           src="https://www.googletagmanager.com/gtag/js?id=AW-17966289400"
         />
+
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -67,6 +68,27 @@ export default function RootLayout({
       'currency': 'INR'
    });
       `,
+          }}
+        />
+        {/* Phone conversion – Number 1 */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              gtag('config', 'AW-17966289400/9cPRCO-wwP0bEPij__ZC', {
+                'phone_conversion_number': '+52-5518497483'
+              });
+            `,
+          }}
+        />
+
+        {/*  Phone conversion – Number 2 */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              gtag('config', 'AW-17966289400/fi5CCLOHwf0bEPij__ZC', {
+                'phone_conversion_number': '+52-5539891639'
+              });
+            `,
           }}
         />
       </head>
