@@ -71,7 +71,7 @@ export default function Footer() {
                   }}
                   className="hover:text-white transition-colors cursor-pointer"
                 >
-                  +52.55.39.89.1639
+                  +52-5539891639
                 </a>
               </div>
 

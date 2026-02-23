@@ -113,8 +113,9 @@ export function StrategicLocationSection() {
         </div>
 
         {/* Key Stats Banner */}
+        
         <div className="relative bg-[#1F2937] rounded-3xl p-8 md:p-12 mb-16 overflow-hidden shadow-2xl">
-          <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 mix-blend-overlay"></div>
+          <div className="absolute inset-0 opacity-20 mix-blend-overlay"></div>
           <div className="absolute -right-20 -top-20 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
 
           <div className="relative grid md:grid-cols-3 gap-8">
