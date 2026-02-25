@@ -5,7 +5,7 @@ import { useWarehouseConfig } from '@/hooks/use-warehouse-config';
 import { useUITranslations } from '@/hooks/use-warehouse-config';
 import { bg2 } from "@/assets/images"
 import { trackButtonClick } from '@/utils/button-tracking';
-import { reportCallConversion } from '@/lib/utils';
+import { reportCallConversion, setPhoneConversionConfig } from '@/lib/utils';
 
 export default function ContactMethods() {
   const warehouseConfig = useWarehouseConfig();
@@ -19,6 +19,7 @@ export default function ContactMethods() {
 
   // Handle call button click with conversion tracking
   const handleCall = () => {
+    setPhoneConversionConfig();
     const phoneNumber = warehouseConfig.contact?.phoneNumber || '';
     if (phoneNumber) {
       reportCallConversion(`tel:${formatPhoneForCall(phoneNumber)}`);
