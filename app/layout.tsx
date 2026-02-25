@@ -71,7 +71,7 @@ export default function RootLayout({
           }}
         /> */}
         {/* Phone conversion – Number 1 */}
-        {/* <script
+        <script
           dangerouslySetInnerHTML={{
             __html: `
               gtag('config', 'AW-17966289400/9cPRCO-wwP0bEPij__ZC', {
@@ -79,10 +79,10 @@ export default function RootLayout({
               });
             `,
           }}
-        /> */}
+        />
 
         {/*  Phone conversion – Number 2 */}
-        {/* <script
+        <script
           dangerouslySetInnerHTML={{
             __html: `
               gtag('config', 'AW-17966289400/fi5CCLOHwf0bEPij__ZC', {
@@ -90,7 +90,7 @@ export default function RootLayout({
               });
             `,
           }}
-        /> */}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
