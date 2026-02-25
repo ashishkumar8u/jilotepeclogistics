@@ -2,7 +2,7 @@
 
 import type React from "react";
 import { useState } from "react";
-import { trackButtonClick } from "@/lib/utils";
+import { trackButtonClick, reportLeadFormConversion } from "@/lib/utils";
 import { getUAParsed } from "@/utils/ua-parsed";
 
 // Helper function to detect browser
@@ -238,6 +238,7 @@ export function WarehouseLeadForm() {
         throw new Error(serverMessage);
       }
 
+      reportLeadFormConversion();
       setShowToast(true);
       setTimeout(() => setShowToast(false), 5000);
 

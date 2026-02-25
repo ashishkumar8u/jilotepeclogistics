@@ -59,7 +59,7 @@ export default function RootLayout({
       `,
           }}
         />
-        <script
+        {/* <script
           dangerouslySetInnerHTML={{
             __html: `
           gtag('event', 'conversion', {
@@ -69,7 +69,7 @@ export default function RootLayout({
    });
       `,
           }}
-        />
+        /> */}
         {/* Phone conversion – Number 1 */}
         <script
           dangerouslySetInnerHTML={{

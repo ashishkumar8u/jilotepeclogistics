@@ -63,11 +63,11 @@ export default function Footer() {
                 <p>Executive Managing Director | Industrial</p>
                 <p className="text-blue-300">jorge.fabris@nmrk.com</p>
                 <a
-                  href="tel:+525539891639"
+                  href="tel:+52-5539891639"
                   onClick={(e) => {
                     e.preventDefault();
                     trackButtonClick("footer-call-jorge");
-                    reportCallConversion("tel:+525539891639");
+                    reportCallConversion("tel:+52-5539891639");
                   }}
                   className="hover:text-white transition-colors cursor-pointer"
                 >
@@ -81,11 +81,11 @@ export default function Footer() {
                 <p>Executive Managing Director | Industrial</p>
                 <p className="text-blue-300">guillermo.garrido@nmrk.com</p>
                 <a
-                  href="tel:+525518497483"
+                  href="tel:+52-5518497483"
                   onClick={(e) => {
                     e.preventDefault();
                     trackButtonClick("footer-call-guillermo");
-                    reportCallConversion("tel:+525518497483");
+                    reportCallConversion("tel:+52-5518497483");
                   }}
                   className="hover:text-white transition-colors cursor-pointer"
                 >
