@@ -66,6 +66,19 @@ export function reportCallConversion(url?: string): void {
 }
 
 /**
+ * Reports Google Ads conversion for successful lead form submission
+ */
+export function reportLeadFormConversion(): void {
+  if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+    (window as any).gtag('event', 'conversion', {
+      'send_to': 'AW-17966289400/n39hCLHVgPwbEPij__ZC',
+      'value': 1.0,
+      'currency': 'INR'
+    });
+  }
+}
+
+/**
  * Tracks button click by sending metadata to the API
  * Fire-and-forget function that doesn't block the UI
  * @param buttonId - Unique identifier for the button
