@@ -44,6 +44,28 @@ function getTimezone(): string {
  * @param buttonId - Unique identifier for the button
  */
 /**
+ * Sets Google Ads phone conversion config (call before reportCallConversion for call tracking)
+ */
+export function setPhoneConversionConfig(): void {
+  if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+    (window as any).gtag('config', 'AW-17966289400/9cPRCO-wwP0bEPij__ZC', {
+      'phone_conversion_number': '+52-5518497483'
+    });
+  }
+}
+
+/**
+ * Sets Google Ads phone conversion config for Jorge Fabris number (footer)
+ */
+export function setPhoneConversionConfigJorge(): void {
+  if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+    (window as any).gtag('config', 'AW-17966289400/fi5CCLOHwf0bEPij__ZC', {
+      'phone_conversion_number': '+52-5539891639'
+    });
+  }
+}
+
+/**
  * Reports Google Ads conversion for call button clicks
  * @param url - Optional URL to redirect to after conversion
  */

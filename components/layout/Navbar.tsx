@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/common";
-import { trackButtonClick, reportCallConversion } from "@/lib/utils";
+import { trackButtonClick, reportCallConversion, setPhoneConversionConfig } from "@/lib/utils";
 
 const NAV_ITEMS = [
   { id: "home", label: "Home" },
@@ -130,6 +130,7 @@ export function Navbar() {
               href={`tel:${PHONE_NUMBER}`}
               onClick={(e) => {
                 e.preventDefault();
+                setPhoneConversionConfig();
                 trackButtonClick("navbar-call-now-mobile");
                 reportCallConversion(`tel:${PHONE_NUMBER}`);
               }}
@@ -167,6 +168,7 @@ export function Navbar() {
               href={`tel:${PHONE_NUMBER}`}
               onClick={(e) => {
                 e.preventDefault();
+                setPhoneConversionConfig();
                 trackButtonClick("navbar-call-now-desktop");
                 reportCallConversion(`tel:${PHONE_NUMBER}`);
               }}

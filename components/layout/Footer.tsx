@@ -3,7 +3,7 @@
 import { FooterLogo } from "@/assets/images"
 import { Logo } from "@/components/common"
 import { Phone, Mail, MapPin, ExternalLink } from "lucide-react"
-import { trackButtonClick, reportCallConversion } from "@/lib/utils"
+import { trackButtonClick, reportCallConversion, setPhoneConversionConfig, setPhoneConversionConfigJorge } from "@/lib/utils"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -66,6 +66,7 @@ export default function Footer() {
                   href="tel:+52-5539891639"
                   onClick={(e) => {
                     e.preventDefault();
+                    setPhoneConversionConfigJorge();
                     trackButtonClick("footer-call-jorge");
                     reportCallConversion("tel:+52-5539891639");
                   }}
@@ -84,6 +85,7 @@ export default function Footer() {
                   href="tel:+52-5518497483"
                   onClick={(e) => {
                     e.preventDefault();
+                    setPhoneConversionConfig();
                     trackButtonClick("footer-call-guillermo");
                     reportCallConversion("tel:+52-5518497483");
                   }}
