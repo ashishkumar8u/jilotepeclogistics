@@ -332,8 +332,51 @@ export function WarehouseLeadForm() {
                     <p className="text-sm text-red-600">{fieldErrors.fullName}</p>
                   )}
                 </div>
+                 <div className="space-y-2">
+                  <label
+                    htmlFor="phone"
+                    className="block text-sm font-medium text-neutral-700"
+                  >
+                    Phone Number <span className="text-red-600">*</span>
+                  </label>
+                  <input
+                    id="phone"
+                    type="tel"
+                    inputMode="numeric"
+                    placeholder="9–12 digits (numbers only)"
+                    value={formData.phone}
+                    onChange={(e) => handleChange("phone", e.target.value)}
+                    required
+                    maxLength={12}
+                    className={`w-full rounded-lg border bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 ${fieldErrors.phone ? "border-red-500 focus:border-red-500" : "border-neutral-300 focus:border-orange-500"}`}
+                  />
+                  {fieldErrors.phone && (
+                    <p className="text-sm text-red-600">{fieldErrors.phone}</p>
+                  )}
+                </div>
 
+                
                 <div className="space-y-2">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-neutral-700"
+                  >
+                    Email Address <span className="text-red-600">*</span>
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder="john@acme.com"
+                    value={formData.email}
+                    onChange={(e) => handleChange("email", e.target.value)}
+                    required
+                    className={`w-full rounded-lg border bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 ${fieldErrors.email ? "border-red-500 focus:border-red-500" : "border-neutral-300 focus:border-orange-500"}`}
+                  />
+                  {fieldErrors.email && (
+                    <p className="text-sm text-red-600">{fieldErrors.email}</p>
+                  )}
+                </div>
+<div className="space-y-2">
                   <label
                     htmlFor="companyName"
                     className="block text-sm font-medium text-neutral-700"
@@ -356,54 +399,12 @@ export function WarehouseLeadForm() {
                   )}
                 </div>
 
-                <div className="space-y-2">
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-neutral-700"
-                  >
-                    Email Address <span className="text-red-600">*</span>
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    placeholder="john@acme.com"
-                    value={formData.email}
-                    onChange={(e) => handleChange("email", e.target.value)}
-                    required
-                    className={`w-full rounded-lg border bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 ${fieldErrors.email ? "border-red-500 focus:border-red-500" : "border-neutral-300 focus:border-orange-500"}`}
-                  />
-                  {fieldErrors.email && (
-                    <p className="text-sm text-red-600">{fieldErrors.email}</p>
-                  )}
-                </div>
-
-                <div className="space-y-2">
-                  <label
-                    htmlFor="phone"
-                    className="block text-sm font-medium text-neutral-700"
-                  >
-                    Phone Number <span className="text-red-600">*</span>
-                  </label>
-                  <input
-                    id="phone"
-                    type="tel"
-                    inputMode="numeric"
-                    placeholder="9–12 digits (numbers only)"
-                    value={formData.phone}
-                    onChange={(e) => handleChange("phone", e.target.value)}
-                    required
-                    maxLength={12}
-                    className={`w-full rounded-lg border bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 ${fieldErrors.phone ? "border-red-500 focus:border-red-500" : "border-neutral-300 focus:border-orange-500"}`}
-                  />
-                  {fieldErrors.phone && (
-                    <p className="text-sm text-red-600">{fieldErrors.phone}</p>
-                  )}
-                </div>
+               
               </div>
             </div>
 
             {/* Warehouse Requirements Section */}
-            <div className="space-y-6">
+            {/* <div className="space-y-6">
               <div className="border-l-4 border-[#173c65] pl-4">
                 <h3 className="text-lg font-semibold text-[#173c65]">
                   Warehouse Requirements
@@ -513,10 +514,10 @@ export function WarehouseLeadForm() {
                   className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                 />
               </div>
-            </div>
+            </div> */}
 
             {/* Additional Information Section */}
-            <div className="space-y-6">
+            {/* <div className="space-y-6">
               <div className="border-l-4 border-[#173c65] pl-4">
                 <h3 className="text-lg font-semibold text-[#173c65]">
                   Additional Information
@@ -542,19 +543,19 @@ export function WarehouseLeadForm() {
                   className="w-full resize-none rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                 />
               </div>
-            </div>
+            </div> */}
 
-            <div className="flex flex-col items-start justify-between gap-4 border-t border-neutral-200 pt-6 sm:flex-row sm:items-center">
-              <p className="text-sm text-neutral-600">
+            <div className="flex flex-col items-start justify-center gap-4 border-t border-neutral-200 pt-6 sm:flex-row sm:items-center">
+              {/* <p className="text-sm text-neutral-600">
                 <span className="text-red-600">*</span> Required fields
-              </p>
+              </p> */}
               <button
                 type="submit"
                 disabled={isSubmitting}
                 onClick={() => trackButtonClick("form-submit-inquiry")}
                 className="w-full rounded-lg bg-[#173c65] px-8 py-3 font-medium text-white transition-colors hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
               >
-                {isSubmitting ? "Submitting..." : "Submit Inquiry"}
+                {isSubmitting ? "Submitting..." : "Schedule a Tour"}
               </button>
             </div>
             <p className=" text-xs text-center text-gray-600 ">
