@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/common";
-import { trackButtonClick, reportCallConversion } from "@/lib/utils";
+import { trackButtonClick } from "@/lib/utils";
+import Link from "next/link";
 
 const NAV_ITEMS = [
   { id: "home", label: "Home" },
@@ -62,7 +63,7 @@ export function Navbar() {
 
   const scrollToSection = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    sectionId: string
+    sectionId: string,
   ) => {
     e.preventDefault();
     const element = document.getElementById(sectionId);
@@ -99,7 +100,7 @@ export function Navbar() {
             <button
               className="text-black "
               onClick={() => {
-                trackButtonClick('navbar-hamburger-menu');
+                trackButtonClick("navbar-hamburger-menu");
                 setIsOpen(!isOpen);
               }}
               aria-label="Toggle menu"
@@ -122,21 +123,22 @@ export function Navbar() {
             <button
               className="inline-flex items-center justify-center text-sm font-semibold text-[#173C65] bg-white border border-[#173C65] px-3 py-1.5 rounded-md shadow-sm hover:bg-[#EFF6FF] transition-colors"
               aria-label="Toggle language"
-              onClick={() => setLanguage((prev) => (prev === "en" ? "es" : "en"))}
+              onClick={() =>
+                setLanguage((prev) => (prev === "en" ? "es" : "en"))
+              }
             >
               {language === "en" ? "ES" : "EN"}
             </button>
-            <a
-              href={`tel:${PHONE_NUMBER}`}
-              onClick={(e) => {
-                e.preventDefault();
-                trackButtonClick("navbar-call-now-mobile");
-                reportCallConversion(`tel:${PHONE_NUMBER}`);
+            <Link
+              href="#contact"
+              onClick={() => {
+                trackButtonClick("navbar-call-now-desktop");
+                // reportCallConversion(`tel:${PHONE_NUMBER}`);
               }}
-              className="bg-[#173c65] text-white text-nowrap rounded-full px-4 py-1.5 text-sm transition cursor-pointer hover:bg-blue-800"
+              className="bg-[#173c65] text-white text-nowrap rounded-full px-6 py-2   transition cursor-pointer hover:bg-blue-800"
             >
-              Call Now
-            </a>
+              Book Now
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
@@ -155,25 +157,25 @@ export function Navbar() {
 
           {/* Desktop Contact */}
           <div className="hidden lg:flex items-center gap-4">
-          <button
-             
+            <button
               className="inline-flex items-center justify-center text-sm font-semibold text-[#173C65] bg-white border border-[#173C65] px-4 py-2 rounded-md shadow-sm hover:bg-[#EFF6FF] transition-colors"
               aria-label="Toggle language"
-              onClick={() => setLanguage((prev) => (prev === "en" ? "es" : "en"))}
+              onClick={() =>
+                setLanguage((prev) => (prev === "en" ? "es" : "en"))
+              }
             >
               {language === "en" ? "ES" : "EN"}
             </button>
-            <a
-              href={`tel:${PHONE_NUMBER}`}
-              onClick={(e) => {
-                e.preventDefault();
+            <Link
+              href="#contact"
+              onClick={() => {
                 trackButtonClick("navbar-call-now-desktop");
-                reportCallConversion(`tel:${PHONE_NUMBER}`);
+                // reportCallConversion(`tel:${PHONE_NUMBER}`);
               }}
               className="bg-[#173c65] text-white text-nowrap rounded-full px-6 py-2   transition cursor-pointer hover:bg-blue-800"
             >
-              Call Now
-            </a>
+              Book Now
+            </Link>
           </div>
         </div>
       </div>
@@ -192,8 +194,6 @@ export function Navbar() {
                 {item.label}
               </a>
             ))}
-
-           
           </div>
         </div>
       )}

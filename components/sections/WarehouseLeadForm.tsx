@@ -38,7 +38,7 @@ const detectDeviceType = (): string => {
 // Validation helpers
 const NAME_REGEX = /^[a-zA-Z\s\-']*$/; // letters, spaces, hyphen, apostrophe only
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_LENGTH = /^\d{9,12}$/;  // 9–12 digits for validation
+const PHONE_LENGTH = /^\d{9,12}$/; // 9–12 digits for validation
 
 export function WarehouseLeadForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -91,13 +91,15 @@ export function WarehouseLeadForm() {
     if (!trimmedName) {
       errors.fullName = "Full name is required.";
     } else if (!NAME_REGEX.test(trimmedName)) {
-      errors.fullName = "Full name can only contain letters, spaces, hyphens and apostrophes.";
+      errors.fullName =
+        "Full name can only contain letters, spaces, hyphens and apostrophes.";
     }
 
     if (!trimmedCompany) {
       errors.companyName = "Company name is required.";
     } else if (!NAME_REGEX.test(trimmedCompany)) {
-      errors.companyName = "Company name can only contain letters, spaces, hyphens and apostrophes.";
+      errors.companyName =
+        "Company name can only contain letters, spaces, hyphens and apostrophes.";
     }
 
     if (!trimmedEmail) {
@@ -129,7 +131,7 @@ export function WarehouseLeadForm() {
       const browser = detectBrowser();
       const deviceType = detectDeviceType();
       const clientIP = await getClientIP();
-       const ua_parsed = getUAParsed();
+      const ua_parsed = getUAParsed();
       const apiBase = `${process.env.NEXT_PUBLIC_BASE_URL}`.replace(/\/+$/, "");
       const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
       const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
@@ -142,7 +144,9 @@ export function WarehouseLeadForm() {
         throw new Error("Client ID is not configured (NEXT_PUBLIC_CLIENT_ID)");
       }
       if (!projectId || projectId === "undefined") {
-        throw new Error("Project ID is not configured (NEXT_PUBLIC_PROJECT_ID)");
+        throw new Error(
+          "Project ID is not configured (NEXT_PUBLIC_PROJECT_ID)",
+        );
       }
       if (!apiKey || apiKey === "undefined") {
         throw new Error("API key is not configured (NEXT_PUBLIC_API_KEY)");
@@ -217,9 +221,7 @@ export function WarehouseLeadForm() {
             const loc = first?.loc;
             const msg = first?.msg ?? "Field required";
             const field =
-              Array.isArray(loc) && loc.length > 0
-                ? loc.slice(-1)[0]
-                : null;
+              Array.isArray(loc) && loc.length > 0 ? loc.slice(-1)[0] : null;
             serverMessage = field
               ? `${msg}: ${String(field).replace(/_/g, " ")}`
               : msg;
@@ -258,7 +260,9 @@ export function WarehouseLeadForm() {
       setFieldErrors({});
     } catch (err) {
       const message =
-        err instanceof Error ? err.message : "Something went wrong while submitting. Please try again.";
+        err instanceof Error
+          ? err.message
+          : "Something went wrong while submitting. Please try again.";
       setErrorMessage(message);
     } finally {
       setIsSubmitting(false);
@@ -329,30 +333,31 @@ export function WarehouseLeadForm() {
                     className={`w-full rounded-lg border bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 ${fieldErrors.fullName ? "border-red-500 focus:border-red-500" : "border-neutral-300 focus:border-orange-500"}`}
                   />
                   {fieldErrors.fullName && (
-                    <p className="text-sm text-red-600">{fieldErrors.fullName}</p>
+                    <p className="text-sm text-red-600">
+                      {fieldErrors.fullName}
+                    </p>
                   )}
                 </div>
-
                 <div className="space-y-2">
                   <label
-                    htmlFor="companyName"
+                    htmlFor="phone"
                     className="block text-sm font-medium text-neutral-700"
                   >
-                    Company Name <span className="text-red-600">*</span>
+                    Phone Number <span className="text-red-600">*</span>
                   </label>
                   <input
-                    id="companyName"
-                    type="text"
-                    placeholder="Acme Corporation"
-                    value={formData.companyName}
-                    onChange={(e) =>
-                      handleChange("companyName", e.target.value)
-                    }
+                    id="phone"
+                    type="tel"
+                    inputMode="numeric"
+                    placeholder="9–12 digits (numbers only)"
+                    value={formData.phone}
+                    onChange={(e) => handleChange("phone", e.target.value)}
                     required
-                    className={`w-full rounded-lg border bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 ${fieldErrors.companyName ? "border-red-500 focus:border-red-500" : "border-neutral-300 focus:border-orange-500"}`}
+                    maxLength={12}
+                    className={`w-full rounded-lg border bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 ${fieldErrors.phone ? "border-red-500 focus:border-red-500" : "border-neutral-300 focus:border-orange-500"}`}
                   />
-                  {fieldErrors.companyName && (
-                    <p className="text-sm text-red-600">{fieldErrors.companyName}</p>
+                  {fieldErrors.phone && (
+                    <p className="text-sm text-red-600">{fieldErrors.phone}</p>
                   )}
                 </div>
 
@@ -376,34 +381,35 @@ export function WarehouseLeadForm() {
                     <p className="text-sm text-red-600">{fieldErrors.email}</p>
                   )}
                 </div>
-
                 <div className="space-y-2">
                   <label
-                    htmlFor="phone"
+                    htmlFor="companyName"
                     className="block text-sm font-medium text-neutral-700"
                   >
-                    Phone Number <span className="text-red-600">*</span>
+                    Company Name <span className="text-red-600">*</span>
                   </label>
                   <input
-                    id="phone"
-                    type="tel"
-                    inputMode="numeric"
-                    placeholder="9–12 digits (numbers only)"
-                    value={formData.phone}
-                    onChange={(e) => handleChange("phone", e.target.value)}
+                    id="companyName"
+                    type="text"
+                    placeholder="Acme Corporation"
+                    value={formData.companyName}
+                    onChange={(e) =>
+                      handleChange("companyName", e.target.value)
+                    }
                     required
-                    maxLength={12}
-                    className={`w-full rounded-lg border bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 ${fieldErrors.phone ? "border-red-500 focus:border-red-500" : "border-neutral-300 focus:border-orange-500"}`}
+                    className={`w-full rounded-lg border bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 ${fieldErrors.companyName ? "border-red-500 focus:border-red-500" : "border-neutral-300 focus:border-orange-500"}`}
                   />
-                  {fieldErrors.phone && (
-                    <p className="text-sm text-red-600">{fieldErrors.phone}</p>
+                  {fieldErrors.companyName && (
+                    <p className="text-sm text-red-600">
+                      {fieldErrors.companyName}
+                    </p>
                   )}
                 </div>
               </div>
             </div>
 
             {/* Warehouse Requirements Section */}
-            <div className="space-y-6">
+            {/* <div className="space-y-6">
               <div className="border-l-4 border-[#173c65] pl-4">
                 <h3 className="text-lg font-semibold text-[#173c65]">
                   Warehouse Requirements
@@ -513,10 +519,10 @@ export function WarehouseLeadForm() {
                   className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                 />
               </div>
-            </div>
+            </div> */}
 
             {/* Additional Information Section */}
-            <div className="space-y-6">
+            {/* <div className="space-y-6">
               <div className="border-l-4 border-[#173c65] pl-4">
                 <h3 className="text-lg font-semibold text-[#173c65]">
                   Additional Information
@@ -542,31 +548,31 @@ export function WarehouseLeadForm() {
                   className="w-full resize-none rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                 />
               </div>
-            </div>
+            </div> */}
 
-            <div className="flex flex-col items-start justify-between gap-4 border-t border-neutral-200 pt-6 sm:flex-row sm:items-center">
-              <p className="text-sm text-neutral-600">
+            <div className="flex flex-col items-start justify-center gap-4   pt-6 sm:flex-row sm:items-center">
+              {/* <p className="text-sm text-neutral-600">
                 <span className="text-red-600">*</span> Required fields
-              </p>
+              </p> */}
               <button
                 type="submit"
                 disabled={isSubmitting}
                 onClick={() => trackButtonClick("form-submit-inquiry")}
                 className="w-full rounded-lg bg-[#173c65] px-8 py-3 font-medium text-white transition-colors hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
               >
-                {isSubmitting ? "Submitting..." : "Submit Inquiry"}
+                {isSubmitting ? "Submitting..." : "Schedule a Tour"}
               </button>
             </div>
             <p className=" text-xs text-center text-gray-600 ">
-              This information has been prepared by Jilotepec Logistics for general
-              information only. Jilotepec Logistics makes no warranties nor representations
-              of any kind, express or implied, with respect to the information,
-              including, but not limited to, warranties of content, accuracy,
-              and reliability. Any interested party should make their own
-              inquiries about the accuracy of the information. Jilotepec Logistics
-              unequivocally excludes all inferred or implied terms, conditions
-              and warranties arising from this document and excludes all
-              liability for loss and damage arising therefrom.
+              This information has been prepared by Jilotepec Logistics for
+              general information only. Jilotepec Logistics makes no warranties
+              nor representations of any kind, express or implied, with respect
+              to the information, including, but not limited to, warranties of
+              content, accuracy, and reliability. Any interested party should
+              make their own inquiries about the accuracy of the information.
+              Jilotepec Logistics unequivocally excludes all inferred or implied
+              terms, conditions and warranties arising from this document and
+              excludes all liability for loss and damage arising therefrom.
             </p>
           </form>
         </div>
