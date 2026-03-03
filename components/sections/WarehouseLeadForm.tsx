@@ -6,7 +6,7 @@ import { trackButtonClick, reportLeadFormConversion } from "@/lib/utils";
 import { getUAParsed } from "@/utils/ua-parsed";
 
 // Helper function to detect browser
-const detectBrowser = (): string => {
+export const detectBrowser = (): string => {
   if (typeof window === "undefined") return "Unknown";
   const ua = navigator.userAgent;
   if (ua.includes("Chrome") && !ua.includes("Edg")) return "Chrome";
@@ -18,7 +18,7 @@ const detectBrowser = (): string => {
 };
 
 // Helper function to detect device type
-const detectDeviceType = (): string => {
+export const detectDeviceType = (): string => {
   if (typeof window === "undefined") return "Unknown";
   const ua = navigator.userAgent.toLowerCase();
   const width = window.innerWidth;
@@ -46,7 +46,7 @@ export function WarehouseLeadForm() {
   const [errorMessage, setErrorMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<{
     fullName?: string;
-    companyName?: string;
+    // companyName?: string;
     email?: string;
     phone?: string;
   }>({});
@@ -84,7 +84,7 @@ export function WarehouseLeadForm() {
   const validateForm = (): boolean => {
     const errors: typeof fieldErrors = {};
     const trimmedName = formData.fullName.trim();
-    const trimmedCompany = formData.companyName.trim();
+    // const trimmedCompany = formData.companyName.trim();
     const trimmedEmail = formData.email.trim();
     const phoneDigits = formData.phone.replace(/\D/g, "");
 
@@ -95,12 +95,12 @@ export function WarehouseLeadForm() {
         "Full name can only contain letters, spaces, hyphens and apostrophes.";
     }
 
-    if (!trimmedCompany) {
-      errors.companyName = "Company name is required.";
-    } else if (!NAME_REGEX.test(trimmedCompany)) {
-      errors.companyName =
-        "Company name can only contain letters, spaces, hyphens and apostrophes.";
-    }
+    // if (!trimmedCompany) {
+    //   errors.companyName = "Company name is required.";
+    // } else if (!NAME_REGEX.test(trimmedCompany)) {
+    //   errors.companyName =
+    //     "Company name can only contain letters, spaces, hyphens and apostrophes.";
+    // }
 
     if (!trimmedEmail) {
       errors.email = "Email is required.";
@@ -386,7 +386,7 @@ export function WarehouseLeadForm() {
                     htmlFor="companyName"
                     className="block text-sm font-medium text-neutral-700"
                   >
-                    Company Name <span className="text-red-600">*</span>
+                    Company Name 
                   </label>
                   <input
                     id="companyName"
@@ -396,14 +396,9 @@ export function WarehouseLeadForm() {
                     onChange={(e) =>
                       handleChange("companyName", e.target.value)
                     }
-                    required
-                    className={`w-full rounded-lg border bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 ${fieldErrors.companyName ? "border-red-500 focus:border-red-500" : "border-neutral-300 focus:border-orange-500"}`}
+                    
+                    className={`w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20   focus:border-orange-500`}
                   />
-                  {fieldErrors.companyName && (
-                    <p className="text-sm text-red-600">
-                      {fieldErrors.companyName}
-                    </p>
-                  )}
                 </div>
               </div>
             </div>

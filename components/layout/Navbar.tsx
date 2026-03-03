@@ -5,6 +5,8 @@ import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/common";
 import { trackButtonClick } from "@/lib/utils";
 import Link from "next/link";
+import { Modal } from "../common/Modal";
+import { CallbackForm } from "../common/CallbackForm";
 
 const NAV_ITEMS = [
   { id: "home", label: "Home" },
@@ -22,6 +24,7 @@ export function Navbar() {
   const [activeSection, setActiveSection] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [language, setLanguage] = useState("en");
+  const [isCallbackOpen, setIsCallbackOpen] = useState(false);
 
   useEffect(() => {
     let ticking = false;
@@ -129,16 +132,15 @@ export function Navbar() {
             >
               {language === "en" ? "ES" : "EN"}
             </button>
-            <Link
-              href="#contact"
+            <button
               onClick={() => {
-                trackButtonClick("navbar-call-now-desktop");
-                // reportCallConversion(`tel:${PHONE_NUMBER}`);
+                trackButtonClick("navbar-get-callback");
+                setIsCallbackOpen(true);
               }}
-              className="bg-[#173c65] text-white text-nowrap rounded-full px-6 py-2   transition cursor-pointer hover:bg-blue-800"
+              className="bg-[#173c65] text-white text-nowrap rounded-full px-6 py-2 transition cursor-pointer hover:bg-blue-800"
             >
-              Book Now
-            </Link>
+              Get A Callback
+            </button>
           </div>
 
           {/* Desktop Navigation */}
@@ -166,19 +168,26 @@ export function Navbar() {
             >
               {language === "en" ? "ES" : "EN"}
             </button>
-            <Link
-              href="#contact"
+            <button
               onClick={() => {
-                trackButtonClick("navbar-call-now-desktop");
-                // reportCallConversion(`tel:${PHONE_NUMBER}`);
+                trackButtonClick("navbar-get-callback");
+                setIsCallbackOpen(true);
               }}
-              className="bg-[#173c65] text-white text-nowrap rounded-full px-6 py-2   transition cursor-pointer hover:bg-blue-800"
+              className="bg-[#173c65] text-white text-nowrap rounded-full px-6 py-2 transition cursor-pointer hover:bg-blue-800"
             >
-              Book Now
-            </Link>
+              Get A Callback
+            </button>
           </div>
         </div>
       </div>
+
+      <Modal
+        isOpen={isCallbackOpen}
+        onClose={() => setIsCallbackOpen(false)}
+        title="Request a Callback"
+      >
+        <CallbackForm onClose={() => setIsCallbackOpen(false)} />
+      </Modal>
 
       {/* Mobile Menu */}
       {isOpen && (
