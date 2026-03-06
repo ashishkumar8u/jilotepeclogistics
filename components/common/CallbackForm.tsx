@@ -158,14 +158,14 @@ export function CallbackForm({ onClose }: { onClose: () => void }) {
 
       reportLeadFormConversion();
       setShowToast(true);
-      setTimeout(() => setShowToast(false), 5000);
-
-      // Reset form
       setFormData({
         phone: "",
       });
-      onClose();
       setFieldErrors({});
+      setTimeout(() => {
+        setShowToast(false);
+        onClose();
+      }, 1000);
     } catch (err) {
       const message =
         err instanceof Error
