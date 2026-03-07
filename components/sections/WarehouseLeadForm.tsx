@@ -126,8 +126,13 @@ export function WarehouseLeadForm() {
     setIsSubmitting(true);
 
     try {
-      const timezone =
-        Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
+      let timezone = "UTC";
+      try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (tz && typeof tz === "string" && tz.trim()) timezone = tz.trim();
+      } catch {
+        timezone = "UTC";
+      }
       const browser = detectBrowser();
       const deviceType = detectDeviceType();
       const clientIP = await getClientIP();
@@ -180,6 +185,7 @@ export function WarehouseLeadForm() {
       const payload = {
         client_id: clientId,
         project_id: projectId,
+        timezone,
         form_data: {
           full_name: formData.fullName.trim(),
           company_name: formData.companyName.trim(),

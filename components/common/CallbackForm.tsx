@@ -7,6 +7,7 @@ import { reportLeadFormConversion } from "@/lib/utils";
 
 export function CallbackForm({ onClose }: { onClose: () => void }) {
   const [showToast, setShowToast] = useState(false);
+  const [showErrorToast, setShowErrorToast] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -54,12 +55,18 @@ export function CallbackForm({ onClose }: { onClose: () => void }) {
     e.preventDefault();
     setFieldErrors({});
     setErrorMessage("");
+    setShowErrorToast(false);
     if (!validateForm()) return;
     setIsSubmitting(true);
 
     try {
-      const timezone =
-        Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
+      let timezone = "UTC";
+      try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (tz && typeof tz === "string" && tz.trim()) timezone = tz.trim();
+      } catch {
+        timezone = "UTC";
+      }
       const browser = detectBrowser();
       const deviceType = detectDeviceType();
       const clientIP = await getClientIP();
@@ -107,6 +114,7 @@ export function CallbackForm({ onClose }: { onClose: () => void }) {
       const payload = {
         client_id: clientId,
         project_id: projectId,
+        timezone,
         form_data: {
           phone: formData.phone.trim(),
           timezone,
@@ -172,6 +180,8 @@ export function CallbackForm({ onClose }: { onClose: () => void }) {
           ? err.message
           : "Something went wrong while submitting. Please try again.";
       setErrorMessage(message);
+      setShowErrorToast(true);
+      setTimeout(() => setShowErrorToast(false), 5000);
     } finally {
       setIsSubmitting(false);
     }
@@ -252,6 +262,29 @@ export function CallbackForm({ onClose }: { onClose: () => void }) {
                 Our team will contact you within 24 hours to discuss your
                 warehouse needs.
               </p>
+            </div>
+          </div>
+        </div>
+      )}
+      {showErrorToast && errorMessage && (
+        <div className="fixed bottom-4 right-4 z-50 max-w-md rounded-lg border border-red-200 bg-red-50 p-4 shadow-lg">
+          <div className="flex items-start gap-3">
+            <div className="shrink-0 rounded-full bg-red-100 p-1">
+              <svg
+                className="h-5 w-5 text-red-600"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <h4 className="font-semibold text-red-900">Submission failed</h4>
+              <p className="mt-1 text-sm text-red-700">{errorMessage}</p>
             </div>
           </div>
         </div>

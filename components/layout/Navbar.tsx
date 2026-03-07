@@ -99,7 +99,7 @@ export function Navbar() {
       <div className="xl:max-w-7xl w-[95%] mx-auto ">
         <div className="flex items-center justify-between h-16 relative lg:ml-14">
           {/* Mobile Left Side - Hamburger */}
-          <div className="lg:hidden flex-2">
+          <div className="lg:hidden flex-shrink-0">
             <button
               className="text-black "
               onClick={() => {
@@ -112,17 +112,28 @@ export function Navbar() {
             </button>
           </div>
 
-          {/* Logo - Centered on mobile, left on desktop */}
+          {/* Logo - On mobile: flex middle (shrinkable). On desktop: left then centered nav */}
+          <div className="lg:hidden flex-1 min-w-0 overflow-hidden flex items-center justify-center px-1">
+            <a
+              href="#home"
+              onClick={(e) => scrollToSection(e, "home")}
+              className="min-w-0 max-w-full overflow-hidden flex items-center justify-center"
+            >
+              <span className="block truncate min-w-0 max-w-full text-center">
+                <Logo className="h-auto min-h-6 leading-tight" />
+              </span>
+            </a>
+          </div>
           <a
             href="#home"
             onClick={(e) => scrollToSection(e, "home")}
-            className="absolute left-[8rem] md:left-1/2 transform -translate-x-1/2 max-[350px]:-ml-8 max-[350px]:mt-1 lg:relative lg:left-0 lg:transform-none lg:ml-12 flex items-center gap-3"
+            className="hidden lg:flex lg:items-center lg:gap-3 lg:ml-12"
           >
             <Logo className="h-auto min-h-6 leading-tight lg:h-6 lg:leading-normal" />
           </a>
 
-          {/* Mobile Right Side - Language Switcher & Call Now */}
-          <div className="lg:hidden flex items-center gap-2 flex-1 justify-end">
+          {/* Mobile Right Side - Language Switcher & Get A Callback */}
+          <div className="lg:hidden flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
             <button
               className="inline-flex items-center justify-center text-sm font-semibold text-[#173C65] bg-white border border-[#173C65] px-3 py-1.5 rounded-md shadow-sm hover:bg-[#EFF6FF] transition-colors"
               aria-label="Toggle language"
@@ -137,7 +148,7 @@ export function Navbar() {
                 trackButtonClick("navbar-get-callback");
                 setIsCallbackOpen(true);
               }}
-              className="bg-[#173c65] text-white text-nowrap rounded-full px-6 py-2 transition cursor-pointer hover:bg-blue-800"
+              className="bg-[#173c65] text-white text-nowrap rounded-full px-3 py-1.5 sm:px-6 sm:py-2 text-xs sm:text-sm transition cursor-pointer hover:bg-blue-800"
             >
               Get A Callback
             </button>
