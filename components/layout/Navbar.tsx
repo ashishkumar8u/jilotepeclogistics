@@ -3,7 +3,10 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/common";
-import { trackButtonClick, reportCallConversion } from "@/lib/utils";
+import { trackButtonClick } from "@/lib/utils";
+import Link from "next/link";
+import { Modal } from "../common/Modal";
+import { CallbackForm } from "../common/CallbackForm";
 
 const NAV_ITEMS = [
   { id: "home", label: "Home" },
@@ -21,6 +24,7 @@ export function Navbar() {
   const [activeSection, setActiveSection] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [language, setLanguage] = useState("en");
+  const [isCallbackOpen, setIsCallbackOpen] = useState(false);
 
   useEffect(() => {
     let ticking = false;
@@ -62,7 +66,7 @@ export function Navbar() {
 
   const scrollToSection = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    sectionId: string
+    sectionId: string,
   ) => {
     e.preventDefault();
     const element = document.getElementById(sectionId);
@@ -95,11 +99,11 @@ export function Navbar() {
       <div className="xl:max-w-7xl w-[95%] mx-auto ">
         <div className="flex items-center justify-between h-16 relative lg:ml-14">
           {/* Mobile Left Side - Hamburger */}
-          <div className="lg:hidden flex-2">
+          <div className="lg:hidden flex-shrink-0">
             <button
               className="text-black "
               onClick={() => {
-                trackButtonClick('navbar-hamburger-menu');
+                trackButtonClick("navbar-hamburger-menu");
                 setIsOpen(!isOpen);
               }}
               aria-label="Toggle menu"
@@ -108,35 +112,46 @@ export function Navbar() {
             </button>
           </div>
 
-          {/* Logo - Centered on mobile, left on desktop */}
+          {/* Logo - On mobile: flex middle (shrinkable). On desktop: left then centered nav */}
+          <div className="lg:hidden flex-1 min-w-0 overflow-hidden flex items-center justify-center px-1">
+            <a
+              href="#home"
+              onClick={(e) => scrollToSection(e, "home")}
+              className="min-w-0 max-w-full overflow-hidden flex items-center justify-center"
+            >
+              <span className="block truncate min-w-0 max-w-full text-center">
+                <Logo className="h-auto min-h-6 leading-tight" />
+              </span>
+            </a>
+          </div>
           <a
             href="#home"
             onClick={(e) => scrollToSection(e, "home")}
-            className="absolute left-[8rem] md:left-1/2 transform -translate-x-1/2 max-[350px]:-ml-8 max-[350px]:mt-1 lg:relative lg:left-0 lg:transform-none lg:ml-12 flex items-center gap-3"
+            className="hidden lg:flex lg:items-center lg:gap-3 lg:ml-12"
           >
             <Logo className="h-auto min-h-6 leading-tight lg:h-6 lg:leading-normal" />
           </a>
 
-          {/* Mobile Right Side - Language Switcher & Call Now */}
-          <div className="lg:hidden flex items-center gap-2 flex-1 justify-end">
+          {/* Mobile Right Side - Language Switcher & Get A Callback */}
+          <div className="lg:hidden flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
             <button
               className="inline-flex items-center justify-center text-sm font-semibold text-[#173C65] bg-white border border-[#173C65] px-3 py-1.5 rounded-md shadow-sm hover:bg-[#EFF6FF] transition-colors"
               aria-label="Toggle language"
-              onClick={() => setLanguage((prev) => (prev === "en" ? "es" : "en"))}
+              onClick={() =>
+                setLanguage((prev) => (prev === "en" ? "es" : "en"))
+              }
             >
               {language === "en" ? "ES" : "EN"}
             </button>
-            <a
-              href={`tel:${PHONE_NUMBER}`}
-              onClick={(e) => {
-                e.preventDefault();
-                trackButtonClick("navbar-call-now-mobile");
-                reportCallConversion(`tel:${PHONE_NUMBER}`);
+            <button
+              onClick={() => {
+                trackButtonClick("navbar-get-callback");
+                setIsCallbackOpen(true);
               }}
-              className="bg-[#173c65] text-white text-nowrap rounded-full px-4 py-1.5 text-sm transition cursor-pointer hover:bg-blue-800"
+              className="bg-[#173c65] text-white text-nowrap rounded-full px-3 py-1.5 sm:px-6 sm:py-2 text-xs sm:text-sm transition cursor-pointer hover:bg-blue-800"
             >
-              Call Now
-            </a>
+              Get A Callback
+            </button>
           </div>
 
           {/* Desktop Navigation */}
@@ -155,28 +170,35 @@ export function Navbar() {
 
           {/* Desktop Contact */}
           <div className="hidden lg:flex items-center gap-4">
-          <button
-             
+            <button
               className="inline-flex items-center justify-center text-sm font-semibold text-[#173C65] bg-white border border-[#173C65] px-4 py-2 rounded-md shadow-sm hover:bg-[#EFF6FF] transition-colors"
               aria-label="Toggle language"
-              onClick={() => setLanguage((prev) => (prev === "en" ? "es" : "en"))}
+              onClick={() =>
+                setLanguage((prev) => (prev === "en" ? "es" : "en"))
+              }
             >
               {language === "en" ? "ES" : "EN"}
             </button>
-            <a
-              href={`tel:${PHONE_NUMBER}`}
-              onClick={(e) => {
-                e.preventDefault();
-                trackButtonClick("navbar-call-now-desktop");
-                reportCallConversion(`tel:${PHONE_NUMBER}`);
+            <button
+              onClick={() => {
+                trackButtonClick("navbar-get-callback");
+                setIsCallbackOpen(true);
               }}
-              className="bg-[#173c65] text-white text-nowrap rounded-full px-6 py-2   transition cursor-pointer hover:bg-blue-800"
+              className="bg-[#173c65] text-white text-nowrap rounded-full px-6 py-2 transition cursor-pointer hover:bg-blue-800"
             >
-              Call Now
-            </a>
+              Get A Callback
+            </button>
           </div>
         </div>
       </div>
+
+      <Modal
+        isOpen={isCallbackOpen}
+        onClose={() => setIsCallbackOpen(false)}
+        title="Request a Callback"
+      >
+        <CallbackForm onClose={() => setIsCallbackOpen(false)} />
+      </Modal>
 
       {/* Mobile Menu */}
       {isOpen && (
@@ -192,8 +214,6 @@ export function Navbar() {
                 {item.label}
               </a>
             ))}
-
-           
           </div>
         </div>
       )}
