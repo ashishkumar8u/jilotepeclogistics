@@ -97,7 +97,7 @@ export function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b bg-white max-w-[1520px] mx-auto ">
       <div className="xl:max-w-7xl w-[95%] mx-auto ">
-        <div className="flex items-center justify-between h-16 relative lg:ml-14">
+        <div className="flex items-center justify-between h-16 relative">
           {/* Mobile Left Side - Hamburger */}
           <div className="lg:hidden flex-shrink-0">
             <button
@@ -127,7 +127,7 @@ export function Navbar() {
           <a
             href="#home"
             onClick={(e) => scrollToSection(e, "home")}
-            className="hidden lg:flex lg:items-center lg:gap-3 lg:ml-12"
+            className="hidden lg:flex lg:items-center lg:gap-3"
           >
             <Logo className="h-auto min-h-6 leading-tight lg:h-6 lg:leading-normal" />
           </a>
