@@ -205,7 +205,7 @@ export const translations: Record<Locale, Record<string, unknown>> = {
       disclaimer: "Disclaimer",
       disclaimerText:
         "This document has been prepared for general informational purposes only. No warranties or representations of any kind, whether express or implied, are made with respect to the information contained herein, including, without limitation, its content, accuracy, or reliability. Any interested party should conduct its own independent investigation and verification of the information. All inferred or implied terms, conditions, and warranties arising from this document are expressly excluded, as is any liability for loss or damage arising from its use. The information contained herein is subject to change without prior notice.",
-      copyright: "© 2025 Jilotepec Logistics. All rights reserved.",
+      copyright: "© 2026 Jilotepec Logistics. All rights reserved.",
     },
   },
   es: {
@@ -408,7 +408,7 @@ export const translations: Record<Locale, Record<string, unknown>> = {
       disclaimer: "Aviso legal",
       disclaimerText:
         "Este documento ha sido preparado únicamente con fines informativos. No se otorgan garantías ni representaciones de ningún tipo respecto a la información. Cualquier parte interesada debe realizar su propia investigación. Se excluye toda responsabilidad por pérdidas o daños. La información está sujeta a cambios sin previo aviso.",
-      copyright: "© 2025 Jilotepec Logistics. Todos los derechos reservados.",
+      copyright: "© 2026 Jilotepec Logistics. Todos los derechos reservados.",
     },
   },
 };
