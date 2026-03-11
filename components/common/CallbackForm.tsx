@@ -4,8 +4,12 @@ import { useState } from "react";
 import { detectBrowser, detectDeviceType } from "../sections/WarehouseLeadForm";
 import { getUAParsed } from "@/utils/ua-parsed";
 import { reportLeadFormConversion } from "@/lib/utils";
+import { useLanguage } from "@/lib/LanguageContext";
+import { translations } from "@/lib/translations";
 
 export function CallbackForm({ onClose }: { onClose: () => void }) {
+  const { language } = useLanguage();
+  const t = translations[language].callbackForm as Record<string, string>;
   const [showToast, setShowToast] = useState(false);
   const [showErrorToast, setShowErrorToast] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -24,9 +28,9 @@ export function CallbackForm({ onClose }: { onClose: () => void }) {
     const phoneDigits = formData.phone.replace(/\D/g, "");
 
     if (!formData.phone.trim()) {
-      errors.phone = "Phone number is required.";
+      errors.phone = t.phoneRequired;
     } else if (!PHONE_LENGTH.test(phoneDigits)) {
-      errors.phone = "Phone must be 9–12 digits (numbers only).";
+      errors.phone = t.phoneInvalid;
     }
 
     setFieldErrors(errors);
@@ -212,7 +216,7 @@ export function CallbackForm({ onClose }: { onClose: () => void }) {
             htmlFor="phone"
             className="block text-sm font-medium text-neutral-700"
           >
-            Phone Number <span className="text-red-600">*</span>
+            {t.phoneLabel} <span className="text-red-600">*</span>
           </label>
           <input
             id="phone"
@@ -235,7 +239,7 @@ export function CallbackForm({ onClose }: { onClose: () => void }) {
           disabled={isSubmitting}
           className="w-full bg-[#173C65] text-white py-2 rounded-lg hover:bg-blue-800 transition"
         >
-          {isSubmitting ? "Submitting..." : "Request Callback"}
+          {isSubmitting ? t.submitting : t.submit}
         </button>
       </form>
       {showToast && (
@@ -256,11 +260,10 @@ export function CallbackForm({ onClose }: { onClose: () => void }) {
             </div>
             <div className="flex-1">
               <h4 className="font-semibold text-neutral-900">
-                Thank you for your inquiry!
+                {t.thankYou}
               </h4>
               <p className="mt-1 text-sm text-neutral-600">
-                Our team will contact you within 24 hours to discuss your
-                warehouse needs.
+                {t.thankYouDesc}
               </p>
             </div>
           </div>
@@ -283,7 +286,7 @@ export function CallbackForm({ onClose }: { onClose: () => void }) {
               </svg>
             </div>
             <div className="flex-1">
-              <h4 className="font-semibold text-red-900">Submission failed</h4>
+              <h4 className="font-semibold text-red-900">{t.submissionFailed}</h4>
               <p className="mt-1 text-sm text-red-700">{errorMessage}</p>
             </div>
           </div>
