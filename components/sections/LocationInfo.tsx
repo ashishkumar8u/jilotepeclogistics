@@ -1,8 +1,14 @@
-import { MapPin, ExternalLink, Building2 } from "lucide-react"
+"use client"
+
+import { MapPin, ExternalLink } from "lucide-react"
+import { useLanguage } from "@/lib/LanguageContext"
+import { translations } from "@/lib/translations"
 
 export function LocationInfo() {
+  const { language } = useLanguage()
+  const t = translations[language].locationInfo as Record<string, string>
   const address = {
-    facilityName: "Location 2",
+    facilityName: t.facilityName,
     street: "Manzana 057",
     city: "Jilotepec de Molina Enríquez",
     state: "Edo. De Mexico",
@@ -25,7 +31,7 @@ export function LocationInfo() {
               </div>
               <div className="flex-1">
                 <h3 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground md:mb-3">
-                  Warehouse Address
+                  {t.warehouseAddress}
                 </h3>
                 <address className="not-italic text-foreground  text-gray-600 leading-relaxed md:space-y-1">
                   <p className="font-medium">{address.street}</p>
@@ -44,7 +50,7 @@ export function LocationInfo() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors w-full sm:w-auto justify-center"
             >
-              View on Google Maps
+              {t.viewOnMaps}
               <ExternalLink className="h-4 w-4" />
             </a>
           </div>

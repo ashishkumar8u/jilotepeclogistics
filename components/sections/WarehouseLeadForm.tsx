@@ -4,6 +4,8 @@ import type React from "react";
 import { useState } from "react";
 import { trackButtonClick, reportLeadFormConversion } from "@/lib/utils";
 import { getUAParsed } from "@/utils/ua-parsed";
+import { useLanguage } from "@/lib/LanguageContext";
+import { translations } from "@/lib/translations";
 
 // Helper function to detect browser
 export const detectBrowser = (): string => {
@@ -41,6 +43,8 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_LENGTH = /^\d{9,12}$/; // 9–12 digits for validation
 
 export function WarehouseLeadForm() {
+  const { language } = useLanguage();
+  const t = translations[language].contactForm as Record<string, string>;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -89,29 +93,21 @@ export function WarehouseLeadForm() {
     const phoneDigits = formData.phone.replace(/\D/g, "");
 
     if (!trimmedName) {
-      errors.fullName = "Full name is required.";
+      errors.fullName = t.fullNameRequired;
     } else if (!NAME_REGEX.test(trimmedName)) {
-      errors.fullName =
-        "Full name can only contain letters, spaces, hyphens and apostrophes.";
+      errors.fullName = t.fullNameInvalid;
     }
 
-    // if (!trimmedCompany) {
-    //   errors.companyName = "Company name is required.";
-    // } else if (!NAME_REGEX.test(trimmedCompany)) {
-    //   errors.companyName =
-    //     "Company name can only contain letters, spaces, hyphens and apostrophes.";
-    // }
-
     if (!trimmedEmail) {
-      errors.email = "Email is required.";
+      errors.email = t.emailRequired;
     } else if (!EMAIL_REGEX.test(trimmedEmail)) {
-      errors.email = "Please enter a valid email address.";
+      errors.email = t.emailInvalid;
     }
 
     if (!formData.phone.trim()) {
-      errors.phone = "Phone number is required.";
+      errors.phone = t.phoneRequired;
     } else if (!PHONE_LENGTH.test(phoneDigits)) {
-      errors.phone = "Phone must be 9–12 digits (numbers only).";
+      errors.phone = t.phoneInvalid;
     }
 
     setFieldErrors(errors);
@@ -295,11 +291,10 @@ export function WarehouseLeadForm() {
       <div className="rounded-xl border  lg:w-[65%] border-neutral-200 bg-white shadow-lg mb-16">
         <div className="border-b border-neutral-200 bg-neutral-50/50 px-6 py-6 md:px-8">
           <h2 className="text-xl   lg:text-2xl xl:text-3xl font-semibold text-[#173c65]">
-            Warehouse Inquiry Form
+            {t.title}
           </h2>
           <p className="mt-2 md:text-base text-sm text-gray-600">
-            Share your requirements and we will match you with available
-            warehouse spaces
+            {t.subtitle}
           </p>
         </div>
 
@@ -314,10 +309,10 @@ export function WarehouseLeadForm() {
             <div className="space-y-6">
               <div className="border-l-4 border-[#173c65] pl-4">
                 <h3 className="text-lg font-semibold text-[#173c65]">
-                  Contact Information
+                  {t.contactInfo}
                 </h3>
                 <p className="text-sm text-neutral-600">
-                  Let us know how to reach you
+                  {t.contactInfoDesc}
                 </p>
               </div>
 
@@ -327,7 +322,7 @@ export function WarehouseLeadForm() {
                     htmlFor="fullName"
                     className="block text-sm font-medium text-neutral-700"
                   >
-                    Full Name <span className="text-red-600">*</span>
+                    {t.fullName} <span className="text-red-600">*</span>
                   </label>
                   <input
                     id="fullName"
@@ -349,7 +344,7 @@ export function WarehouseLeadForm() {
                     htmlFor="phone"
                     className="block text-sm font-medium text-neutral-700"
                   >
-                    Phone Number <span className="text-red-600">*</span>
+                    {t.phone} <span className="text-red-600">*</span>
                   </label>
                   <input
                     id="phone"
@@ -372,7 +367,7 @@ export function WarehouseLeadForm() {
                     htmlFor="email"
                     className="block text-sm font-medium text-neutral-700"
                   >
-                    Email Address <span className="text-red-600">*</span>
+                    {t.email} <span className="text-red-600">*</span>
                   </label>
                   <input
                     id="email"
@@ -392,7 +387,7 @@ export function WarehouseLeadForm() {
                     htmlFor="companyName"
                     className="block text-sm font-medium text-neutral-700"
                   >
-                    Company Name 
+                    {t.companyName}
                   </label>
                   <input
                     id="companyName"
@@ -561,19 +556,11 @@ export function WarehouseLeadForm() {
                 onClick={() => trackButtonClick("form-submit-inquiry")}
                 className="w-full rounded-lg bg-[#173c65] px-8 py-3 font-medium text-white transition-colors hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
               >
-                {isSubmitting ? "Submitting..." : "Schedule a Tour"}
+                {isSubmitting ? t.submitting : t.submit}
               </button>
             </div>
             <p className=" text-xs text-center text-gray-600 ">
-              This information has been prepared by Jilotepec Logistics for
-              general information only. Jilotepec Logistics makes no warranties
-              nor representations of any kind, express or implied, with respect
-              to the information, including, but not limited to, warranties of
-              content, accuracy, and reliability. Any interested party should
-              make their own inquiries about the accuracy of the information.
-              Jilotepec Logistics unequivocally excludes all inferred or implied
-              terms, conditions and warranties arising from this document and
-              excludes all liability for loss and damage arising therefrom.
+              {t.disclaimer}
             </p>
           </form>
         </div>
@@ -598,11 +585,10 @@ export function WarehouseLeadForm() {
             </div>
             <div className="flex-1">
               <h4 className="font-semibold text-neutral-900">
-                Thank you for your inquiry!
+                {t.thankYou}
               </h4>
               <p className="mt-1 text-sm text-neutral-600">
-                Our team will contact you within 24 hours to discuss your
-                warehouse needs.
+                {t.thankYouDesc}
               </p>
             </div>
           </div>

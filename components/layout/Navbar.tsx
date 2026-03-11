@@ -7,23 +7,27 @@ import { trackButtonClick } from "@/lib/utils";
 import Link from "next/link";
 import { Modal } from "../common/Modal";
 import { CallbackForm } from "../common/CallbackForm";
+import { useLanguage } from "@/lib/LanguageContext";
+import { translations } from "@/lib/translations";
 
-const NAV_ITEMS = [
-  { id: "home", label: "Home" },
-  { id: "connectivity", label: "Connectivity" },
-  { id: "specifications", label: "Specifications" },
-  { id: "infrastructure", label: "Infrastructure" },
-  { id: "opportunities", label: "Opportunities" },
-  { id: "applications", label: "Applications" },
+const NAV_IDS = [
+  "home",
+  "connectivity",
+  "specifications",
+  "infrastructure",
+  "opportunities",
+  "applications",
 ] as const;
 
-const SECTIONS = [...NAV_ITEMS.map((item) => item.id), "contact"] as const;
+const SECTIONS = [...NAV_IDS, "contact"] as const;
 const NAVBAR_OFFSET = 80;
 
 export function Navbar() {
+  const { language, setLanguage } = useLanguage();
+  const t = translations[language].nav as Record<string, string>;
+  const modalT = translations[language].modal as Record<string, string>;
   const [activeSection, setActiveSection] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [language, setLanguage] = useState("en");
   const [isCallbackOpen, setIsCallbackOpen] = useState(false);
 
   useEffect(() => {
@@ -138,7 +142,7 @@ export function Navbar() {
               className="inline-flex items-center justify-center text-sm font-semibold text-[#173C65] bg-white border border-[#173C65] px-3 py-1.5 rounded-md shadow-sm hover:bg-[#EFF6FF] transition-colors"
               aria-label="Toggle language"
               onClick={() =>
-                setLanguage((prev) => (prev === "en" ? "es" : "en"))
+                setLanguage(language === "en" ? "es" : "en")
               }
             >
               {language === "en" ? "ES" : "EN"}
@@ -150,20 +154,20 @@ export function Navbar() {
               }}
               className="bg-[#173c65] text-white text-nowrap rounded-full px-3 py-1.5 sm:px-6 sm:py-2 text-xs sm:text-sm transition cursor-pointer hover:bg-blue-800"
             >
-              Get A Callback
+              {t.getCallback}
             </button>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8 lg:gap-2 xl:gap-8 lg:absolute lg:left-[45%] xl:left-1/2 lg:transform lg:-translate-x-1/2">
-            {NAV_ITEMS.map((item) => (
+            {NAV_IDS.map((id) => (
               <a
-                key={item.id}
-                href={`#${item.id}`}
-                onClick={(e) => scrollToSection(e, item.id)}
-                className={getNavLinkClassName(item.id)}
+                key={id}
+                href={`#${id}`}
+                onClick={(e) => scrollToSection(e, id)}
+                className={getNavLinkClassName(id)}
               >
-                {item.label}
+                {t[id]}
               </a>
             ))}
           </div>
@@ -174,7 +178,7 @@ export function Navbar() {
               className="inline-flex items-center justify-center text-sm font-semibold text-[#173C65] bg-white border border-[#173C65] px-4 py-2 rounded-md shadow-sm hover:bg-[#EFF6FF] transition-colors"
               aria-label="Toggle language"
               onClick={() =>
-                setLanguage((prev) => (prev === "en" ? "es" : "en"))
+                setLanguage(language === "en" ? "es" : "en")
               }
             >
               {language === "en" ? "ES" : "EN"}
@@ -186,7 +190,7 @@ export function Navbar() {
               }}
               className="bg-[#173c65] text-white text-nowrap rounded-full px-6 py-2 transition cursor-pointer hover:bg-blue-800"
             >
-              Get A Callback
+              {t.getCallback}
             </button>
           </div>
         </div>
@@ -195,7 +199,7 @@ export function Navbar() {
       <Modal
         isOpen={isCallbackOpen}
         onClose={() => setIsCallbackOpen(false)}
-        title="Request a Callback"
+        title={modalT.requestCallback}
       >
         <CallbackForm onClose={() => setIsCallbackOpen(false)} />
       </Modal>
@@ -204,14 +208,14 @@ export function Navbar() {
       {isOpen && (
         <div className="lg:hidden border-t bg-white">
           <div className="px-4 ">
-            {NAV_ITEMS.map((item) => (
+            {NAV_IDS.map((id) => (
               <a
-                key={item.id}
-                href={`#${item.id}`}
-                onClick={(e) => scrollToSection(e, item.id)}
-                className={getNavLinkClassName(item.id)}
+                key={id}
+                href={`#${id}`}
+                onClick={(e) => scrollToSection(e, id)}
+                className={getNavLinkClassName(id)}
               >
-                {item.label}
+                {t[id]}
               </a>
             ))}
           </div>
