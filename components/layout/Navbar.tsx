@@ -175,7 +175,7 @@ export function Navbar() {
           {/* Desktop Contact */}
           <div className="hidden lg:flex items-center gap-4">
             <button
-              className="inline-flex items-center justify-center text-sm font-semibold text-[#173C65] bg-white border border-[#173C65] px-4 py-2 rounded-md shadow-sm hover:bg-[#EFF6FF] transition-colors"
+              className="inline-flex  cursor-pointer items-center justify-center text-sm font-semibold text-[#173C65] bg-white border border-[#173C65] px-4 py-2 rounded-md shadow-sm hover:bg-[#EFF6FF] transition-colors"
               aria-label="Toggle language"
               onClick={() =>
                 setLanguage(language === "en" ? "es" : "en")
@@ -188,7 +188,7 @@ export function Navbar() {
                 trackButtonClick("navbar-get-callback");
                 setIsCallbackOpen(true);
               }}
-              className="bg-[#173c65] text-white text-nowrap rounded-full px-6 py-2 transition cursor-pointer hover:bg-blue-800"
+              className="bg-[#173c65]  text-white text-nowrap rounded-full px-6 py-2 transition cursor-pointer hover:bg-blue-800"
             >
               {t.getCallback}
             </button>
