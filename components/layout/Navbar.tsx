@@ -147,7 +147,7 @@ export function Navbar() {
             >
               {language === "en" ? "ES" : "EN"}
             </button>
-            <button
+            {/* <button
               onClick={() => {
                 trackButtonClick("navbar-get-callback");
                 setIsCallbackOpen(true);
@@ -155,11 +155,11 @@ export function Navbar() {
               className="bg-[#173c65] text-white text-nowrap rounded-full px-3 py-1.5 sm:px-6 sm:py-2 text-xs sm:text-sm transition cursor-pointer hover:bg-blue-800"
             >
               {t.getCallback}
-            </button>
+            </button> */}
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8 lg:gap-2 xl:gap-8 lg:absolute lg:left-[45%] xl:left-1/2 lg:transform lg:-translate-x-1/2">
+          <div className="hidden lg:flex flex-1 items-center justify-center gap-4 lg:gap-4 xl:gap-8 px-4">
             {NAV_IDS.map((id) => (
               <a
                 key={id}
@@ -183,7 +183,8 @@ export function Navbar() {
             >
               {language === "en" ? "ES" : "EN"}
             </button>
-            <button
+            {/* this is a Request a Callback button for open modal */}
+            {/* <button
               onClick={() => {
                 trackButtonClick("navbar-get-callback");
                 setIsCallbackOpen(true);
@@ -191,7 +192,7 @@ export function Navbar() {
               className="bg-[#173c65]  text-white text-nowrap rounded-full px-6 py-2 transition cursor-pointer hover:bg-blue-800"
             >
               {t.getCallback}
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

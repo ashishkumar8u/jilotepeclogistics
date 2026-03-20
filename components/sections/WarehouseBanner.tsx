@@ -6,6 +6,7 @@ import Link from "next/link";
 import { trackButtonClick } from "@/lib/utils";
 import { useLanguage } from "@/lib/LanguageContext";
 import { translations } from "@/lib/translations";
+import { CallbackBannerInputs } from "../common/CallbackBannerInputs";
 
 export function WarehouseBanner() {
   const { language } = useLanguage();
@@ -38,7 +39,6 @@ export function WarehouseBanner() {
                 {t.badge}
               </span>
             </div>
-
             {/* Main Heading */}
             <div className="space-y-2">
               <h1 className="text-balance text-xl   lg:text-2xl xl:text-3xl  font-bold leading-tight text-[#173c65] ">
@@ -50,22 +50,23 @@ export function WarehouseBanner() {
                 </span>
               </div>
             </div>
-
-            {/* Description */}
+            {/* Description */}{" "}
             <p className="text-pretty text-base leading-relaxed text-gray-950">
               {t.description}
             </p>
-
             {/* CTA Buttons */}
             <div className="flex flex-col gap-4 sm:flex-row">
-              <Link
+              <CallbackBannerInputs
+                Click={() => trackButtonClick("banner-schedule-tour")}
+              />
+              {/* <Link
                 href="#contact"
                 onClick={() => trackButtonClick("banner-schedule-tour")}
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#173c65] px-8 py-4 text-base font-semibold text-white transition-all hover:bg-blue-800"
               >
                 <Building2 className="h-5 w-5" />
                 {t.cta}
-              </Link>
+              </Link> */}
             </div>
           </div>
 
